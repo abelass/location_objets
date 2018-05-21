@@ -46,7 +46,7 @@ function location_objects_declarer_tables_objets_sql($tables) {
 	$tables['spip_objets_locations'] = array(
 		'type' => 'objets_location',
 		'principale' => 'oui',
-		'table_objet_surnoms' => array('objetslocation'), // table_objet('objets_location') => 'objets_locations' 
+		'table_objet_surnoms' => array('objetslocation'), // table_objet('objets_location') => 'objets_locations'
 		'field'=> array(
 			'id_objets_location' => 'bigint(21) NOT NULL',
 			'type'               => 'varchar(20) NOT NULL DEFAULT ""',
@@ -93,7 +93,7 @@ function location_objects_declarer_tables_objets_sql($tables) {
 	$tables['spip_objets_locations_details'] = array(
 		'type' => 'objets_locations_detail',
 		'principale' => 'oui',
-		'table_objet_surnoms' => array('objetslocationsdetail'), // table_objet('objets_locations_detail') => 'objets_locations_details' 
+		'table_objet_surnoms' => array('objetslocationsdetail'), // table_objet('objets_locations_detail') => 'objets_locations_details'
 		'field'=> array(
 			'id_objets_locations_detail' => 'bigint(21) NOT NULL',
 			'id_objets_location' => 'bigint(21) NOT NULL DEFAULT 0',
@@ -114,6 +114,7 @@ function location_objects_declarer_tables_objets_sql($tables) {
 			'PRIMARY KEY'        => 'id_objets_locations_detail',
 			'KEY id_objets_location' => 'id_objets_location',
 			'KEY statut'         => 'statut',
+			'KEY objet'         => 'objet,id_objet',
 		),
 		'titre' => 'titre AS titre, "" AS lang',
 		'date' => 'date',

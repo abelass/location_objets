@@ -25,8 +25,8 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'icone_modifier_objets_location' => 'Modifier cette location',
 	'info_1_objets_location' => 'Une location',
 	'info_aucun_objets_location' => 'Aucune location',
-	'info_nb_objets_locations_locations' => '@nb@ locations',
-	'info_objets_locations_locations_auteur' => 'Les locations de cet auteur',
+	'info_nb_objets_locations' => '@nb@ locations',
+	'info_objets_locationss_auteur' => 'Les locations de cet auteur',
 
 	// R
 	'retirer_lien_objets_location' => 'Retirer cette location',
@@ -44,6 +44,6 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'titre_logo_objets_location' => 'Logo de cette location',
 	'titre_objets_lies_objets_location' => 'Liés à cette location',
 	'titre_objets_location' => 'Location',
-	'titre_objets_locations_locations' => 'Locations',
-	'titre_objets_locations_locations_rubrique' => 'Locations de la rubrique',
+	'titre_objets_locations' => 'Locations',
+	'titre_objets_locations_rubrique' => 'Locations de la rubrique',
 );

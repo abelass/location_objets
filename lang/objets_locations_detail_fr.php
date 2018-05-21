@@ -13,9 +13,8 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 
 	// C
 	'champ_devise_label' => 'Devise',
-	'champ_id_objets_locations_detail_label' => 'Id objet',
-	'champ_id_objets_locations_details_locations_details_location_label' => 'Id Location',
-	'champ_objets_locations_detail_label' => 'Objet',
+	'champ_id_objet_label' => 'Id objet',
+	'champ_objet_label' => 'Objet',
 	'champ_prix_ht_label' => 'Prix ht',
 	'champ_quantite_label' => 'Quantite',
 	'champ_reduction_label' => 'Réduction',
@@ -47,6 +46,6 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'titre_logo_objets_locations_detail' => 'Logo de ce location detail',
 	'titre_objets_lies_objets_locations_detail' => 'Liés à ce location detail',
 	'titre_objets_locations_detail' => 'Location detail',
-	'titre_objets_locations_details_locations_details' => 'Location details',
-	'titre_objets_locations_details_locations_details_rubrique' => 'Location details de la rubrique',
+	'titre_objets_locations_details' => 'Location details',
+	'titre_objets_locations_details_rubrique' => 'Location details de la rubrique',
 );
