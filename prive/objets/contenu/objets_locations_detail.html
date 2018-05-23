@@ -1,8 +1,4 @@
 <BOUCLE_objets_locations_detail(OBJETS_LOCATIONS_DETAILS){id_objets_locations_detail}{statut?}>
-[<div class="champ contenu_id_objets_location[ (#ID_OBJETS_LOCATION*|strlen|?{'',vide})]">
-	<label><:objets_locations_detail:champ_id_objets_location_label:> : </label>
-	<span dir="#LANG_DIR" class="#EDIT{id_objets_location} id_objets_location">(#ID_OBJETS_LOCATION)</span>
-</div>]
 
 [<div class="champ contenu_objet[ (#OBJET*|strlen|?{'',vide})]">
 	<label><:objets_locations_detail:champ_objet_label:> : </label>
@@ -44,4 +40,6 @@
 	<span dir="#LANG_DIR" class="#EDIT{reduction} reduction">(#REDUCTION)</span>
 </div>]
 
+[(#OBJET|prix_par_objet{#ID_OBJET,#ARRAY{
+date_debut, #INFO_DATE_DEBUT{objets_location, #ID_OBJETS_LOCATION}, date_fin, #INFO_DATE_FIN{objets_location, #ID_OBJETS_LOCATION}}})]
 </BOUCLE_objets_locations_detail>
