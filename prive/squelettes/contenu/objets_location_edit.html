@@ -27,7 +27,13 @@
 	#SET{redirect,'javascript:if (window.jQuery) jQuery(".entete-formulaire .retour a").followLink();'}
 	<div class="ajax">
 ]
-		[(#FORMULAIRE_EDITER_OBJETS_LOCATION{#ENV{id_objets_location,oui}, #GET{redirect}, #ENV{associer_objet}})]
+		[(#FORMULAIRE_EDITER_OBJETS_LOCATION{
+			#ENV{id_objets_location,oui},
+			#ENV{objet},
+			#ENV{id_objet},
+			#ARRAY{disponibilite_debut,#ENV{disponibilite_debut},disponibilite_fin,#ENV{disponibilite_fin}},
+			#GET{redirect},
+			#ENV{associer_objet}})]
 [(#ENV{retourajax,''}|oui)
 	</div>
 	<script type="text/javascript">/*<!\[CDATA\[*/reloadExecPage('#ENV{exec}');/*\]\]>*/</script>
