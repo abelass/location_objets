@@ -38,7 +38,17 @@ include_spip('inc/editer');
  * @return string
  *     Hash du formulaire
  */
-function formulaires_editer_objets_location_identifier_dist($id_objets_location = 'new', $retour = '', $associer_objet = '', $lier_trad = 0, $config_fonc = '', $row = array(), $hidden = '') {
+function formulaires_editer_objets_location_identifier_dist(
+		$id_objets_location = 'new',
+		$objet='',
+		$id_objet='',
+		$options,
+		$retour = '',
+		$associer_objet = '',
+		$lier_trad = 0,
+		$config_fonc = '',
+		$row = array(),
+		$hidden = '') {
 	return serialize(array(intval($id_objets_location), $associer_objet));
 }
 
@@ -67,8 +77,34 @@ function formulaires_editer_objets_location_identifier_dist($id_objets_location 
  * @return array
  *     Environnement du formulaire
  */
-function formulaires_editer_objets_location_charger_dist($id_objets_location = 'new', $retour = '', $associer_objet = '', $lier_trad = 0, $config_fonc = '', $row = array(), $hidden = '') {
-	$valeurs = formulaires_editer_objet_charger('objets_location', $id_objets_location, '', $lier_trad, $retour, $config_fonc, $row, $hidden);
+function formulaires_editer_objets_location_charger_dist(
+		$id_objets_location = 'new',
+		$objet='',
+		$id_objet='',
+		$options = array(),
+		$retour = '',
+		$associer_objet = '',
+		$lier_trad = 0,
+		$config_fonc = '',
+		$row = array(),
+		$hidden = '') {
+	$valeurs = formulaires_editer_objet_charger(
+			'objets_location',
+			$id_objets_location,
+			'',
+			$lier_trad,
+			$retour,
+			$config_fonc,
+			$row,
+			$hidden);
+
+	$valeurs['objet'] = $objet;
+	$valeurs['id_objet'] = $id_objet;
+
+	foreach($options as $index => $valeur) {
+		$valeurs[$index] = $valeur;
+	}
+
 	return $valeurs;
 }
 
@@ -97,7 +133,17 @@ function formulaires_editer_objets_location_charger_dist($id_objets_location = '
  * @return array
  *     Tableau des erreurs
  */
-function formulaires_editer_objets_location_verifier_dist($id_objets_location = 'new', $retour = '', $associer_objet = '', $lier_trad = 0, $config_fonc = '', $row = array(), $hidden = '') {
+function formulaires_editer_objets_location_verifier_dist(
+		$id_objets_location = 'new',
+		$objet='',
+		$id_objet='',
+		$options = array(),
+		$retour = '',
+		$associer_objet = '',
+		$lier_trad = 0,
+		$config_fonc = '',
+		$row = array(),
+		$hidden = '') {
 	$erreurs = array();
 
 	$verifier = charger_fonction('verifier', 'inc');
@@ -145,8 +191,29 @@ function formulaires_editer_objets_location_verifier_dist($id_objets_location = 
  * @return array
  *     Retours des traitements
  */
-function formulaires_editer_objets_location_traiter_dist($id_objets_location = 'new', $retour = '', $associer_objet = '', $lier_trad = 0, $config_fonc = '', $row = array(), $hidden = '') {
-	$retours = formulaires_editer_objet_traiter('objets_location', $id_objets_location, '', $lier_trad, $retour, $config_fonc, $row, $hidden);
+function formulaires_editer_objets_location_traiter_dist(
+		$id_objets_location = 'new',
+		$objet='',
+		$id_objet='',
+		$options = array(),
+		$retour = '',
+		$associer_objet = '',
+		$lier_trad = 0,
+		$config_fonc = '',
+		$row = array(),
+		$hidden = '') {
+	$retours = formulaires_editer_objet_traiter(
+			'objets_location',
+			$id_objets_location,
+			$objet,
+			$id_objet,
+			$options,
+			'',
+			$lier_trad,
+			$retour,
+			$config_fonc,
+			$row,
+			$hidden);
 
 	// Un lien a prendre en compte ?
 	if ($associer_objet and $id_objets_location = $retours['id_objets_location']) {
@@ -154,9 +221,9 @@ function formulaires_editer_objets_location_traiter_dist($id_objets_location = '
 
 		if ($objet and $id_objet and autoriser('modifier', $objet, $id_objet)) {
 			include_spip('action/editer_liens');
-			
+
 			objet_associer(array('objets_location' => $id_objets_location), array($objet => $id_objet));
-			
+
 			if (isset($retours['redirect'])) {
 				$retours['redirect'] = parametre_url($retours['redirect'], 'id_lien_ajoute', $id_objets_location, '&');
 			}

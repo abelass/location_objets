@@ -7,18 +7,35 @@
 		#ACTION_FORMULAIRE{#ENV{action}}
 		<input type="hidden" name="id_objets_location" value="#ENV{id_objets_location}" />
 		<div class="editer-groupe">
+			[(#PLUGIN{objets_disponibilites}|?{
+				[(#SAISIE{dates_disponibles, date_debut,
+				label=<:objets_location:champ_date_debut_label:>,
+				objet=#ENV{objet},
+				id_objet=#ENV{id_objet},
+				debut=#ENV{disponibilite_debut},
+				fin=#ENV{disponibilite_fin,1}})]
 
+				[(#SAISIE{dates_disponibles, date_fin,
+				label=<:objets_location:champ_date_fin_label:>,
+				objet=#ENV{objet},
+				id_objet=#ENV{id_objet},
+				debut=#ENV{disponibilite_debut},
+				fin=#ENV{disponibilite_fin,1}})],
 			[(#SAISIE{date, date_debut,
 				label=<:objets_location:champ_date_debut_label:>})]
-
 			[(#SAISIE{date, date_fin,
 				label=<:objets_location:champ_date_fin_label:>})]
+		})]
 
+		[(#REM) pas utilisé pour le moment
 			[(#SAISIE{selection, jour_debut,
 				label=<:objets_location:champ_jour_debut_label:>})]
 
 			[(#SAISIE{selection, jour_fin,
 				label=<:objets_location:champ_jour_fin_label:>})]
+
+		]
+
 
 			[(#SAISIE{input, reference, obligatoire=oui,
 				label=<:objets_location:champ_reference_label:>})]
