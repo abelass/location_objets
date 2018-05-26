@@ -32,7 +32,7 @@ a mis a jour la valeur avec la page reelle]
 		[<tr><td colspan="4"><p class="pagination">(#GET{p})</p></td></tr>]
 
 		<tr class="first_row">
-			<th class="statut" scope="col">[(#TRI{statut,<span title="<:lien_trier_statut|attribut_html:>">#</span>,ajax})]</th> 
+			<th class="statut" scope="col">[(#TRI{statut,<span title="<:lien_trier_statut|attribut_html:>">#</span>,ajax})]</th>
 			<th class="reference" scope="col">[(#TRI{multi reference,<:objets_location:champ_reference_label:>,ajax})]</th>
 			<th class="action" scope="col"></th>
 		</tr>
@@ -41,7 +41,7 @@ a mis a jour la valeur avec la page reelle]
 	<BOUCLE_liste_objets_locations(OBJETS_LOCATIONS){id_objets_location IN #GET{selection}}{statut?}
 		{tri #ENV{par,multi reference},#GET{defaut_tri}}{pagination #ENV{nb,10} objl}>
 		<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})][ (#EXPOSE|unique)][ (#REFERENCE**|extraire_multi|initiale|=={#ENV{i}}|?{on}|unique)][(#ID_OBJETS_LOCATION|=={#ENV{id_lien_ajoute}}|oui)append]">
-			<td class="statut">[(#STATUT|puce_statut{objets_location})]</td> 
+			<td class="statut">[(#STATUT|puce_statut{objets_location})]</td>
 			<td class="reference">[(#LOGO_OBJETS_LOCATION|image_reduire{20,20})]<a href="[(#ID_OBJETS_LOCATION|generer_url_entite{objets_location})]">#REFERENCE</a></td>
 
 			<td class="action">
