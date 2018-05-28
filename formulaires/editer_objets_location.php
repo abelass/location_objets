@@ -22,6 +22,12 @@ include_spip('inc/editer');
  *
  * @param int|string $id_objets_location
  *     Identifiant du objets_location. 'new' pour un nouveau objets_location.
+ * @param string $location_objet
+ *     L'objet à louer
+ * @param integer $id_location_objet
+ *     L'identifiant de l'objet à louer
+ * @param array $options
+ *     Difféntes variables à passer
  * @param string $retour
  *     URL de redirection après le traitement
  * @param string $associer_objet
@@ -61,6 +67,12 @@ function formulaires_editer_objets_location_identifier_dist(
  *
  * @param int|string $id_objets_location
  *     Identifiant du objets_location. 'new' pour un nouveau objets_location.
+ * @param string $location_objet
+ *     L'objet à louer
+ * @param integer $id_location_objet
+ *     L'identifiant de l'objet à louer
+ * @param array $options
+ *     Difféntes variables à passer
  * @param string $retour
  *     URL de redirection après le traitement
  * @param string $associer_objet
@@ -117,6 +129,12 @@ function formulaires_editer_objets_location_charger_dist(
  *
  * @param int|string $id_objets_location
  *     Identifiant du objets_location. 'new' pour un nouveau objets_location.
+ * @param string $location_objet
+ *     L'objet à louer
+ * @param integer $id_location_objet
+ *     L'identifiant de l'objet à louer
+ * @param array $options
+ *     Difféntes variables à passer
  * @param string $retour
  *     URL de redirection après le traitement
  * @param string $associer_objet
@@ -175,6 +193,12 @@ function formulaires_editer_objets_location_verifier_dist(
  *
  * @param int|string $id_objets_location
  *     Identifiant du objets_location. 'new' pour un nouveau objets_location.
+ * @param string $location_objet
+ *     L'objet à louer
+ * @param integer $id_location_objet
+ *     L'identifiant de l'objet à louer
+ * @param array $options
+ *     Difféntes variables à passer
  * @param string $retour
  *     URL de redirection après le traitement
  * @param string $associer_objet
