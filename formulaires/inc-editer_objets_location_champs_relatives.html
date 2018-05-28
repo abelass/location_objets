@@ -24,7 +24,7 @@
 [(#ENV{location_objet}|et{#ENV{id_location_objet}}|oui)
 	[(#PLUGIN{objets_disponibilites}|oui)
 		[(#SAISIE{dates_disponibles, date_debut,
-			label=<:objets_location:champ_date_debut_label:>,
+			label=<:dates_outils:champ_date_debut_label:>,
 			objet=#GET{objet},
 			id_objet=#ENV{id_location_objet},
 			debut=#ENV{disponibilite_debut},
@@ -32,7 +32,7 @@
 		})]
 
 		[(#SAISIE{dates_disponibles, date_fin,
-			label=<:objets_location:champ_date_fin_label:>,
+			label=<:dates_outils:champ_date_fin_label:>,
 			objet=#GET{objet},
 			id_objet=#ENV{id_location_objet},
 			debut=#ENV{disponibilite_debut},
@@ -41,9 +41,9 @@
 	]
 	[(#PLUGIN{objets_disponibilites}|non)
 		[(#SAISIE{date, date_debut,
-			label=<:objets_location:champ_date_debut_label:>})]
+			label=<:dates_outils:champ_date_debut_label:>})]
 		[(#SAISIE{date, date_fin,
-			label=<:objets_location:champ_date_fin_label:>})]
+			label=<:dates_outils:champ_date_fin_label:>})]
 	]
 ]
 
