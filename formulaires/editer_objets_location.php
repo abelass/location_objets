@@ -40,8 +40,8 @@ include_spip('inc/editer');
  */
 function formulaires_editer_objets_location_identifier_dist(
 		$id_objets_location = 'new',
-		$objet='',
-		$id_objet='',
+		$location_objet='',
+		$id_location_objet='',
 		$options,
 		$retour = '',
 		$associer_objet = '',
@@ -79,8 +79,8 @@ function formulaires_editer_objets_location_identifier_dist(
  */
 function formulaires_editer_objets_location_charger_dist(
 		$id_objets_location = 'new',
-		$objet='',
-		$id_objet='',
+		$location_objet='',
+		$id_location_objet='',
 		$options = array(),
 		$retour = '',
 		$associer_objet = '',
@@ -98,8 +98,8 @@ function formulaires_editer_objets_location_charger_dist(
 			$row,
 			$hidden);
 
-	$valeurs['objet'] = $objet;
-	$valeurs['id_objet'] = $id_objet;
+	$valeurs['location_obje'] = $location_obje;
+	$valeurs['id_location_obje'] = $id_location_objet;
 
 	foreach($options as $index => $valeur) {
 		$valeurs[$index] = $valeur;
@@ -135,8 +135,8 @@ function formulaires_editer_objets_location_charger_dist(
  */
 function formulaires_editer_objets_location_verifier_dist(
 		$id_objets_location = 'new',
-		$objet='',
-		$id_objet='',
+		$location_objet='',
+		$id_location_objet='',
 		$options = array(),
 		$retour = '',
 		$associer_objet = '',
@@ -193,8 +193,8 @@ function formulaires_editer_objets_location_verifier_dist(
  */
 function formulaires_editer_objets_location_traiter_dist(
 		$id_objets_location = 'new',
-		$objet='',
-		$id_objet='',
+		$location_objet='',
+		$id_location_objet='',
 		$options = array(),
 		$retour = '',
 		$associer_objet = '',
@@ -205,9 +205,6 @@ function formulaires_editer_objets_location_traiter_dist(
 	$retours = formulaires_editer_objet_traiter(
 			'objets_location',
 			$id_objets_location,
-			$objet,
-			$id_objet,
-			$options,
 			'',
 			$lier_trad,
 			$retour,
