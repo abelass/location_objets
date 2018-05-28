@@ -11,8 +11,6 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'location_objects_titre' => 'Location d\'objets',
 
 	// C
-	'cfg_exemple' => 'Example',
-	'cfg_exemple_explication' => 'Explanations of this example',
 	'cfg_titre_parametrages' => 'Settings',
 
 	// T

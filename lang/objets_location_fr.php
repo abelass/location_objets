@@ -12,8 +12,6 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'ajouter_lien_objets_location' => 'Ajouter cette location',
 
 	// C
-	'champ_date_debut_label' => 'Date debut',
-	'champ_date_fin_label' => 'Date fin',
 	'champ_id_location_objet_label' => 'Identifiant de l\'objet à louer',
 	'champ_jour_debut_label' => 'Jour debut',
 	'champ_jour_fin_label' => 'Jour fin',
