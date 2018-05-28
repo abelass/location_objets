@@ -110,11 +110,26 @@ function formulaires_editer_objets_location_charger_dist(
 			$row,
 			$hidden);
 
-	$valeurs['location_obje'] = $location_obje;
-	$valeurs['id_location_obje'] = $id_location_objet;
+
+	if ($location_objet) {
+		$valeurs['objet'] =  objet_type($location_objet);
+	}
+
+	$valeurs['location_objet'] = $location_objet;
+	$valeurs['id_location_objet'] = $id_location_objet;
 
 	foreach($options as $index => $valeur) {
 		$valeurs[$index] = $valeur;
+	}
+
+	if (!empty($valeurs['location_objet'] and !empty($valeurs['id_location_objet']))) {
+		$valeurs['_hidden'] .= '<input type="hidden" name="location_objet" value="' . $valeurs['location_objet'] . '"/>';
+		$valeurs['_hidden'] .= '<input type="hidden" name="id_location_objet" value="' . $valeurs['id_location_objet'] . '"/>';
+	}
+
+	if (test_espace_prive()) {
+		$valeurs['espace_prive'] = true;
+		$valeurs['_hidden'] .= '<input type="hidden" name="espace_prive" value="1"/>';
 	}
 
 	return $valeurs;

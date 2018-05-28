@@ -14,8 +14,10 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	// C
 	'champ_date_debut_label' => 'Date debut',
 	'champ_date_fin_label' => 'Date fin',
+	'champ_id_location_objet_label' => 'Identifiant de l\'objet à louer',
 	'champ_jour_debut_label' => 'Jour debut',
 	'champ_jour_fin_label' => 'Jour fin',
+	'champ_location_objet_label' => 'Objet à louer',
 	'champ_reference_label' => 'Référence',
 	'champ_type_label' => 'Type',
 	'confirmer_supprimer_objets_location' => 'Confirmez-vous la suppression de cette location ?',
