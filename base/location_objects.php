@@ -49,6 +49,7 @@ function location_objects_declarer_tables_objets_sql($tables) {
 		'table_objet_surnoms' => array('objetslocation'), // table_objet('objets_location') => 'objets_locations'
 		'field'=> array(
 			'id_objets_location' => 'bigint(21) NOT NULL',
+			'id_auteur'          => 'bigint(21) NOT NULL',
 			'type'               => 'varchar(20) NOT NULL DEFAULT ""',
 			'date_debut'         => 'datetime NOT NULL DEFAULT "0000-00-00 00:00:00"',
 			'date_fin'           => 'datetime NOT NULL DEFAULT "0000-00-00 00:00:00"',
@@ -66,8 +67,8 @@ function location_objects_declarer_tables_objets_sql($tables) {
 		),
 		'titre' => 'reference AS titre, "" AS lang',
 		'date' => 'date',
-		'champs_editables'  => array('date_debut', 'date_fin', 'jour_debut', 'jour_fin', 'reference', 'horaire'),
-		'champs_versionnes' => array('date_debut', 'date_fin', 'jour_debut', 'jour_fin', 'reference', 'horaire'),
+		'champs_editables'  => array('id_auteur', 'date_debut', 'date_fin', 'jour_debut', 'jour_fin', 'reference', 'horaire'),
+		'champs_versionnes' => array('id_auteur', 'date_debut', 'date_fin', 'jour_debut', 'jour_fin', 'reference', 'horaire'),
 		'rechercher_champs' => array(),
 		'tables_jointures'  => array('spip_objets_locations_liens'),
 		'statut_textes_instituer' => array(

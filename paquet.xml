@@ -6,7 +6,7 @@
 	compatibilite="[3.0.0;3.2.*]"
 	logo="prive/themes/spip/images/location_objects-64.png"
 	documentation="https://github.com/abelass/location_objets"
-	schema="1.0.0"
+	schema="1.0.1"
 >
 	<!--
 		Paquet généré le 2018-05-21 15:24:39
