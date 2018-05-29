@@ -12,6 +12,9 @@
 				label=<:objets_location:champ_reference_label:>})]
 
 			[(#ENV{espace_prive}|oui)
+				[(#SAISIE{auteurs, id_auteur, obligatoire=oui,
+					label=<:public:auteur:>
+				})]
 
 			]
 			<INCLURE{fond=formulaires/inc-editer_objets_location_champs_relatives,env,ajax=location_champs_relatives} />

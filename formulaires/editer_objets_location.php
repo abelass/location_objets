@@ -121,6 +121,20 @@ function formulaires_editer_objets_location_charger_dist(
 		$valeurs[$index] = $valeur;
 	}
 
+	if (isset($valeurs['location_extras'])) {
+		$objets_service = $valeurs['_location_extras'] = $valeurs['location_extras'];
+		if (!is_array($objets_service)) {
+			if (match(',', $objets_service)) {
+				$valeurs['_location_extras'] = explode(',', $objets_service);
+			}
+			else {
+				$valeurs['_location_extras'] = array($objets_service);
+			}
+		}
+
+		unset($valeurs['location_extras']);
+	}
+
 	if (!empty($valeurs['location_objet'] and !empty($valeurs['id_location_objet']))) {
 		$valeurs['_hidden'] .= '<input type="hidden" name="location_objet" value="' . $valeurs['location_objet'] . '"/>';
 		$valeurs['_hidden'] .= '<input type="hidden" name="id_location_objet" value="' . $valeurs['id_location_objet'] . '"/>';

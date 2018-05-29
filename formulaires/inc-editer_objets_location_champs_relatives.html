@@ -20,7 +20,6 @@
 	]
 ]
 
-
 [(#ENV{location_objet}|et{#ENV{id_location_objet}}|oui)
 	[(#PLUGIN{objets_disponibilites}|oui)
 		<INCLURE{fond=formulaires/inc-editer_objets_location_dates,env,ajax=objets_location_dates}/>
@@ -31,22 +30,30 @@
 		[(#SAISIE{date, date_fin,
 			label=<:dates_outils:champ_date_fin_label:>})]
 	]
+	<INCLURE{fond=formulaires/inc-editer_objets_location_extras,env,ajax=objets_location_extras}/>
 ]
 
-		[(#REM) pas utilisé pour le moment
-			[(#SAISIE{selection, jour_debut,
-				label=<:objets_location:champ_jour_debut_label:>})]
 
-			[(#SAISIE{selection, jour_fin,
-				label=<:objets_location:champ_jour_fin_label:>})]
 
-		]
+[(#REM) pas utilisé pour le moment
+	[(#SAISIE{selection, jour_debut,
+		label=<:objets_location:champ_jour_debut_label:>})]
+
+	[(#SAISIE{selection, jour_fin,
+		label=<:objets_location:champ_jour_fin_label:>})]
+
+]
 
 <script type="text/javascript">
 	$(function() {
 		$("#champ_location_objet").change(function() {
 			var location_objet = $(this).val();
 			ajaxReload('location_champs_relatives', {
+				args : {
+					location_objet : location_objet,
+				}
+			});
+			ajaxReload('objets_location_extras', {
 				args : {
 					location_objet : location_objet,
 				}
