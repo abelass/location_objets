@@ -11,6 +11,9 @@
 			[(#SAISIE{input, reference, obligatoire=oui,
 				label=<:objets_location:champ_reference_label:>})]
 
+			[(#ENV{espace_prive}|oui)
+
+			]
 			<INCLURE{fond=formulaires/inc-editer_objets_location_champs_relatives,env,ajax=location_champs_relatives} />
 
 		</div>

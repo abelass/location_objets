@@ -11,7 +11,7 @@
 		objet=#GET{objet},
 		id_objet=#ENV{id_location_objet},
 		debut=#ENV{disponibilite_debut},
-		date_debut=#ENV{date_debut},
+		date_limite_debut=#ENV{date_limite_debut},
 		defaut=#ENV{date_debut},
 		fin=#ENV{disponibilite_fin,1}
 	})]
@@ -23,7 +23,7 @@
 			var date_debut = $(this).val();
 			ajaxReload('objets_location_dates', {
 				args : {
-					date_debut : date_debut,
+					date_debut : date_debut
 				}
 			});
 		});

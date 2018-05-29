@@ -110,7 +110,6 @@ function formulaires_editer_objets_location_charger_dist(
 			$row,
 			$hidden);
 
-
 	if ($location_objet) {
 		$valeurs['objet'] =  objet_type($location_objet);
 	}
@@ -130,6 +129,10 @@ function formulaires_editer_objets_location_charger_dist(
 	if (test_espace_prive()) {
 		$valeurs['espace_prive'] = true;
 		$valeurs['_hidden'] .= '<input type="hidden" name="espace_prive" value="1"/>';
+	}
+	else {
+		$valeurs['id_auteur'] = session_get('id_auteur');
+		$valeurs['_hidden'] .= '<input type="hidden" name="id_auteur" value="' . $valeurs['id_auteur'] . '"/>';
 	}
 
 	return $valeurs;
@@ -182,19 +185,14 @@ function formulaires_editer_objets_location_verifier_dist(
 	$verifier = charger_fonction('verifier', 'inc');
 
 	foreach (array('date_debut', 'date_fin') AS $champ) {
-		$normaliser = null;
-		if ($erreur = $verifier(_request($champ), 'date', array('normaliser'=>'datetime'), $normaliser)) {
+
+		if ($erreur = $verifier(_request($champ), 'date', array('normaliser'=>'datetime', 'format' => 'amj'))) {
 			$erreurs[$champ] = $erreur;
 		// si une valeur de normalisation a ete transmis, la prendre.
-		} elseif (!is_null($normaliser)) {
-			set_request($champ, $normaliser);
-		// si pas de normalisation ET pas de date soumise, il ne faut pas tenter d'enregistrer ''
-		} else {
-			set_request($champ, null);
 		}
 	}
 
-	$erreurs += formulaires_editer_objet_verifier('objets_location', $id_objets_location, array('reference'));
+	$erreurs += formulaires_editer_objet_verifier('objets_location', $id_objets_location, array('id_auteur', 'reference'));
 
 	return $erreurs;
 }
