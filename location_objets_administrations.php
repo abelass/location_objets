@@ -6,7 +6,7 @@
  * @copyright  2018
  * @author     Rainer Müller
  * @licence    GNU/GPL v3
- * @package    SPIP\Location_objects\Installation
+ * @package    SPIP\Location_objets\Installation
  */
 
 if (!defined('_ECRIRE_INC_VERSION')) {
@@ -30,7 +30,7 @@ if (!defined('_ECRIRE_INC_VERSION')) {
  *     Version du schéma de données dans ce plugin (déclaré dans paquet.xml)
  * @return void
 **/
-function location_objects_upgrade($nom_meta_base_version, $version_cible) {
+function location_objets_upgrade($nom_meta_base_version, $version_cible) {
 	$maj = array();
 	# quelques exemples
 	# (que vous pouvez supprimer !)
@@ -40,7 +40,7 @@ function location_objects_upgrade($nom_meta_base_version, $version_cible) {
 	# include_spip('inc/config')
 	# $maj['create'] = array(
 	#	array('maj_tables', array('spip_xx', 'spip_xx_liens')),
-	#	array('ecrire_config', 'location_objects', array('exemple' => "Texte de l'exemple"))
+	#	array('ecrire_config', 'location_objets', array('exemple' => "Texte de l'exemple"))
 	#);
 	#
 	# $maj['1.1.0']  = array(array('sql_alter','TABLE spip_xx RENAME TO spip_yy'));
@@ -72,7 +72,7 @@ function location_objects_upgrade($nom_meta_base_version, $version_cible) {
  *     Nom de la meta informant de la version du schéma de données du plugin installé dans SPIP
  * @return void
 **/
-function location_objects_vider_tables($nom_meta_base_version) {
+function location_objets_vider_tables($nom_meta_base_version) {
 	# quelques exemples
 	# (que vous pouvez supprimer !)
 	# sql_drop_table('spip_xx');

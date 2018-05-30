@@ -6,7 +6,7 @@
  * @copyright  2018
  * @author     Rainer Müller
  * @licence    GNU/GPL v3
- * @package    SPIP\Location_objects\Pipelines
+ * @package    SPIP\Location_objets\Pipelines
  */
 
 if (!defined('_ECRIRE_INC_VERSION')) {
@@ -28,7 +28,7 @@ if (!defined('_ECRIRE_INC_VERSION')) {
  * @param  array $flux Données du pipeline
  * @return array       Données du pipeline
 **/
-function location_objects_affiche_enfants($flux) {
+function location_objets_affiche_enfants($flux) {
 	if ($e = trouver_objet_exec($flux['args']['exec']) and $e['edition'] == false) {
 		$id_objet = $flux['args']['id_objet'];
 
@@ -65,7 +65,7 @@ function location_objects_affiche_enfants($flux) {
  * @param  array $flux Données du pipeline
  * @return array       Données du pipeline
  */
-function location_objects_affiche_milieu($flux) {
+function location_objets_affiche_milieu($flux) {
 	$texte = '';
 	$e = trouver_objet_exec($flux['args']['exec']);
 
@@ -99,7 +99,7 @@ function location_objects_affiche_milieu($flux) {
  * @param  array $flux Données du pipeline
  * @return array       Données du pipeline
  */
-function location_objects_affiche_auteurs_interventions($flux) {
+function location_objets_affiche_auteurs_interventions($flux) {
 	if ($id_auteur = intval($flux['args']['id_auteur'])) {
 		$flux['data'] .= recuperer_fond('prive/objets/liste/objets_locations', array(
 			'id_auteur' => $id_auteur,
@@ -116,7 +116,7 @@ function location_objects_affiche_auteurs_interventions($flux) {
  * @param  array $flux Données du pipeline
  * @return array       Données du pipeline
 **/
-function location_objects_boite_infos($flux) {
+function location_objets_boite_infos($flux) {
 	if (isset($flux['args']['type']) and isset($flux['args']['id']) and $id = intval($flux['args']['id'])) {
 		$texte = '';
 		if ($flux['args']['type'] == 'objets_location' and $nb = sql_countsel('spip_objets_locations_details', array("statut='publie'", 'id_objets_location=' . $id))) {
@@ -137,7 +137,7 @@ function location_objects_boite_infos($flux) {
  * @param  array $flux Données du pipeline
  * @return array       Données du pipeline
 **/
-function location_objects_objet_compte_enfants($flux) {
+function location_objets_objet_compte_enfants($flux) {
 	if ($flux['args']['objet'] == 'objets_location' and $id_objets_location = intval($flux['args']['id_objet'])) {
 		// juste les publiés ?
 		if (array_key_exists('statut', $flux['args']) and ($flux['args']['statut'] == 'publie')) {
@@ -163,7 +163,7 @@ function location_objects_objet_compte_enfants($flux) {
  * @param  array $flux Données du pipeline
  * @return array       Données du pipeline
  */
-function location_objects_optimiser_base_disparus($flux) {
+function location_objets_optimiser_base_disparus($flux) {
 
 	include_spip('action/editer_liens');
 	$flux['data'] += objet_optimiser_liens(array('objets_location'=>'*', 'objets_locations_detail'=>'*'), '*');

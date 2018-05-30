@@ -8,7 +8,7 @@ if (!defined('_ECRIRE_INC_VERSION')) {
 $GLOBALS[$GLOBALS['idx_lang']] = array(
 
 	// L
-	'location_objects_description' => 'Gère la location d\'objets',
-	'location_objects_nom' => 'Location d\'objets',
-	'location_objects_slogan' => 'Louer vos objets',
+	'location_objets_description' => 'Gère la location d\'objets',
+	'location_objets_nom' => 'Location d\'objets',
+	'location_objets_slogan' => 'Louer vos objets',
 );

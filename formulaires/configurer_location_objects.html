@@ -1,6 +1,6 @@
 <div class="formulaire_spip formulaire_configurer formulaire_#FORM">
 
-	<h3 class="titrem"><:location_objects:cfg_titre_parametrages:></h3>
+	<h3 class="titrem"><:location_objets:cfg_titre_parametrages:></h3>
 
 	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
 	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
@@ -11,11 +11,11 @@
 
 		<div class="editer-groupe">
 			[(#SAISIE{input, exemple,
-				label=<:location_objects:cfg_exemple:>,
-				explication=<:location_objects:cfg_exemple_explication:>})]
+				label=<:location_objets:cfg_exemple:>,
+				explication=<:location_objets:cfg_exemple_explication:>})]
 		</div>
 
-		<input type="hidden" name="_meta_casier" value="location_objects" />
+		<input type="hidden" name="_meta_casier" value="location_objets" />
 		<p class="boutons"><span class="image_loading">&nbsp;</span><input type="submit" class="submit" value="<:bouton_enregistrer:>" /></p>
 	</div>
 	</form>

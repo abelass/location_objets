@@ -6,7 +6,7 @@
  * @copyright  2018
  * @author     Rainer Müller
  * @licence    GNU/GPL v3
- * @package    SPIP\Location_objects\Autorisations
+ * @package    SPIP\Location_objets\Autorisations
  */
 
 if (!defined('_ECRIRE_INC_VERSION')) {
@@ -22,14 +22,14 @@ if (!defined('_ECRIRE_INC_VERSION')) {
 /**
  * Fonction d'appel pour le pipeline
  * @pipeline autoriser */
-function location_objects_autoriser() {
+function location_objets_autoriser() {
 }
 
 
 /* Exemple
-function autoriser_location_objects_configurer_dist($faire, $type, $id, $qui, $opt) {
+function autoriser_location_objets_configurer_dist($faire, $type, $id, $qui, $opt) {
 	// type est un objet (la plupart du temps) ou une chose.
-	// autoriser('configurer', '_location_objects') => $type = 'location_objects'
+	// autoriser('configurer', '_location_objets') => $type = 'location_objets'
 	// au choix :
 	return autoriser('webmestre', $type, $id, $qui, $opt); // seulement les webmestres
 	return autoriser('configurer', '', $id, $qui, $opt); // seulement les administrateurs complets

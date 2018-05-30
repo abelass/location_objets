@@ -1,10 +1,10 @@
 <paquet
-	prefix="location_objects"
+	prefix="location_objets"
 	categorie="divers"
 	version="1.0.1"
 	etat="dev"
 	compatibilite="[3.0.0;3.2.*]"
-	logo="prive/themes/spip/images/location_objects-64.png"
+	logo="prive/themes/spip/images/location_objets-64.png"
 	documentation="https://github.com/abelass/location_objets"
 	schema="1.0.1"
 >
@@ -28,16 +28,16 @@
 		<utilise nom="saisies" compatibilite="[2.4.0;]" />
 		<lib nom="simplehtmldom" lien="http://chemin_vers_archive.zip" />
 		* pipelines
-		<pipeline nom="autoriser" inclure="location_objects_autorisations.php" />
-		<pipeline nom="insert_head" inclure="location_objects_pipelines.php" />
+		<pipeline nom="autoriser" inclure="location_objets_autorisations.php" />
+		<pipeline nom="insert_head" inclure="location_objets_pipelines.php" />
 		* declarer un pipeline
 		<pipeline nom="mon_pipeline" action="" />
 		* parents de menus de SPIP :
 				menu_accueil (à éviter), menu_edition, menu_publication,
 				menu_activite, menu_squelette, menu_administration, menu_configuration
-		<menu nom="location_objects" titre="location_objects:location_objects_titre" parent="menu_edition"  icone="images/location_objects-16.png" />
+		<menu nom="location_objets" titre="location_objets:location_objets_titre" parent="menu_edition"  icone="images/location_objets-16.png" />
 		* parents d'onglets... configuration, plugins, statistiques, ...
-		<onglet nom="location_objects" titre="location_objects:location_objects_titre" parent="configuration" icone="images/location_objects-24.png" />
+		<onglet nom="location_objets" titre="location_objets:location_objets_titre" parent="configuration" icone="images/location_objets-24.png" />
 	-->
 
 	<necessite nom="saisies" compatibilite="[2.4.0;]" />
@@ -45,17 +45,16 @@
 	<necessite nom="prix_objets_periodes" compatibilite="[1.0.0;]" />
 	<necessite nom="objets_disponibilites" compatibilite="[1.0.0;]" />
 
-	<pipeline nom="autoriser" inclure="location_objects_autorisations.php" />
 
-	<pipeline nom="declarer_tables_objets_sql" inclure="base/location_objects.php" />
-	<pipeline nom="declarer_tables_interfaces" inclure="base/location_objects.php" />
-	<pipeline nom="declarer_tables_auxiliaires" inclure="base/location_objects.php" />
-	<pipeline nom="affiche_enfants" inclure="location_objects_pipelines.php" />
-	<pipeline nom="affiche_milieu" inclure="location_objects_pipelines.php" />
-	<pipeline nom="affiche_auteurs_interventions" inclure="location_objects_pipelines.php" />
-	<pipeline nom="boite_infos" inclure="location_objects_pipelines.php" />
-	<pipeline nom="objet_compte_enfants" inclure="location_objects_pipelines.php" />
-	<pipeline nom="optimiser_base_disparus" inclure="location_objects_pipelines.php" />
+	<pipeline nom="declarer_tables_objets_sql" inclure="base/location_objets.php" />
+	<pipeline nom="declarer_tables_interfaces" inclure="base/location_objets.php" />
+	<pipeline nom="declarer_tables_auxiliaires" inclure="base/location_objets.php" />
+	<pipeline nom="affiche_enfants" inclure="location_objets_pipelines.php" />
+	<pipeline nom="affiche_milieu" inclure="location_objets_pipelines.php" />
+	<pipeline nom="affiche_auteurs_interventions" inclure="location_objets_pipelines.php" />
+	<pipeline nom="boite_infos" inclure="location_objets_pipelines.php" />
+	<pipeline nom="objet_compte_enfants" inclure="location_objets_pipelines.php" />
+	<pipeline nom="optimiser_base_disparus" inclure="location_objets_pipelines.php" />
 
 		<menu nom="objets_locations" titre="objets_location:titre_objets_locations" parent="menu_activite" icone="images/objets_location-16.png" action="objets_locations" />
 

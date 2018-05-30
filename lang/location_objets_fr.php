@@ -8,11 +8,11 @@ if (!defined('_ECRIRE_INC_VERSION')) {
 $GLOBALS[$GLOBALS['idx_lang']] = array(
 
 	// L
-	'location_objects_titre' => 'Location d\'objets',
+	'location_objets_titre' => 'Location d\'objets',
 
 	// C
 	'cfg_titre_parametrages' => 'Settings',
 
 	// T
-	'titre_page_configurer_location_objects' => 'Location d\'objets',
+	'titre_page_configurer_location_objets' => 'Location d\'objets',
 );

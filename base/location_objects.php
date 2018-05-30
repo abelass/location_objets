@@ -6,7 +6,7 @@
  * @copyright  2018
  * @author     Rainer Müller
  * @licence    GNU/GPL v3
- * @package    SPIP\Location_objects\Pipelines
+ * @package    SPIP\Location_objets\Pipelines
  */
 
 if (!defined('_ECRIRE_INC_VERSION')) {
@@ -23,7 +23,7 @@ if (!defined('_ECRIRE_INC_VERSION')) {
  * @return array
  *     Déclarations d'interface pour le compilateur
  */
-function location_objects_declarer_tables_interfaces($interfaces) {
+function location_objets_declarer_tables_interfaces($interfaces) {
 
 	$interfaces['table_des_tables']['objets_locations'] = 'objets_locations';
 	$interfaces['table_des_tables']['objets_locations_details'] = 'objets_locations_details';
@@ -41,7 +41,7 @@ function location_objects_declarer_tables_interfaces($interfaces) {
  * @return array
  *     Description complétée des tables
  */
-function location_objects_declarer_tables_objets_sql($tables) {
+function location_objets_declarer_tables_objets_sql($tables) {
 
 	$tables['spip_objets_locations'] = array(
 		'type' => 'objets_location',
@@ -158,7 +158,7 @@ function location_objects_declarer_tables_objets_sql($tables) {
  * @return array
  *     Description complétée des tables
  */
-function location_objects_declarer_tables_auxiliaires($tables) {
+function location_objets_declarer_tables_auxiliaires($tables) {
 
 	$tables['spip_objets_locations_liens'] = array(
 		'field' => array(

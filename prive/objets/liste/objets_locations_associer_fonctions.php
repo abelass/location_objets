@@ -6,7 +6,7 @@
  * @copyright  2018
  * @author     Rainer Müller
  * @licence    GNU/GPL v3
- * @package    SPIP\Location_objects\Fonctions
+ * @package    SPIP\Location_objets\Fonctions
  */
 
 if (!defined('_ECRIRE_INC_VERSION')) {
