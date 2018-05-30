@@ -1,6 +1,6 @@
 [(#SAISIE{dates_disponibles, date_debut,
 	label=<:dates_outils:champ_date_debut_label:>,
-	objet=#GET{objet},
+	objet=[(#ENV{location_objet}|objet_type)],
 	id_objet=#ENV{id_location_objet},
 	debut=#ENV{disponibilite_debut},
 	fin=#ENV{disponibilite_fin,1}
@@ -8,7 +8,7 @@
 [(#ENV{date_debut}|oui)
 	[(#SAISIE{dates_disponibles, date_fin,
 		label=<:dates_outils:champ_date_fin_label:>,
-		objet=#GET{objet},
+		objet=[(#ENV{location_objet}|objet_type)],
 		id_objet=#ENV{id_location_objet},
 		debut=#ENV{disponibilite_debut},
 		date_limite_debut=#ENV{date_limite_debut},
@@ -24,6 +24,7 @@
 			ajaxReload('objets_location_dates', {
 				args : {
 					date_debut : date_debut
+
 				}
 			});
 		});

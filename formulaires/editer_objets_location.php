@@ -125,6 +125,7 @@ function formulaires_editer_objets_location_charger_dist(
 		$objet = sql_fetsel('objet,id_objet',
 		'spip_objets_locations_details',
 		'id_objets_locations_detail_source=0 AND id_objets_location=' . $id_objets_location)) {
+		$valeurs['objet'] = $objet['objet'];
 		$location_objet = table_objet_sql($objet['objet']);
 		$id_location_objet = $objet['id_objet'];
 	}
@@ -311,8 +312,11 @@ function formulaires_editer_objets_location_traiter_dist(
 		'id_objet' => $id_location_objet,
 		'titre' => generer_info_entite($id_location_objet, $location_objet, 'titre'),
 		'quantite' => $nombre_jours,
-		'date' => date('Y-m-d H:i:s',tume()),
 	);
+
+	if (!is_numeric($id_objets_location)) {
+		$set['date'] = $date = date('Y-m-d H:i:s',time());
+	}
 
 	if (test_plugin_actif('prix_objets')) {
 		$set['prix_unitaire_ht'] = prix_par_objet(
