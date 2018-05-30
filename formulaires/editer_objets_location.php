@@ -73,6 +73,11 @@ function formulaires_editer_objets_location_identifier_dist(
  *     L'identifiant de l'objet à louer
  * @param array $options
  *     Difféntes variables à passer
+ *     disponibilite_debut: integer -> décalage des dates disponibles
+ *      par rapport à la première date disponible -> fonction dates_intervalle()
+ *     disponibilite_debut integer -> décalage de l'affichages des dates disponibles
+ *      par rapport à la dernière date disponible -> fonction dates_intervalle()
+ *     location_extras_objets: nom de la ou des tables des objets à ajouter au fo0mulaire comme service extra
  * @param string $retour
  *     URL de redirection après le traitement
  * @param string $associer_objet
@@ -100,6 +105,9 @@ function formulaires_editer_objets_location_charger_dist(
 		$config_fonc = '',
 		$row = array(),
 		$hidden = '') {
+
+	include_spip('inc/config');
+	$config = lire_config('location_objets');
 	$valeurs = formulaires_editer_objet_charger(
 			'objets_location',
 			$id_objets_location,
@@ -113,6 +121,14 @@ function formulaires_editer_objets_location_charger_dist(
 	if ($location_objet) {
 		$valeurs['objet'] =  objet_type($location_objet);
 	}
+	elseif(is_numeric($id_objets_location) and
+		$objet = sql_fetsel('objet,id_objet',
+		'spip_objets_locations_details',
+		'id_objets_locations_detail_source=0 AND id_objets_location=' . $id_objets_location)) {
+		$location_objet = table_objet_sql($objet['objet']);
+		$id_location_objet = $objet['id_objet'];
+	}
+
 
 	$valeurs['location_objet'] = $location_objet;
 	$valeurs['id_location_objet'] = $id_location_objet;
@@ -121,19 +137,25 @@ function formulaires_editer_objets_location_charger_dist(
 		$valeurs[$index] = $valeur;
 	}
 
-	if (isset($valeurs['location_extras'])) {
-		$objets_service = $valeurs['_location_extras'] = $valeurs['location_extras'];
-		if (!is_array($objets_service)) {
-			if (match(',', $objets_service)) {
-				$valeurs['_location_extras'] = explode(',', $objets_service);
+	if (isset($valeurs['location_extras_objets'])) {
+		$objets_extras = $valeurs['location_extras_objets'];
+		if (!is_array($objets_extras)) {
+			if (match(',', $objets_extras)) {
+				$valeurs['_location_extras_objets'] = explode(',', $objets_extras);
 			}
 			else {
-				$valeurs['_location_extras'] = array($objets_service);
+				$valeurs['_location_extras_objets'] = array($objets_extras);
 			}
 		}
-
-		unset($valeurs['location_extras']);
+		$objets_extras = $valeurs['_location_extras_objets'];
+		unset($valeurs['location_extras_objets']);
 	}
+	elseif (isset($config['location_extras_objets'])) {
+		$valeurs['_location_extras_objets'] = $config['location_extras_objets'];
+		$objets_extras = $valeurs['_location_extras_objets'];
+	}
+
+	$valeurs['_hidden'] .= '<input type="hidden" name="objets_extras" value="' . implode(',',$objets_extras) . '"/>';
 
 	if (!empty($valeurs['location_objet'] and !empty($valeurs['id_location_objet']))) {
 		$valeurs['_hidden'] .= '<input type="hidden" name="location_objet" value="' . $valeurs['location_objet'] . '"/>';
@@ -198,13 +220,18 @@ function formulaires_editer_objets_location_verifier_dist(
 
 	$verifier = charger_fonction('verifier', 'inc');
 
-	foreach (array('date_debut', 'date_fin') AS $champ) {
-
-		if ($erreur = $verifier(_request($champ), 'date', array('normaliser'=>'datetime', 'format' => 'amj'))) {
+	/*foreach (array('date_debut', 'date_fin') AS $champ) {
+		$normaliser = null;
+		if ($erreur = $verifier(_request($champ), 'amj', array('normaliser'=>'datetime'), $normaliser)) {
 			$erreurs[$champ] = $erreur;
-		// si une valeur de normalisation a ete transmis, la prendre.
+			// si une valeur de normalisation a ete transmis, la prendre.
+		} elseif (!is_null($normaliser)) {
+			set_request($champ, $normaliser);
+			// si pas de normalisation ET pas de date soumise, il ne faut pas tenter d'enregistrer ''
+		} else {
+			set_request($champ, null);
 		}
-	}
+	}*/
 
 	$erreurs += formulaires_editer_objet_verifier('objets_location', $id_objets_location, array('id_auteur', 'reference'));
 
@@ -262,6 +289,57 @@ function formulaires_editer_objets_location_traiter_dist(
 			$config_fonc,
 			$row,
 			$hidden);
+
+	// Enregistrement de l'objet de location
+
+	$id_objets_location = $retours['id_objets_location'];
+
+
+	$date_debut = strtotime(_request('date_debut'));
+	$date_fin = strtotime(_request('date_fin'));
+	$location_objet = objet_type(_request('location_objet'));
+	$id_location_objet = _request('id_location_objet');
+	if ($date_fin >= $date_debut) {
+		$difference = $date_fin - $date_debut;
+		$nombre_jours = round($difference / (60 * 60 * 24)) + $fin;
+	}
+
+
+	$set = array(
+		'id_objets_location' => $id_objets_location,
+		'objet' => $location_objet,
+		'id_objet' => $id_location_objet,
+		'titre' => generer_info_entite($id_location_objet, $location_objet, 'titre'),
+		'quantite' => $nombre_jours,
+		'date' => date('Y-m-d H:i:s',tume()),
+	);
+
+	if (test_plugin_actif('prix_objets')) {
+		$set['prix_unitaire_ht'] = prix_par_objet(
+				$location_objet,
+				$id_location_objet,
+				array(
+					'date_debut' => _request('date_debut'),
+					'date_fin' => _request('date_fin'),
+				)
+			);
+		$prix_ttc = prix_par_objet(
+			$location_objet,
+			$id_location_objet,
+			array(
+				'date_debut' => _request('date_debut'),
+				'date_fin' => _request('date_fin'),
+			),
+			'prix'
+		);
+		$set['taxe'] = $prix_ttc - $set['prix_unitaire_ht'];
+		$set['devise'] = devise_defaut_objet($id_location_objet,$location_objet);
+	}
+
+		$id_objets_locations_detail = sql_insertq('spip_objets_locations_details', $set);
+
+
+
 
 	// Un lien a prendre en compte ?
 	if ($associer_objet and $id_objets_location = $retours['id_objets_location']) {

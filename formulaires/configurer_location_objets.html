@@ -10,9 +10,9 @@
 		#ACTION_FORMULAIRE{#ENV{action}}
 
 		<div class="editer-groupe">
-			[(#SAISIE{input, exemple,
-				label=<:location_objets:cfg_exemple:>,
-				explication=<:location_objets:cfg_exemple_explication:>})]
+			[(#SAISIE{choisir_objets, location_extras_objets,
+				label=<:location_objets:champ_location_extras_objets:>,
+				explication=<:location_objets:location_extras_objets_explication:>})]
 		</div>
 
 		<input type="hidden" name="_meta_casier" value="location_objets" />

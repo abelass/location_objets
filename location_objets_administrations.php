@@ -53,6 +53,7 @@ function location_objets_upgrade($nom_meta_base_version, $version_cible) {
 
 	$maj['create'] = array(array('maj_tables', array('spip_objets_locations', 'spip_objets_locations_liens', 'spip_objets_locations_details', 'spip_objets_locations_details_liens')));
 	$maj['1.0.1'] = array(array('maj_tables', array('spip_objets_locations')));
+	$maj['1.0.2'] = array(array('maj_tables', array('spip_objets_locations_details')));
 
 
 	include_spip('base/upgrade');

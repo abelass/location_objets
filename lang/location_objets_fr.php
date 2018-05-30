@@ -7,11 +7,14 @@ if (!defined('_ECRIRE_INC_VERSION')) {
 
 $GLOBALS[$GLOBALS['idx_lang']] = array(
 
+	// C
+	'champ_location_extras_objets' => 'Activer les objets à utiliser comme service extra :',
+	'cfg_titre_parametrages' => 'Paramètres',
+
 	// L
+	'location_extras_objets_explication' => 'Ces services seront inclus au formulaire de location, et pourront être sélectionné séparément.',
 	'location_objets_titre' => 'Location d\'objets',
 
-	// C
-	'cfg_titre_parametrages' => 'Settings',
 
 	// T
 	'titre_page_configurer_location_objets' => 'Location d\'objets',

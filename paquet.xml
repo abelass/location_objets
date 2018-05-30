@@ -1,12 +1,12 @@
 <paquet
 	prefix="location_objets"
 	categorie="divers"
-	version="1.0.1"
+	version="1.0.2"
 	etat="dev"
 	compatibilite="[3.0.0;3.2.*]"
 	logo="prive/themes/spip/images/location_objets-64.png"
 	documentation="https://github.com/abelass/location_objets"
-	schema="1.0.1"
+	schema="1.0.2"
 >
 	<!--
 		Paquet généré le 2018-05-21 15:24:39
