@@ -28,6 +28,9 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'info_nb_objets_locations' => '@nb@ locations',
 	'info_objets_locations_auteur' => 'Les locations de cet auteur',
 
+	// L
+	'legende_extras' => 'Extras',
+
 	// R
 	'retirer_lien_objets_location' => 'Retirer cette location',
 	'retirer_tous_liens_objets_locations_locations' => 'Retirer toutes les locations',

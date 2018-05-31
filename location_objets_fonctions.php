@@ -89,7 +89,7 @@ function objet_location_extras_champs($service, $location_objet_table, $id_locat
 			'saisie' => 'checkbox',
 			'options' => array(
 				'nom' => 'extras_' . $objet_extra,
-				'label' => $objet_extra,
+				'label' => _T(objet_info($objet_extra, 'texte_objets')),
 				'data' => $data
 			)
 		)

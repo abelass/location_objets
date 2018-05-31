@@ -107,7 +107,8 @@ function formulaires_editer_objets_location_charger_dist(
 		$hidden = '') {
 	include_spip('inc/config');
 	$espace_prive = test_espace_prive();
-	$new = !is_numeric($id_objets_location) ? $id_objets_location : FALSE;
+
+
 
 
 	$config = lire_config('location_objets');
@@ -121,6 +122,12 @@ function formulaires_editer_objets_location_charger_dist(
 			$row,
 			$hidden);
 
+	if (!is_numeric($id_objets_location) or $id_objets_location == 0) {
+		$new = 'oui';
+		$valeurs['new'] = $new;
+		$valeurs['_hidden'] .= '<input type="hidden" name="new" value="' . $new . '"/>';
+
+	}
 	if ($location_objet) {
 		$valeurs['objet'] =  objet_type($location_objet);
 	}
