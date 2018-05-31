@@ -105,8 +105,11 @@ function formulaires_editer_objets_location_charger_dist(
 		$config_fonc = '',
 		$row = array(),
 		$hidden = '') {
-
 	include_spip('inc/config');
+	$espace_prive = test_espace_prive();
+	$new = !is_numeric($id_objets_location) ? $id_objets_location : FALSE;
+
+
 	$config = lire_config('location_objets');
 	$valeurs = formulaires_editer_objet_charger(
 			'objets_location',
@@ -121,7 +124,7 @@ function formulaires_editer_objets_location_charger_dist(
 	if ($location_objet) {
 		$valeurs['objet'] =  objet_type($location_objet);
 	}
-	elseif(is_numeric($id_objets_location) and
+	elseif(!$new and
 		$objet = sql_fetsel('objet,id_objet',
 		'spip_objets_locations_details',
 		'id_objets_locations_detail_source=0 AND id_objets_location=' . $id_objets_location)) {
@@ -129,7 +132,6 @@ function formulaires_editer_objets_location_charger_dist(
 		$location_objet = table_objet_sql($objet['objet']);
 		$id_location_objet = $objet['id_objet'];
 	}
-
 
 	$valeurs['location_objet'] = $location_objet;
 	$valeurs['id_location_objet'] = $id_location_objet;
@@ -163,7 +165,7 @@ function formulaires_editer_objets_location_charger_dist(
 		$valeurs['_hidden'] .= '<input type="hidden" name="id_location_objet" value="' . $valeurs['id_location_objet'] . '"/>';
 	}
 
-	if (test_espace_prive()) {
+	if ($espace_prive) {
 		$valeurs['espace_prive'] = true;
 		$valeurs['_hidden'] .= '<input type="hidden" name="espace_prive" value="1"/>';
 	}
@@ -292,57 +294,114 @@ function formulaires_editer_objets_location_traiter_dist(
 			$hidden);
 
 	// Enregistrement de l'objet de location
-
 	$id_objets_location = $retours['id_objets_location'];
+	$new = _request('new');
 
+	$date_debut = _request('date_debut');
+	$date_fin = _request('date_fin');
+	$_date_debut = strtotime($date_debut);
+	$_date_fin = strtotime($date_fin);
 
-	$date_debut = strtotime(_request('date_debut'));
-	$date_fin = strtotime(_request('date_fin'));
-	$location_objet = objet_type(_request('location_objet'));
-	$id_location_objet = _request('id_location_objet');
-	if ($date_fin >= $date_debut) {
-		$difference = $date_fin - $date_debut;
+	if ($_date_fin >= $_date_debut) {
+		$difference = $_date_fin - $_date_debut;
 		$nombre_jours = round($difference / (60 * 60 * 24)) + $fin;
 	}
 
+	if ($new) {
+		$location_objet = objet_type(_request('location_objet'));
+		$id_location_objet = _request('id_location_objet');
 
-	$set = array(
-		'id_objets_location' => $id_objets_location,
-		'objet' => $location_objet,
-		'id_objet' => $id_location_objet,
-		'titre' => generer_info_entite($id_location_objet, $location_objet, 'titre'),
-		'quantite' => $nombre_jours,
-	);
 
-	if (!is_numeric($id_objets_location)) {
-		$set['date'] = $date = date('Y-m-d H:i:s',time());
-	}
+		$set = array(
+			'id_objets_location' => $id_objets_location,
+			'objet' => $location_objet,
+			'id_objet' => $id_location_objet,
+			'titre' => generer_info_entite($id_location_objet, $location_objet, 'titre'),
+			'quantite' => $nombre_jours,
+		);
+		$date = date('Y-m-d H:i:s',time());
+		if (!is_numeric($id_objets_location)) {
+			$set['date'] = $date ;
+		}
 
-	if (test_plugin_actif('prix_objets')) {
-		$set['prix_unitaire_ht'] = prix_par_objet(
+		$prix_objet = FALSE;
+		if (test_plugin_actif('prix_objets')) {
+			$prix_objet = TRUE;
+			if ($prix_unitaire_ht = prix_par_objet(
 				$location_objet,
 				$id_location_objet,
 				array(
-					'date_debut' => _request('date_debut'),
-					'date_fin' => _request('date_fin'),
+					'date_debut' => $date_debut,
+					'date_fin' => $date_fin,
 				)
-			);
-		$prix_ttc = prix_par_objet(
-			$location_objet,
-			$id_location_objet,
-			array(
-				'date_debut' => _request('date_debut'),
-				'date_fin' => _request('date_fin'),
-			),
-			'prix'
-		);
-		$set['taxe'] = $prix_ttc - $set['prix_unitaire_ht'];
-		$set['devise'] = devise_defaut_objet($id_location_objet,$location_objet);
+				))
+				$set['prix_unitaire_ht'] ;
+				$prix_ttc = prix_par_objet(
+					$location_objet,
+					$id_location_objet,
+					array(
+						'date_debut' => $date_debut,
+						'date_fin' => $date_fin,
+					),
+					'prix'
+					);
+				$set['taxe'] = $prix_ttc - $set['prix_unitaire_ht'];
+				$set['devise'] = devise_defaut_objet($id_location_objet, $location_objet);
+		}
+
+		$table = 'spip_objets_locations_details';
+		// Enregistrement de  des service extras
+		if ($id_objets_locations_detail = sql_insertq($table, $set) and
+			$objets_extras = array_filter(explode(',', _request('objets_extras')))) {
+
+
+				foreach ($objets_extras as $table_extra) {
+					$objet_extra = objet_type($table_extra);
+					$set = array();
+					if ($extras = _request('extras_' . $objet_extra) and is_array($extras)) {
+						foreach($extras as $index => $id_extra) {
+							if ($id_extra) {
+								$set = array(
+									'id_objets_locations_detail_source' => $id_objets_locations_detail,
+									'id_objets_location' => $id_objets_location,
+									'objet' => $objet_extra,
+									'id_objet' => $id_extra,
+									'titre' => generer_info_entite($id_extra, $objet_extra, 'titre'),
+									'quantite' => $nombre_jours,
+									'date' => $date,
+									'prix_unitaire_ht' => 0,
+									'taxe' => 0,
+									'devise' => '-',
+								);
+								if ($prix_objet) {
+									spip_log("$objet_extra - $id_extra, $date_debut - $date_fin", 'teste');
+									$set['prix_unitaire_ht'] = prix_par_objet(
+										$objet_extra,
+										$id_extra,
+										array(
+											'date_debut' => $date_debut,
+											'date_fin' => $date_fin,
+										)
+										);
+									$prix_ttc = prix_par_objet(
+										$objet_extra,
+										$id_extra,
+										array(
+											'date_debut' => $date_debut,
+											'date_fin' => $date_fin,
+										),
+										'prix'
+										);
+									$set['taxe'] = $prix_ttc - $set['prix_unitaire_ht'];
+									$set['devise'] = devise_defaut_objet($id_extra, $objet_extra);
+								}
+								sql_insertq($table, $set);
+							}
+						}
+					}
+				}
+			}
 	}
-
-		$id_objets_locations_detail = sql_insertq('spip_objets_locations_details', $set);
-
-
 
 
 	// Un lien a prendre en compte ?

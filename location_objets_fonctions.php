@@ -29,7 +29,7 @@ if (!defined('_ECRIRE_INC_VERSION')) {
  * @return array
  *          La saisies
  */
-function objet_location_services_champs($service, $location_objet_table, $id_location_objet, $contexte = array(), $options = array()) {
+function objet_location_extras_champs($service, $location_objet_table, $id_location_objet, $contexte = array(), $options = array()) {
 	include_spip('action/editer_liens');
 
 	// Cr´er une variable pour chaque option
@@ -56,17 +56,17 @@ function objet_location_services_champs($service, $location_objet_table, $id_loc
 
 		list ($id_table_objet, $table_liens) = $objet_associable;
 		$location_objet = objet_type($location_objet_table);
-		$table_service = table_objet_sql($service);
-		$identifiant_service = id_table_objet($service);
-		$objet_service = objet_type($service);
+		$table_extra = table_objet_sql($service);
+		$identifiant_extra = id_table_objet($service);
+		$objet_extra = objet_type($service);
 
 		$sql = sql_select('*',
-			"$table_service LEFT JOIN $table_liens USING(id_objets_service)",
+			"$table_extra LEFT JOIN $table_liens USING(id_objets_service)",
 			'objet=' . sql_quote($location_objet) . ' AND id_objet=' . $id_location_objet);
 		while ($row = sql_fetch($sql)) {
-			$id_objet = $row[$identifiant_service];
+			$id_objet = $row[$identifiant_extra];
 
-			if ($prix = $fonction_prix($objet_service, $id_objet, $contexte, $type_prix)) {
+			if ($prix = $fonction_prix($objet_extra, $id_objet, $contexte, $type_prix)) {
 				$prix = $separateur_prix . filtres_prix_formater($prix);
 			}
 			else {
@@ -78,7 +78,7 @@ function objet_location_services_champs($service, $location_objet_table, $id_loc
 				(
 					isset($row['nom']) ?
 					$row['nom'] :
-					generer_info_entite($objet_service, $id_objet, 'titre'));
+					generer_info_entite($objet_extra, $id_objet, 'titre'));
 
 			$data[$id_objet] = $titre . $prix;
 		}
@@ -88,8 +88,8 @@ function objet_location_services_champs($service, $location_objet_table, $id_loc
 		array(
 			'saisie' => 'checkbox',
 			'options' => array(
-				'nom' => 'services_' . $objet,
-				'label' => $objet,
+				'nom' => 'extras_' . $objet_extra,
+				'label' => $objet_extra,
 				'data' => $data
 			)
 		)
