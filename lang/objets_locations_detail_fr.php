@@ -16,6 +16,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'champ_id_objet_label' => 'Id objet',
 	'champ_objet_label' => 'Objet',
 	'champ_prix_ht_label' => 'Prix ht',
+	'champ_prix_label' => 'Prix',
 	'champ_quantite_label' => 'Quantite',
 	'champ_reduction_label' => 'Réduction',
 	'champ_taxe_label' => 'Taxe',

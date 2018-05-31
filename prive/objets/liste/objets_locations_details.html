@@ -13,6 +13,7 @@
 			<th class="picto" scope="col"></th>
 			<th class="statut" scope="col">[(#TRI{statut,<span title="<:lien_trier_statut|attribut_html:>">#</span>,ajax})]</th>
 			<th class="titre" scope="col">[(#TRI{titre,<:objets_locations_detail:champ_titre_label:>,ajax})]</th>
+			<th class="prix" scope="col"><:objets_locations_detail:champ_prix_label:></th>
 			<th class="date" scope="col">[(#TRI{date,<:date:>,ajax})]</th>
 			<th class="id" scope="col">[(#TRI{id_objets_locations_detail,<:info_numero_abbreviation:>,ajax})]</th>
 		</tr>
@@ -22,10 +23,16 @@
 		<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
 			<td class="picto">[(#CHEMIN_IMAGE{objets_locations_detail-16.png}|balise_img)]</td>
 			<td class="statut">[(#STATUT|puce_statut{objets_locations_detail,#ID_OBJETS_LOCATIONS_DETAIL})]</td>
-			<td class="titre principale">[(#LOGO_OBJETS_LOCATIONS_DETAIL|image_reduire{20,26})]<a href="[(#ID_OBJETS_LOCATIONS_DETAIL|generer_url_entite{objets_locations_detail})]" title="<:info_numero_abbreviation|attribut_html:> #ID_OBJETS_LOCATIONS_DETAIL">[(#RANG). ]#TITRE</a></td>
+			<td class="titre principale">
+				[(#LOGO_OBJETS_LOCATIONS_DETAIL|image_reduire{20,26})]
+				<a href="[(#ID_OBJETS_LOCATIONS_DETAIL|generer_url_entite{objets_locations_detail})]" title="<:info_numero_abbreviation|attribut_html:> #ID_OBJETS_LOCATIONS_DETAIL">
+					[(#RANG). ]#TITRE</a>
+			</td>
+			<td class="prix">#PRIX</td>
 			<td class="date secondaire">[(#DATE|affdate_jourcourt)]</td>
 			<td class="id">[(#AUTORISER{modifier,objets_locations_detail,#ID_OBJETS_LOCATIONS_DETAIL}|?{
-				<a href="[(#URL_ECRIRE{objets_locations_detail_edit,id_objets_locations_detail=#ID_OBJETS_LOCATIONS_DETAIL})]">#ID_OBJETS_LOCATIONS_DETAIL</a>,
+				<a href="[(#URL_ECRIRE{objets_locations_detail_edit,id_objets_locations_detail=#ID_OBJETS_LOCATIONS_DETAIL})]">
+				#ID_OBJETS_LOCATIONS_DETAIL</a>,
 				#ID_OBJETS_LOCATIONS_DETAIL
 			})]</td>
 		</tr>

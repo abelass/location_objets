@@ -37,7 +37,7 @@ function prix_objets_locations_detail_ht_dist($id_objets_locations_detail, $lign
 		$reduction = min($reduction, 1.0); // on peut pas faire une reduction de plus de 100%;
 		$prix = $prix * (1.0 - $reduction);
 	}
-	print 'ht' .$prix . '<br>';
+
 	return $prix;
 }
 
@@ -68,6 +68,6 @@ function prix_objets_locations_detail_dist($id_objets_locations_detail, $prix_ht
 	if (($taxe = $detail['taxe']) !== null){
 		$prix = $prix + $taxe;
 	}
-	print 'ttc' .$prix . '<br>';
+
 	return $prix;
 }

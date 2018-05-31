@@ -61,7 +61,7 @@ function prix_objets_location_dist($id_objets_location, $prix_ht = null) {
 		$fonction_ht = charger_fonction('ht', 'prix/objets_location');
 		$prix_ht = $fonction_ht($id_objets_location);
 	}
-	print 'id_objet' .$id_objets_location . '<br>';
+
 	$prix = 0;
 
 	// On va chercher tous les détails
@@ -76,9 +76,7 @@ function prix_objets_location_dist($id_objets_location, $prix_ht = null) {
 
 		// Pour chaque objet on va chercher son prix TTC x sa quantité
 		foreach ($details as $id_objets_location_detail) {
-			print $id_objets_location. ' - ' . $prix . '<br>';
 			$prix += $fonction_ttc('objets_locations_detail', $id_objets_location_detail);
-			print $id_objets_location. ' - ' . $prix . '<br>';
 		}
 	}
 
