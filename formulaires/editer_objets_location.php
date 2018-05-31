@@ -312,7 +312,7 @@ function formulaires_editer_objets_location_traiter_dist(
 
 	// Enregistrement de l'objet de location
 	$id_objets_location = $retours['id_objets_location'];;
-
+	$date = date('Y-m-d H:i:s',time());
 	$date_debut = _request('date_debut');
 	$date_fin = _request('date_fin');
 	$_date_debut = strtotime($date_debut);
@@ -341,11 +341,8 @@ function formulaires_editer_objets_location_traiter_dist(
 			'id_objet' => $id_location_objet,
 			'titre' => generer_info_entite($id_location_objet, $location_objet, 'titre'),
 			'quantite' => $nombre_jours,
+			'date' => $date,
 		);
-		$date = date('Y-m-d H:i:s',time());
-		if (!is_numeric($id_objets_location)) {
-			$set['date'] = $date ;
-		}
 
 		$prix_objet = FALSE;
 		if (test_plugin_actif('prix_objets')) {
