@@ -73,11 +73,11 @@ function formulaires_editer_objets_location_identifier_dist(
  *     L'identifiant de l'objet à louer
  * @param array $options
  *     Difféntes variables à passer
- *     disponibilite_debut: integer -> décalage des dates disponibles
+ *     - disponibilite_decalage_debut: integer -> décalage des dates disponibles
  *      par rapport à la première date disponible -> fonction dates_intervalle()
- *     disponibilite_debut integer -> décalage de l'affichages des dates disponibles
+ *     - disponibilite_decalage_fin integer -> décalage de l'affichages des dates disponibles
  *      par rapport à la dernière date disponible -> fonction dates_intervalle()
- *     location_extras_objets: nom de la ou des tables des objets à ajouter au fo0mulaire comme service extra
+ *     - location_extras_objets: nom de la ou des tables des objets à ajouter au fo0mulaire comme service extra
  * @param string $retour
  *     URL de redirection après le traitement
  * @param string $associer_objet
