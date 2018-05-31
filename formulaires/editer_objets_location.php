@@ -394,7 +394,7 @@ function formulaires_editer_objets_location_traiter_dist(
 									'objet' => $objet_extra,
 									'id_objet' => $id_extra,
 									'titre' => generer_info_entite($id_extra, $objet_extra, 'titre'),
-									'quantite' => $nombre_jours,
+									'quantite' => 1,
 									'date' => $date,
 									'prix_unitaire_ht' => 0,
 									'taxe' => 0,
