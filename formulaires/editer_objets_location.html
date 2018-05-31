@@ -7,10 +7,6 @@
 		#ACTION_FORMULAIRE{#ENV{action}}
 		<input type="hidden" name="id_objets_location" value="#ENV{id_objets_location}" />
 		<div class="editer-groupe">
-
-			[(#SAISIE{input, reference, obligatoire=oui,
-				label=<:objets_location:champ_reference_label:>})]
-
 			[(#ENV{espace_prive}|oui)
 				[(#SAISIE{auteurs, id_auteur, obligatoire=oui,
 					label=<:public:auteur:>

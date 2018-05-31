@@ -243,7 +243,15 @@ function formulaires_editer_objets_location_verifier_dist(
 		}
 	}*/
 
-	$erreurs += formulaires_editer_objet_verifier('objets_location', $id_objets_location, array('id_auteur', 'reference'));
+	$erreurs += formulaires_editer_objet_verifier(
+		'objets_location',
+		$id_objets_location,
+		array(
+			'id_auteur',
+			'location_objet',
+			'id_location_objet'
+		)
+	);
 
 	return $erreurs;
 }
@@ -290,6 +298,8 @@ function formulaires_editer_objets_location_traiter_dist(
 		$config_fonc = '',
 		$row = array(),
 		$hidden = '') {
+	$fonction_reference = charger_fonction('locations_reference', 'inc/');
+
 	$retours = formulaires_editer_objet_traiter(
 			'objets_location',
 			$id_objets_location,
@@ -300,9 +310,17 @@ function formulaires_editer_objets_location_traiter_dist(
 			$row,
 			$hidden);
 
+	$id_objets_location = $retours['id_objets_location'];
+
+	// Ajouter la références
+	$reference = $fonction_reference($id_objets_location);
+	sql_updateq('spip_objets_locations', array('reference' => $reference));
+
 	// Enregistrement de l'objet de location
 	$id_objets_location = $retours['id_objets_location'];
 	$new = _request('new');
+
+
 
 	$date_debut = _request('date_debut');
 	$date_fin = _request('date_fin');
