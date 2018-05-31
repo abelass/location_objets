@@ -1,6 +1,8 @@
 [(#SET{defaut_tri,#ARRAY{
 	reference,1,
 	date,-1,
+	date_debut,-1,
+	date_fin,-1,
 	id_objets_location,1,
 	points,-1
 }})]<B_liste_objets_locations>
@@ -11,19 +13,37 @@
 	<thead>
 		<tr class="first_row">
 			<th class="picto" scope="col"></th>
-			<th class="statut" scope="col">[(#TRI{statut,<span title="<:lien_trier_statut|attribut_html:>">#</span>,ajax})]</th> 
+			<th class="statut" scope="col">[(#TRI{statut,<span title="<:lien_trier_statut|attribut_html:>">#</span>,ajax})]</th>
 			<th class="reference" scope="col">[(#TRI{reference,<:objets_location:champ_reference_label:>,ajax})]</th>
-			<th class="date" scope="col">[(#TRI{date,<:date:>,ajax})]</th> 
+			<th class="date_location" scope="col">[(#TRI{date,<:objets_location:champ_date_location_label:>,ajax})]</th>
+			<th class="date_debut" scope="col">[(#TRI{date_debut,<:dates_outils:champ_date_debut_label:>,ajax})]</th>
+			<th class="date_fin" scope="col">[(#TRI{date_fin,<:dates_outils:champ_date_fin_label:>,ajax})]</th>
+			<th class="objet_titre" scope="col"><:objets_location:champ_id_location_objet_label:></th>
 			<th class="id" scope="col">[(#TRI{id_objets_location,<:info_numero_abbreviation:>,ajax})]</th>
 		</tr>
 	</thead>
 	<tbody>
-	<BOUCLE_liste_objets_locations(OBJETS_LOCATIONS){id_mot?}{id_auteur?}{where?}{statut?}{recherche?}{tri #ENV{par,num reference},#GET{defaut_tri}}{par reference}{pagination #ENV{nb,10}}>
+	<BOUCLE_liste_objets_locations(OBJETS_LOCATIONS)
+		{id_mot?}
+		{id_auteur?}
+		{where?}
+		{statut?}
+		{recherche?}
+		{tri #ENV{par,num reference},#GET{defaut_tri}}
+		{par reference}
+		{pagination #ENV{nb,10}}>
 		<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
 			<td class="picto">[(#CHEMIN_IMAGE{objets_location-16.png}|balise_img)]</td>
-			<td class="statut">[(#STATUT|puce_statut{objets_location,#ID_OBJETS_LOCATION})]</td> 
+			<td class="statut">[(#STATUT|puce_statut{objets_location,#ID_OBJETS_LOCATION})]</td>
 			<td class="reference principale">[(#LOGO_OBJETS_LOCATION|image_reduire{20,26})]<a href="[(#ID_OBJETS_LOCATION|generer_url_entite{objets_location})]" title="<:info_numero_abbreviation|attribut_html:> #ID_OBJETS_LOCATION">[(#RANG). ]#REFERENCE</a></td>
-			<td class="date secondaire">[(#DATE|affdate_jourcourt)]</td> 
+			<td class="date secondaire">[(#DATE|affdate_jourcourt)]</td>
+			<td class="date debut">[(#DATE_DEBUT|affdate_jourcourt)]</td>
+			<td class="date fin">[(#DATE_FIN|affdate_jourcourt)]</td>
+			<td class="objet_titre">
+				<BOUCLE_details(OBJETS_LOCATIONS_DETAILS){id_objets_location}{id_objets_locations_detail_source=0}{tout}>
+					#TITRE
+				</BOUCLE_details>
+			</td>
 			<td class="id">[(#AUTORISER{modifier,objets_location,#ID_OBJETS_LOCATION}|?{
 				<a href="[(#URL_ECRIRE{objets_location_edit,id_objets_location=#ID_OBJETS_LOCATION})]">#ID_OBJETS_LOCATION</a>,
 				#ID_OBJETS_LOCATION

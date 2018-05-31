@@ -32,7 +32,7 @@ if (!defined('_ECRIRE_INC_VERSION')) {
 function objet_location_extras_champs($service, $location_objet_table, $id_location_objet, $contexte = array(), $options = array()) {
 	include_spip('action/editer_liens');
 
-	// Cr´er une variable pour chaque option
+	// Créer une variable pour chaque option
 	foreach ($options as $cle => $valeur) {
 		$$cle = $valeur;
 	}

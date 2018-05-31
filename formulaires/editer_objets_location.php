@@ -313,8 +313,10 @@ function formulaires_editer_objets_location_traiter_dist(
 	$id_objets_location = $retours['id_objets_location'];
 
 	// Ajouter la références
-	$reference = $fonction_reference($id_objets_location);
-	sql_updateq('spip_objets_locations', array('reference' => $reference));
+	if ($new) {
+		$reference = $fonction_reference($id_objets_location);
+		sql_updateq('spip_objets_locations', array('reference' => $reference));
+	}
 
 	// Enregistrement de l'objet de location
 	$id_objets_location = $retours['id_objets_location'];

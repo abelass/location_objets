@@ -30,7 +30,7 @@ if (!defined('_ECRIRE_INC_VERSION')) return;
 **/
 function inc_locations_reference_dist($id_objets_location){
 
-	if ($date = sql_getfetsel('date', 'spip_spip_objets_locations', '$id_objets_location='.intval($id_objets_location))) {
+	if ($date = sql_getfetsel('date', 'spip_objets_locations', '$id_objets_location='.intval($id_objets_location))) {
 		$t = strtotime($date);
 	}
 	else {
