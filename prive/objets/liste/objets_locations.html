@@ -41,8 +41,9 @@
 			<td class="date fin">[(#DATE_FIN|affdate_jourcourt)]</td>
 			<td class="objet_titre">
 				<BOUCLE_details(OBJETS_LOCATIONS_DETAILS){id_objets_location}{id_objets_locations_detail_source=0}{tout}>
-					#TITRE
+					<div class="titre">#TITRE</div>
 				</BOUCLE_details>
+				<div class="prix">#PRIX</div>
 			</td>
 			<td class="id">[(#AUTORISER{modifier,objets_location,#ID_OBJETS_LOCATION}|?{
 				<a href="[(#URL_ECRIRE{objets_location_edit,id_objets_location=#ID_OBJETS_LOCATION})]">#ID_OBJETS_LOCATION</a>,

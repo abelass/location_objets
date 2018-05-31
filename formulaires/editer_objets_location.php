@@ -299,7 +299,7 @@ function formulaires_editer_objets_location_traiter_dist(
 		$row = array(),
 		$hidden = '') {
 	$fonction_reference = charger_fonction('locations_reference', 'inc/');
-
+	$new = _request('new');
 	$retours = formulaires_editer_objet_traiter(
 			'objets_location',
 			$id_objets_location,
@@ -310,19 +310,8 @@ function formulaires_editer_objets_location_traiter_dist(
 			$row,
 			$hidden);
 
-	$id_objets_location = $retours['id_objets_location'];
-
-	// Ajouter la références
-	if ($new) {
-		$reference = $fonction_reference($id_objets_location);
-		sql_updateq('spip_objets_locations', array('reference' => $reference));
-	}
-
 	// Enregistrement de l'objet de location
-	$id_objets_location = $retours['id_objets_location'];
-	$new = _request('new');
-
-
+	$id_objets_location = $retours['id_objets_location'];;
 
 	$date_debut = _request('date_debut');
 	$date_fin = _request('date_fin');
@@ -335,6 +324,13 @@ function formulaires_editer_objets_location_traiter_dist(
 	}
 
 	if ($new) {
+		// Ajouter la références
+		if ($new) {
+			$reference = $fonction_reference($id_objets_location);
+			sql_updateq('spip_objets_locations', array('reference' => $reference), 'id_objets_location=' . $id_objets_location);
+		}
+
+		// Enregistrement de l'objet de location
 		$location_objet = objet_type(_request('location_objet'));
 		$id_location_objet = _request('id_location_objet');
 
@@ -361,8 +357,8 @@ function formulaires_editer_objets_location_traiter_dist(
 					'date_debut' => $date_debut,
 					'date_fin' => $date_fin,
 				)
-				))
-				$set['prix_unitaire_ht'] ;
+				)) {
+				$set['prix_unitaire_ht'] = $prix_unitaire_ht;
 				$prix_ttc = prix_par_objet(
 					$location_objet,
 					$id_location_objet,
@@ -372,8 +368,9 @@ function formulaires_editer_objets_location_traiter_dist(
 					),
 					'prix'
 					);
-				$set['taxe'] = $prix_ttc - $set['prix_unitaire_ht'];
+				$set['taxe'] = $prix_ttc - $prix_unitaire_ht;
 				$set['devise'] = devise_defaut_objet($id_location_objet, $location_objet);
+				}
 		}
 
 		$table = 'spip_objets_locations_details';

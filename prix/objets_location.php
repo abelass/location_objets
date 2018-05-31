@@ -2,18 +2,18 @@
 /**
  * Fonctions de calcul des prix d'une commande et de ses détails
  *
- * @plugin     Commandes
- * @copyright  2014
- * @author     Ateliers CYM, Matthieu Marcillaud, Les Développements Durables
- * @licence    GPL 3
- * @package    SPIP\Commandes\Prix
+ * @plugin     Location d&#039;objets
+ * @copyright  2018
+ * @author     Rainer Müller
+ * @licence    GNU/GPL v3
+ * @package    SPIP\Location_objets\Prix
  */
 
 // Sécurité
 if (!defined('_ECRIRE_INC_VERSION')) return;
 
 /**
- * Permet d'obtenir le prix HT d'une commande.
+ * Permet d'obtenir le prix HT d'une location.
  *
  * Prix HT = total HT de ses détails
  *
@@ -22,19 +22,22 @@ if (!defined('_ECRIRE_INC_VERSION')) return;
  * @return float
  *     Retourne le prix HT de la commande sinon 0
  */
-function prix_commande_ht_dist($id_commande) {
+function prix_objets_location_ht_dist($id_objets_location) {
 	$prix_ht = 0;
 
 	// On va chercher tous les détails
-	$details = sql_allfetsel('id_commandes_detail', 'spip_commandes_details', 'id_commande = '.$id_commande);
+	$details = sql_allfetsel(
+		'id_objets_locations_detail',
+		'spip_objets_locations_details',
+		'id_objets_location = '.$id_objets_location);
 
 	if ($details and is_array($details)) {
 		$fonction_ht = charger_fonction('ht', 'inc/prix');
 		$details = array_map('reset', $details);
 
 		// Pour chaque détail on va chercher son prix HT x sa quantité
-		foreach ($details as $id_commandes_detail) {
-			$prix_ht += $fonction_ht('commandes_detail', $id_commandes_detail);
+		foreach ($details as $id_objets_locations_detail) {
+			$prix_ht += $fonction_ht('objets_locations_detail', $id_objets_locations_detail);
 		}
 	}
 
@@ -42,7 +45,7 @@ function prix_commande_ht_dist($id_commande) {
 }
 
 /**
- * Permet d'obtenir le prix final TTC d'une commande
+ * Permet d'obtenir le prix final TTC d'une location
  *
  * Prix TTC = total TTC de ses détails
  *
@@ -53,24 +56,29 @@ function prix_commande_ht_dist($id_commande) {
  * @return float
  *     Retourne le prix TTC de la commande sinon 0
  */
-function prix_commande_dist($id_commande, $prix_ht = null) {
+function prix_objets_location_dist($id_objets_location, $prix_ht = null) {
 	if (is_null($prix_ht)) {
-		$fonction_ht = charger_fonction('ht', 'prix/commande');
-		$prix_ht = $fonction_ht($id_commande);
+		$fonction_ht = charger_fonction('ht', 'prix/objets_location');
+		$prix_ht = $fonction_ht($id_objets_location);
 	}
-
+	print 'id_objet' .$id_objets_location . '<br>';
 	$prix = 0;
 
 	// On va chercher tous les détails
-	$details = sql_allfetsel('id_commandes_detail', 'spip_commandes_details', 'id_commande = '.$id_commande);
+	$details = sql_allfetsel(
+		'id_objets_locations_detail',
+		'spip_objets_locations_details',
+		'id_objets_location = '.$id_objets_location);
 
 	if ($details and is_array($details)) {
 		$fonction_ttc = charger_fonction('prix', 'inc/');
 		$details = array_map('reset', $details);
 
 		// Pour chaque objet on va chercher son prix TTC x sa quantité
-		foreach ($details as $id_commandes_detail) {
-			$prix += $fonction_ttc('commandes_detail', $id_commandes_detail);
+		foreach ($details as $id_objets_location_detail) {
+			print $id_objets_location. ' - ' . $prix . '<br>';
+			$prix += $fonction_ttc('objets_locations_detail', $id_objets_location_detail);
+			print $id_objets_location. ' - ' . $prix . '<br>';
 		}
 	}
 

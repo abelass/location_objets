@@ -2,18 +2,18 @@
 /**
  * Fonctions de calcul des prix d'une commande et de ses détails
  *
- * @plugin     Commandes
- * @copyright  2014
- * @author     Ateliers CYM, Matthieu Marcillaud, Les Développements Durables
- * @licence    GPL 3
- * @package    SPIP\Commandes\Prix
+ * @plugin     Location d&#039;objets
+ * @copyright  2018
+ * @author     Rainer Müller
+ * @licence    GNU/GPL v3
+ * @package    SPIP\Location_objets\Prix
  */
 
 // Sécurité
 if (!defined('_ECRIRE_INC_VERSION')) return;
 
 /**
- * Permet d'obtenir le prix HT d'un détail d'une commande.
+ * Permet d'obtenir le prix HT d'un détail d'une location.
  *
  * C'est le résultat de cette fonction qui est utilisée pour calculer le prix TTC.
  * Prix HT = quantité * prix unitaire HT
@@ -26,18 +26,18 @@ if (!defined('_ECRIRE_INC_VERSION')) return;
  * @return float
  *     Retourne le prix HT du détail sinon 0
  */
-function prix_commandes_detail_ht_dist($id_commandes_detail, $ligne){
+function prix_objets_locations_detail_ht_dist($id_objets_locations_detail, $ligne){
 	// La quantité "0" ne voulant rien dire, cela signifie que ce n'est pas un produit quantifiable
 	// mais des lignes en plus comme les frais de livraison, des frais de dossier, des déductions, etc
 	$prix = $ligne['prix_unitaire_ht'];
 	if ($ligne['quantite'] > 0) $prix = $ligne['quantite'] * $ligne['prix_unitaire_ht'];
 
 	if (isset($ligne['reduction'])
-	  and ($reduction = floatval($ligne['reduction']))>0) {
+		and ($reduction = floatval($ligne['reduction']))>0) {
 		$reduction = min($reduction, 1.0); // on peut pas faire une reduction de plus de 100%;
 		$prix = $prix * (1.0 - $reduction);
 	}
-
+	print 'ht' .$prix . '<br>';
 	return $prix;
 }
 
@@ -53,31 +53,21 @@ function prix_commandes_detail_ht_dist($id_commandes_detail, $ligne){
  * @return float
  *     Retourne le prix TTC du détail sinon 0
  */
-function prix_commandes_detail_dist($id_commandes_detail, $prix_ht){
-	static $taxe_applicable = array();
+function prix_objets_locations_detail_dist($id_objets_locations_detail, $prix_ht){
+
 	$prix = $prix_ht;
 
 	if (!function_exists('sql_fetsel')) {
 		include_spip('base/abstract_sql');
 	}
-	$detail = sql_fetsel('*', 'spip_commandes_details', 'id_commandes_detail = '.intval($id_commandes_detail));
+	$detail = sql_fetsel(
+		'*',
+		'spip_objets_locations_details',
+		'id_objets_locations_detail = '.intval($id_objets_locations_detail));
 
-	if (!isset($taxe_applicable[$detail['id_commande']])) {
-		$taxe_applicable[$detail['id_commande']] = true;
-		$taxe_exoneree_raison = sql_getfetsel('taxe_exoneree_raison', 'spip_commandes', 'id_commande='.intval($detail['id_commande']));
-		if (strlen($taxe_exoneree_raison)) {
-			$taxe_applicable[$detail['id_commande']] = false;
-		}
+	if (($taxe = $detail['taxe']) !== null){
+		$prix = $prix + $taxe;
 	}
-
-	if (
-		$taxe_applicable[$detail['id_commande']]
-		and ($taxe = $detail['taxe']) !== null
-	){
-		$prix += $prix*$taxe;
-	}
-
+	print 'ttc' .$prix . '<br>';
 	return $prix;
 }
-
-?>
