@@ -101,8 +101,6 @@ function objets_location_instituer($id_objets_location, $c, $calcul_rub = true) 
 	$location_objet = objet_type(_request('location_objet'));
 	$id_location_objet = _request('id_location_objet');
 
-
-
 	$sel = array();
 	$sel[] = (isset($desc['field']['statut']) ? "statut" : "'' as statut");
 
@@ -121,8 +119,6 @@ function objets_location_instituer($id_objets_location, $c, $calcul_rub = true) 
 	$id_rubrique = $row['id_rubrique'];
 	$statut_ancien = $statut = $row['statut'];
 	$date_ancienne = $date = $row['date'];
-
-
 	$date_debut = _request('date_debut');
 	$date_fin = _request('date_fin');
 	$_date_debut = strtotime($date_debut);
@@ -195,7 +191,6 @@ function objets_location_instituer($id_objets_location, $c, $calcul_rub = true) 
 									'jours' => $nombre_jours,
 								);
 								if ($prix_objet) {
-									spip_log("$objet_extra - $id_extra, $date_debut - $date_fin", 'teste');
 									$set['prix_unitaire_ht'] = prix_par_objet(
 										$objet_extra,
 										$id_extra,
@@ -216,7 +211,6 @@ function objets_location_instituer($id_objets_location, $c, $calcul_rub = true) 
 									$set['taxe'] = $prix_ttc - $set['prix_unitaire_ht'];
 									$set['devise'] = devise_defaut_objet($id_extra, $objet_extra);
 								}
-								spip_log($set, 'teste');
 								$editer_objet('oui', 'objets_locations_detail', $set);
 							}
 						}
@@ -231,10 +225,13 @@ function objets_location_instituer($id_objets_location, $c, $calcul_rub = true) 
 			'spip_objets_locations_details',
 			'id_objets_location=' .$id_objets_location);
 
-		foreach ($details as $id_objets_locations_detail) {
-			sql_updateq('id_objets_locations_detail', 'id_objets_locations_detail=' . $id_objets_location);
-		}
+		foreach ($details as $detail) {
 
+			sql_updateq(
+				'spip_objets_locations_details',
+				array('jours' => $nombre_jours),
+				'id_objets_locations_detail=' . $detail['id_objets_locations_detail']);
+		}
 	}
 
 
