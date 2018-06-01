@@ -166,6 +166,7 @@ function objets_location_instituer($id_objets_location, $c, $calcul_rub = true) 
 						);
 					$set['taxe'] = $prix_ttc - $prix_unitaire_ht;
 					$set['devise'] = devise_defaut_objet($id_location_objet, $location_objet);
+					$set['prix_total'] = _request('prix_total');
 				}
 		}
 
@@ -192,12 +193,12 @@ function objets_location_instituer($id_objets_location, $c, $calcul_rub = true) 
 								);
 								if ($prix_objet) {
 									$set['prix_unitaire_ht'] = prix_par_objet(
-										$objet_extra,
-										$id_extra,
-										array(
-											'date_debut' => $date_debut,
-											'date_fin' => $date_fin,
-										)
+											$objet_extra,
+											$id_extra,
+											array(
+												'date_debut' => $date_debut,
+												'date_fin' => $date_fin,
+											)
 										);
 									$prix_ttc = prix_par_objet(
 										$objet_extra,
@@ -208,6 +209,7 @@ function objets_location_instituer($id_objets_location, $c, $calcul_rub = true) 
 										),
 										'prix'
 										);
+									$set['prix_total'] = _request('prix_total');
 									$set['taxe'] = $prix_ttc - $set['prix_unitaire_ht'];
 									$set['devise'] = devise_defaut_objet($id_extra, $objet_extra);
 								}

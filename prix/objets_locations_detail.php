@@ -30,7 +30,14 @@ function prix_objets_locations_detail_ht_dist($id_objets_locations_detail, $lign
 	// La quantité "0" ne voulant rien dire, cela signifie que ce n'est pas un produit quantifiable
 	// mais des lignes en plus comme les frais de livraison, des frais de dossier, des déductions, etc
 	$prix = $ligne['prix_unitaire_ht'];
-	if ($ligne['quantite'] > 0) $prix = $ligne['quantite'] * $ligne['prix_unitaire_ht'];
+	if ($ligne['quantite'] > 0) {
+		$prix = $ligne['quantite'] * $ligne['prix_unitaire_ht'];
+	}
+
+
+	if ($ligne['jours'] > 0 and $ligne['prix_total'] == FALSE) {
+		$prix = $prix * $ligne['jours'];
+	}
 
 	if (isset($ligne['reduction'])
 		and ($reduction = floatval($ligne['reduction']))>0) {

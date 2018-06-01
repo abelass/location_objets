@@ -1,12 +1,12 @@
 <paquet
 	prefix="location_objets"
 	categorie="divers"
-	version="1.0.3"
+	version="1.0.4"
 	etat="dev"
 	compatibilite="[3.0.0;3.2.*]"
 	logo="prive/themes/spip/images/location_objets-64.png"
 	documentation="https://github.com/abelass/location_objets"
-	schema="1.0.3"
+	schema="1.0.4"
 >
 
 
@@ -34,6 +34,6 @@
 	<pipeline nom="objet_compte_enfants" inclure="location_objets_pipelines.php" />
 	<pipeline nom="optimiser_base_disparus" inclure="location_objets_pipelines.php" />
 
-		<menu nom="objets_locations" titre="objets_location:titre_objets_locations" parent="menu_activite" icone="images/objets_location-16.png" action="objets_locations" />
+	<menu nom="objets_locations" titre="objets_location:titre_objets_locations" parent="menu_activite" icone="images/objets_location-16.png" action="objets_locations" />
 
 </paquet>
