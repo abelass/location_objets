@@ -1,44 +1,22 @@
 <paquet
 	prefix="location_objets"
 	categorie="divers"
-	version="1.0.2"
+	version="1.0.3"
 	etat="dev"
 	compatibilite="[3.0.0;3.2.*]"
 	logo="prive/themes/spip/images/location_objets-64.png"
 	documentation="https://github.com/abelass/location_objets"
-	schema="1.0.2"
+	schema="1.0.3"
 >
-	<!--
-		Paquet généré le 2018-05-21 15:24:39
-		(Vous pouvez bien entendu supprimer ces commentaires)
-	-->
+
 
 	<nom>Location d&#039;objets</nom>
 	<!-- Louer vos objets -->
 
-	<!-- cette balise peut être présente plusieurs fois s'il y a plusieurs auteurs -->
 	<auteur lien='https://websimple.be'>Rainer Müller</auteur>
 
 	<licence>GNU/GPL v3</licence>
 
-	<!--
-		Exemple de commandes
-		* dependances
-		<necessite nom="saisies" compatibilite="[2.4.0;]" />
-		<utilise nom="saisies" compatibilite="[2.4.0;]" />
-		<lib nom="simplehtmldom" lien="http://chemin_vers_archive.zip" />
-		* pipelines
-		<pipeline nom="autoriser" inclure="location_objets_autorisations.php" />
-		<pipeline nom="insert_head" inclure="location_objets_pipelines.php" />
-		* declarer un pipeline
-		<pipeline nom="mon_pipeline" action="" />
-		* parents de menus de SPIP :
-				menu_accueil (à éviter), menu_edition, menu_publication,
-				menu_activite, menu_squelette, menu_administration, menu_configuration
-		<menu nom="location_objets" titre="location_objets:location_objets_titre" parent="menu_edition"  icone="images/location_objets-16.png" />
-		* parents d'onglets... configuration, plugins, statistiques, ...
-		<onglet nom="location_objets" titre="location_objets:location_objets_titre" parent="configuration" icone="images/location_objets-24.png" />
-	-->
 
 	<necessite nom="saisies" compatibilite="[2.4.0;]" />
 	<necessite nom="verifier" compatibilite="[1.0.6;]" />
