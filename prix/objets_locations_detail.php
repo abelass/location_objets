@@ -1,6 +1,6 @@
 <?php
 /**
- * Fonctions de calcul des prix d'une commande et de ses détails
+ * Fonctions de calcul des prix d'une location et de ses détails
  *
  * @plugin     Location d&#039;objets
  * @copyright  2018
@@ -10,7 +10,8 @@
  */
 
 // Sécurité
-if (!defined('_ECRIRE_INC_VERSION')) return;
+if (!defined('_ECRIRE_INC_VERSION'))
+	return;
 
 /**
  * Permet d'obtenir le prix HT d'un détail d'une location.
@@ -19,28 +20,23 @@ if (!defined('_ECRIRE_INC_VERSION')) return;
  * Prix HT = quantité * prix unitaire HT
  *
  * @param int $id_commandes_detail
- *     Identifiant du détail (paramètre inutilisé)
+ *        	Identifiant du détail (paramètre inutilisé)
  * @param array $ligne
- *     Couples champs / valeurs décrivant le détail
- *     Il faut au moins $ligne['quantite'] et $ligne['prix_unitaire_ht']
- * @return float
- *     Retourne le prix HT du détail sinon 0
+ *        	Couples champs / valeurs décrivant le détail
+ *        	Il faut au moins $ligne['quantite'] et $ligne['prix_unitaire_ht']
+ * @return float Retourne le prix HT du détail sinon 0
  */
-function prix_objets_locations_detail_ht_dist($id_objets_locations_detail, $ligne){
-	// La quantité "0" ne voulant rien dire, cela signifie que ce n'est pas un produit quantifiable
-	// mais des lignes en plus comme les frais de livraison, des frais de dossier, des déductions, etc
+function prix_objets_locations_detail_ht_dist($id_objets_locations_detail, $ligne) {
 	$prix = $ligne['prix_unitaire_ht'];
 	if ($ligne['quantite'] > 0) {
 		$prix = $ligne['quantite'] * $ligne['prix_unitaire_ht'];
 	}
 
-
 	if ($ligne['jours'] > 0 and $ligne['prix_total'] == FALSE) {
 		$prix = $prix * $ligne['jours'];
 	}
 
-	if (isset($ligne['reduction'])
-		and ($reduction = floatval($ligne['reduction']))>0) {
+	if (isset($ligne['reduction']) and ($reduction = floatval($ligne['reduction'])) > 0) {
 		$reduction = min($reduction, 1.0); // on peut pas faire une reduction de plus de 100%;
 		$prix = $prix * (1.0 - $reduction);
 	}
@@ -49,19 +45,17 @@ function prix_objets_locations_detail_ht_dist($id_objets_locations_detail, $lign
 }
 
 /**
- * Permet d'obtenir le prix final TTC d'un détail d'une commande
+ * Permet d'obtenir le prix final TTC d'un détail d'une location
  *
  * Prix TTC = prix HT + (prix HT * taxe)
  *
  * @param int $id_commandes_detail
- *     Identifiant du détail
+ *        	Identifiant du détail
  * @param float $prix_ht
- *     Prix HT du détail
- * @return float
- *     Retourne le prix TTC du détail sinon 0
+ *        	Prix HT du détail
+ * @return float Retourne le prix TTC du détail sinon 0
  */
-function prix_objets_locations_detail_dist($id_objets_locations_detail, $prix_ht){
-
+function prix_objets_locations_detail_dist($id_objets_locations_detail, $prix_ht) {
 	$prix = $prix_ht;
 
 	if (!function_exists('sql_fetsel')) {
@@ -70,9 +64,9 @@ function prix_objets_locations_detail_dist($id_objets_locations_detail, $prix_ht
 	$detail = sql_fetsel(
 		'*',
 		'spip_objets_locations_details',
-		'id_objets_locations_detail = '.intval($id_objets_locations_detail));
+		'id_objets_locations_detail = ' . intval($id_objets_locations_detail));
 
-	if (($taxe = $detail['taxe']) !== null){
+	if (($taxe = $detail['taxe']) !== null) {
 		$prix = $prix + $taxe;
 	}
 
