@@ -317,11 +317,13 @@ function formulaires_editer_objets_location_traiter_dist(
 	$date_fin = _request('date_fin');
 	$_date_debut = strtotime($date_debut);
 	$_date_fin = strtotime($date_fin);
+	$nombre_jours = 0;
 
 	if ($_date_fin >= $_date_debut) {
 		$difference = $_date_fin - $_date_debut;
 		$nombre_jours = round($difference / (60 * 60 * 24)) + $fin;
 	}
+
 
 	if ($new) {
 		// Ajouter la références
@@ -340,8 +342,7 @@ function formulaires_editer_objets_location_traiter_dist(
 			'objet' => $location_objet,
 			'id_objet' => $id_location_objet,
 			'titre' => generer_info_entite($id_location_objet, $location_objet, 'titre'),
-			'quantite' => $nombre_jours,
-			'date' => $date,
+			'jours' => $nombre_jours,
 		);
 
 		$prix_objet = FALSE;
@@ -370,59 +371,63 @@ function formulaires_editer_objets_location_traiter_dist(
 				}
 		}
 
-		$table = 'spip_objets_locations_details';
+		foreach ($set as $champ => $valeur) {
+			set_request($champ, $valeur);
+		}
+		$objet_location = formulaires_editer_objet_traiter('objets_locations_detail', 'oui', $id_objets_location);
+
 		// Enregistrement de  des service extras
-		if ($id_objets_locations_detail = sql_insertq($table, $set) and
+		if (isset($objet_location['id_objets_locations_detail']) and
+			$id_objets_locations_detail = $objet_location['id_objets_locations_detail'] and
 			$objets_extras = array_filter(explode(',', _request('objets_extras')))) {
 
-
-				foreach ($objets_extras as $table_extra) {
-					$objet_extra = objet_type($table_extra);
-					$set = array();
-					if ($extras = _request('extras_' . $objet_extra) and is_array($extras)) {
-						foreach($extras as $index => $id_extra) {
-							if ($id_extra) {
-								$set = array(
-									'id_objets_locations_detail_source' => $id_objets_locations_detail,
-									'id_objets_location' => $id_objets_location,
-									'objet' => $objet_extra,
-									'id_objet' => $id_extra,
-									'titre' => generer_info_entite($id_extra, $objet_extra, 'titre'),
-									'quantite' => 1,
-									'date' => $date,
-									'prix_unitaire_ht' => 0,
-									'taxe' => 0,
-									'devise' => '-',
-								);
-								if ($prix_objet) {
-									spip_log("$objet_extra - $id_extra, $date_debut - $date_fin", 'teste');
-									$set['prix_unitaire_ht'] = prix_par_objet(
-										$objet_extra,
-										$id_extra,
-										array(
-											'date_debut' => $date_debut,
-											'date_fin' => $date_fin,
-										)
-										);
-									$prix_ttc = prix_par_objet(
-										$objet_extra,
-										$id_extra,
-										array(
-											'date_debut' => $date_debut,
-											'date_fin' => $date_fin,
-										),
-										'prix'
-										);
-									$set['taxe'] = $prix_ttc - $set['prix_unitaire_ht'];
-									$set['devise'] = devise_defaut_objet($id_extra, $objet_extra);
-								}
-								sql_insertq($table, $set);
+			foreach ($objets_extras as $table_extra) {
+				$objet_extra = objet_type($table_extra);
+				$set = array();
+				if ($extras = _request('extras_' . $objet_extra) and is_array($extras)) {
+					foreach($extras as $index => $id_extra) {
+						if ($id_extra) {
+							$set = array(
+								'id_objets_locations_detail_source' => $id_objets_locations_detail,
+								'objet' => $objet_extra,
+								'id_objet' => $id_extra,
+								'titre' => generer_info_entite($id_extra, $objet_extra, 'titre'),
+								'jours' => $nombre_jours,
+							);
+							if ($prix_objet) {
+								spip_log("$objet_extra - $id_extra, $date_debut - $date_fin", 'teste');
+								$set['prix_unitaire_ht'] = prix_par_objet(
+									$objet_extra,
+									$id_extra,
+									array(
+										'date_debut' => $date_debut,
+										'date_fin' => $date_fin,
+									)
+									);
+								$prix_ttc = prix_par_objet(
+									$objet_extra,
+									$id_extra,
+									array(
+										'date_debut' => $date_debut,
+										'date_fin' => $date_fin,
+									),
+									'prix'
+									);
+								$set['taxe'] = $prix_ttc - $set['prix_unitaire_ht'];
+								$set['devise'] = devise_defaut_objet($id_extra, $objet_extra);
 							}
+
+							foreach ($set as $champ => $valeur) {
+								set_request($champ, $valeur);
+							}
+							formulaires_editer_objet_traiter('objets_locations_detail', 'oui', $id_objets_location);
 						}
 					}
 				}
 			}
+		}
 	}
+
 
 
 	// Un lien a prendre en compte ?
