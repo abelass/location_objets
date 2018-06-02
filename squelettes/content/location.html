@@ -1,0 +1,13 @@
+<section>
+
+	<header class="cartouche">
+		[(#LOGO_IMMEUBLE|image_reduire{200,200})]
+		<h1 class="#EDIT{titre}"><:objets_location:titre_objets_location:></h1>
+	</header>
+
+	<div class="main">
+		[(#SESSION{id_auteur}|oui)
+			<INCLURE{fond=modeles/formulaire_location,env} />
+		]
+	</div>
+</section>
