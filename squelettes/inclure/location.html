@@ -1,4 +1,4 @@
-<BOUCLE_location(OBJETS_LOCATION){id_objets_location}{tout}>
+<BOUCLE_location(OBJETS_LOCATIONS){id_objets_location}{tout}>
 	[(#REM) Si on trouve une location on prend ça comme base ]
 	#SET{details, #ARRAY} #SET{total,0}
 	<BOUCLE_location_details(OBJETS_LOCATIONS_DETAILS){id_objets_location}{id_locations_detail ?}{tout}>
@@ -49,7 +49,7 @@
 					<td class="montant">[(#VALEUR{prix}|appliquer_filtre{prix_formater,[(#VALEUR{prix})]})]</td>
 					]
 					<td class="statut">
-						[(#VAL{location}|re_statut_titre{#VALEUR{statut}})]
+						#VALEUR{statut}
 					</td>
 				</tr>
 				</BOUCLE_details>

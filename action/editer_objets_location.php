@@ -118,6 +118,7 @@ function objets_location_instituer($id_objets_location, $c, $calcul_rub = true) 
 
 	$sel[] = ($champ_date ? "$champ_date as date" : "'' as date");
 	$sel[] = (isset($desc['field']['id_rubrique']) ? 'id_rubrique' : "0 as id_rubrique");
+	$sel[] = 'id_auteur';
 
 	$row = sql_fetsel($sel, $table_sql, id_table_objet($objet) . '=' . intval($id_objets_location));
 
@@ -343,11 +344,11 @@ function objets_location_instituer($id_objets_location, $c, $calcul_rub = true) 
 	}
 
 	// Envoyer les modifs.
-	objet_editer_heritage($objet, $id, $id_rubrique, $statut_ancien, $champs, $calcul_rub);
+	objet_editer_heritage($objet, $id_objets_location, $id_rubrique, $statut_ancien, $champs, $calcul_rub);
 
 	// Invalider les caches
 	include_spip('inc/invalideur');
-	suivre_invalideur("id='$objet/$id'");
+	suivre_invalideur("id='$objet/$id_objets_location'");
 
 	/*
 	if ($date) {
@@ -363,7 +364,7 @@ function objets_location_instituer($id_objets_location, $c, $calcul_rub = true) 
 		array(
 			'args' => array(
 				'table' => $table_sql,
-				'id_objet' => $id,
+				'id_objet' => $id_objets_location,
 				'action' => 'instituer',
 				'statut_ancien' => $statut_ancien,
 				'date_ancienne' => $date_ancienne,
@@ -374,13 +375,9 @@ function objets_location_instituer($id_objets_location, $c, $calcul_rub = true) 
 	);
 
 	// Notifications
-	$notifications = charger_fonction('notifications', 'inc');
-	$notifications($id, $statut, $statut_ancien, $config, $row['id_auteur'], $date, $date_ancienne);
-	if ($notifications ) {
-		$notifications("instituer$objet", $id,
-			array('statut' => $statut, 'statut_ancien' => $statut_ancien, 'date' => $date, 'date_ancienne' => $date_ancienne)
-		);
-	}
+	$notifications = charger_fonction('objets_location_notifications', 'inc');
+	$notifications($id_objets_location, $statut, $statut_ancien, $config, $row['id_auteur'], $date, $date_ancienne);
+
 
 	return ''; // pas d'erreur
 }

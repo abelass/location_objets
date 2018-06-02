@@ -28,7 +28,7 @@ if (!defined('_ECRIRE_INC_VERSION')) return;
  * @return string
  *     reference de la commande
 **/
-function inc_objet_location_notifications_dist($id_objets_location, $statut, $statut_acien, $config, $id_auteur, $date, $date_ancienne){
+function inc_objets_location_notifications_dist($id_objets_location, $statut, $statut_ancien, $config, $id_auteur, $date, $date_ancienne){
 	if ((!$statut_ancien OR
 			$statut != $statut_ancien) &&
 			(isset($config['activer'])) &&
@@ -39,7 +39,7 @@ function inc_objet_location_notifications_dist($id_objets_location, $statut, $st
 				) &&
 				(
 					$notifications = charger_fonction('notifications', 'inc', true)
-				)
+				) and
 			$email = sql_getfetsel('email', 'spip_auteurs', 'id_auteur=' . $id_auteur)
 			) {
 
@@ -49,7 +49,7 @@ function inc_objet_location_notifications_dist($id_objets_location, $statut, $st
 
 		// Determiner l'expediteur
 		$options = array(
-			'statut' => $champs['statut'],
+			'statut' => $statut,
 			'lang' => $lang
 		);
 		if ($config['expediteur'] != "facteur") {
@@ -58,10 +58,10 @@ function inc_objet_location_notifications_dist($id_objets_location, $statut, $st
 
 
 			// Envoyer au vendeur et au client
-			$notifications('reservation_vendeur', $id_objets_location, $options);
+			$notifications('objets_location_vendeur', $id_objets_location, $options);
 			if ($config['client']) {
 				$options['email'] = $email;
-				$notifications('objet_location', $id_objets_location, $options, $config);
+				$notifications('objets_location_client', $id_objets_location, $options);
 			}
 	}
 }

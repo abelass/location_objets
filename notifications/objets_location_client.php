@@ -1,8 +1,10 @@
 <?php
 if (!defined("_ECRIRE_INC_VERSION"))
 	return;
-	function notifications_objets_location_client_dist($quoi, $id_objets_location, $options, $config) {
+function notifications_objets_location_client_dist($quoi, $id_objets_location, $options) {
+	include_spip('inc/config');
 
+	$config = lire_config('location_objets');
 	$envoyer_mail = charger_fonction('envoyer_mail', 'inc');
 
 	$options['id_objets_location'] = $id_objets_location;

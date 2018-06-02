@@ -1,10 +1,14 @@
 <?php
 if (! defined("_ECRIRE_INC_VERSION"))
 	return;
-	function notifications_objets_location_vendeur_dist($quoi, $id_objets_location, $options, $config) {
+
+function notifications_objets_location_vendeur_dist($quoi, $id_objets_location, $options) {
+	include_spip('inc/config');
+
+	$config = lire_config('location_objets');
 	$envoyer_mail = charger_fonction('envoyer_mail', 'inc');
 
-	$options['id_location'] = $id_location;
+	$options['id_objets_location'] = $id_objets_location;
 	$options['qui'] = 'vendeur';
 	$dest = (
 			isset($config['vendeur_' . $config['vendeur']]) and intval($config['vendeur_' . $config['vendeur']])
@@ -36,6 +40,7 @@ if (! defined("_ECRIRE_INC_VERSION"))
 
 	$message = recuperer_fond('notifications/contenu_objets_location_mail', $options);
 
+	//spip_log($message, 'teste');
 	//
 	// Envoyer les emails
 	//
@@ -54,7 +59,7 @@ if (! defined("_ECRIRE_INC_VERSION"))
 			'sujet' => $subject,
 			'texte' => $message,
 			'html' => 'oui',
-			'id_objet' => $id_location,
+			'id_objet' => $id_objets_location,
 			'objet' => 'objets_location',
 			'envoi' => $envoi,
 			'type' => $quoi

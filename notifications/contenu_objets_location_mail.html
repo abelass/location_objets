@@ -1,12 +1,10 @@
 #HTTP_HEADER{Content-Type:text/html}
 #INCLURE{fond=emails/inc-haut}
-#SET{config,#CONFIG{reservation_evenement}}
-[(#SET{envoi_separe,#GET{config}|table_valeur{envoi_separe}})]
-[(#GET{envoi_separe}|is_array|oui)
-	[(#STATUT|in_array{#GET{envoi_separe}}|oui)#SET{statut,#STATUT}]
-]
+#SET{config,#CONFIG{location_objets}}
 
-<BOUCLE_locations(OBJETS_LOCATION){id_objets_location}{tout}>
+#ENV
+<BOUCLE_locations(OBJETS_LOCATIONS){id_objets_location}{tout}>
+#REFERENCE
 	#SET{statut,#STATUT}
 	#SET{nom_client,#NOM}
 	#SET{extras,#DONNEES_AUTEUR|unserialize}
