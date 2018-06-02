@@ -98,6 +98,8 @@ function objets_location_instituer($id_objets_location, $c, $calcul_rub = true) 
 	}
 
 	$new = _request('new');
+	$prix_objet = test_plugin_actif('prix_objets') ? TRUE : FALSE;
+
 	$location_objet = objet_type(_request('location_objet'));
 	$id_location_objet = _request('id_location_objet');
 
@@ -133,7 +135,6 @@ function objets_location_instituer($id_objets_location, $c, $calcul_rub = true) 
 	$champs = array();
 	if ($new) {
 		$editer_objet = charger_fonction('editer_objet', 'action');
-
 		// Enregistrement de l'objet de location
 		$set = array(
 			'id_objets_location' => $id_objets_location,
@@ -143,8 +144,7 @@ function objets_location_instituer($id_objets_location, $c, $calcul_rub = true) 
 			'jours' => $nombre_jours,
 		);
 
-		$prix_objet = FALSE;
-		if (test_plugin_actif('prix_objets')) {
+		if ($prix_objet) {
 			$prix_objet = TRUE;
 			if ($prix_unitaire_ht = prix_par_objet(
 				$location_objet,
@@ -223,15 +223,40 @@ function objets_location_instituer($id_objets_location, $c, $calcul_rub = true) 
 	}
 	else {
 		$details = sql_allfetsel(
-			'id_objets_locations_detail',
+			'id_objets_locations_detail,objet,id_objet',
 			'spip_objets_locations_details',
 			'id_objets_location=' .$id_objets_location);
 
 		foreach ($details as $detail) {
+			$objet = $detail['objet'];
+			$id_objet = $detail['id_objet'];
+			$set = array('jours' => $nombre_jours);
 
+			if ($prix_objet) {
+				$set['prix_unitaire_ht'] = prix_par_objet(
+						$objet,
+						$id_objet,
+						array(
+							'date_debut' => $date_debut,
+							'date_fin' => $date_fin,
+						)
+						);
+				$prix_ttc = prix_par_objet(
+						$objet,
+						$id_objet,
+						array(
+							'date_debut' => $date_debut,
+							'date_fin' => $date_fin,
+						),
+						'prix'
+						);
+				$set['prix_total'] = _request('prix_total');
+				$set['taxe'] = $prix_ttc - $set['prix_unitaire_ht'];
+				$set['devise'] = devise_defaut_objet($id_objet, $objet);
+			}
 			sql_updateq(
 				'spip_objets_locations_details',
-				array('jours' => $nombre_jours),
+				$set,
 				'id_objets_locations_detail=' . $detail['id_objets_locations_detail']);
 		}
 	}

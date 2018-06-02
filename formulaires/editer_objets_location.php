@@ -159,8 +159,9 @@ function formulaires_editer_objets_location_charger_dist(
 		$valeurs['_location_extras_objets'] = $config['location_extras_objets'];
 		$objets_extras = $valeurs['_location_extras_objets'];
 	}
-
-	$valeurs['_hidden'] .= '<input type="hidden" name="objets_extras" value="' . implode(',',$objets_extras) . '"/>';
+	if($objets_extras) {
+		$valeurs['_hidden'] .= '<input type="hidden" name="objets_extras" value="' . implode(',',$objets_extras) . '"/>';
+	}
 
 	if (!empty($valeurs['location_objet'] and !empty($valeurs['id_location_objet']))) {
 		$valeurs['_hidden'] .= '<input type="hidden" name="location_objet" value="' . $valeurs['location_objet'] . '"/>';
