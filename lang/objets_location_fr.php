@@ -50,4 +50,10 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'titre_objets_location' => 'Location',
 	'titre_objets_locations' => 'Locations',
 	'titre_objets_locations_rubrique' => 'Locations de la rubrique',
+	'texte_statut_accepte' => 'Accepté',
+	'texte_statut_attente' => 'En attente de validation',
+	'texte_statut_encours' => 'En cours',
+	'texte_statut_erreur' => 'Erreur',
+	'texte_statut_partiel' => 'Partiellement payée',
+	'texte_statut_paye' => 'Payée',
 );

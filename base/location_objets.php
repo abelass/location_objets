@@ -85,17 +85,28 @@ function location_objets_declarer_tables_objets_sql($tables) {
 			'spip_objets_locations_liens'
 		),
 		'statut_textes_instituer' => array(
-			'prepa' => 'texte_statut_en_cours_redaction',
-			'prop' => 'texte_statut_propose_evaluation',
-			'publie' => 'texte_statut_publie',
-			'refuse' => 'texte_statut_refuse',
-			'poubelle' => 'texte_statut_poubelle'
+			'encours' => 'objets_location:texte_statut_encours',
+			'attente' => 'objets_location:texte_statut_attente',
+			'partiel' => 'objets_location:texte_statut_partiel',
+			'accepte' => 'objets_location:texte_statut_accepte',
+			'paye' => 'objets_location:texte_statut_paye',
+			'erreur' => 'objets_location:texte_statut_erreur',
+			'poubelle' => 'texte_statut_poubelle',
+		),
+		'statut_images' => array(
+			'encours' => 'puce-location-encours.png',
+			'attente' => 'puce-location-attente.png',
+			'partiel' => 'puce-location-partiel.png',
+			'paye' => 'puce-location-paye.png',
+			'accepte' => 'puce-location-accepte.png',
+			'erreur' => 'puce-location-erreur.png',
+			'poubelle' => 'puce-location-poubelle.png',
 		),
 		'statut' => array(
 			array(
 				'champ' => 'statut',
-				'publie' => 'publie',
-				'previsu' => 'publie,prop,prepa',
+				'publie' => 'encours,attente,partiel,paye,accepte',
+				'previsu' => 'encours,attente,partiel,paye,accepte',
 				'post_date' => 'date',
 				'exception' => array(
 					'statut',
@@ -176,17 +187,28 @@ function location_objets_declarer_tables_objets_sql($tables) {
 			'spip_objets_locations_details_liens'
 		),
 		'statut_textes_instituer' => array(
-			'prepa' => 'texte_statut_en_cours_redaction',
-			'prop' => 'texte_statut_propose_evaluation',
-			'publie' => 'texte_statut_publie',
-			'refuse' => 'texte_statut_refuse',
-			'poubelle' => 'texte_statut_poubelle'
+			'encours' => 'objets_location:texte_statut_encours',
+			'attente' => 'objets_location:texte_statut_attente',
+			'partiel' => 'objets_location:texte_statut_partiel',
+			'accepte' => 'objets_location:texte_statut_accepte',
+			'paye' => 'objets_location:texte_statut_paye',
+			'erreur' => 'objets_location:texte_statut_erreur',
+			'poubelle' => 'texte_statut_poubelle',
+		),
+		'statut_images' => array(
+			'encours' => 'puce-location-encours.png',
+			'attente' => 'puce-location-attente.png',
+			'partiel' => 'puce-location-partiel.png',
+			'paye' => 'puce-location-paye.png',
+			'accepte' => 'puce-location-accepte.png',
+			'erreur' => 'puce-location-erreur.png',
+			'poubelle' => 'puce-location-poubelle.png',
 		),
 		'statut' => array(
 			array(
 				'champ' => 'statut',
-				'publie' => 'publie',
-				'previsu' => 'publie,prop,prepa',
+				'publie' => 'encours,attente,partiel,paye,accepte',
+				'previsu' => 'encours,attente,partiel,paye,accepte',
 				'post_date' => 'date',
 				'exception' => array(
 					'statut',
