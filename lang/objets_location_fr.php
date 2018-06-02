@@ -21,6 +21,9 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'champ_type_label' => 'Type',
 	'confirmer_supprimer_objets_location' => 'Confirmez-vous la suppression de cette location ?',
 
+	// E
+	'erreur_access_formulaire' => 'Formulaire inaccesible pour des raisons techniques!',
+
 	// I
 	'icone_creer_objets_location' => 'Créer une location',
 	'icone_modifier_objets_location' => 'Modifier cette location',
