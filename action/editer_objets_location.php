@@ -88,11 +88,14 @@ function objets_location_instituer($id_objets_location, $c, $calcul_rub = true) 
 	include_spip('inc/autoriser');
 	include_spip('inc/rubriques');
 	include_spip('inc/modifier');
+	include_spip('inc/config');
 
+	$config = lire_config('location_objets');
 	$objet = 'objets_location';
 	$table_sql = 'spip_objets_locations';
 	$trouver_table = charger_fonction('trouver_table', 'base');
 	$desc = $trouver_table($table_sql);
+
 	if (!$desc or !isset($desc['field'])) {
 		return _L("Impossible d'instituer $objet : non connu en base");
 	}
@@ -319,7 +322,7 @@ function objets_location_instituer($id_objets_location, $c, $calcul_rub = true) 
 		}
 	}*/
 
-	spip_log($champs, 'teste');
+
 	// Envoyer aux plugins
 	$champs = pipeline('pre_edition',
 		array(
@@ -371,7 +374,9 @@ function objets_location_instituer($id_objets_location, $c, $calcul_rub = true) 
 	);
 
 	// Notifications
-	if ($notifications = charger_fonction('notifications', 'inc')) {
+	$notifications = charger_fonction('notifications', 'inc');
+	$notifications($id, $statut, $statut_ancien, $config, $row, $date, $date_ancienne);
+	if ($notifications ) {
 		$notifications("instituer$objet", $id,
 			array('statut' => $statut, 'statut_ancien' => $statut_ancien, 'date' => $date, 'date_ancienne' => $date_ancienne)
 		);

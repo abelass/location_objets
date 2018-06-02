@@ -54,6 +54,7 @@ function location_objets_declarer_tables_objets_sql($tables) {
 			'reference' => 'varchar(255) NOT NULL DEFAULT ""',
 			'date' => 'datetime NOT NULL DEFAULT "0000-00-00 00:00:00"',
 			'statut' => 'varchar(20)  DEFAULT "0" NOT NULL',
+			'lang' => 'VARCHAR(10) NOT NULL DEFAULT ""',
 			'maj' => 'TIMESTAMP'
 		),
 		'key' => array(
@@ -69,6 +70,7 @@ function location_objets_declarer_tables_objets_sql($tables) {
 			'jour_debut',
 			'jour_fin',
 			'reference',
+			'lang',
 			'horaire'
 		),
 		'champs_versionnes' => array(
