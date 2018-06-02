@@ -37,6 +37,13 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'retirer_tous_liens_objets_locations_locations' => 'Retirer toutes les locations',
 
 	// S
+	'sujet_une_location_accepte' => 'Location confirmé sur @nom@',
+	'sujet_une_location_partiel' => 'Location partiellement confirmé sur @nom@',
+	'sujet_une_location_paye' => 'Location confirmé sur @nom@',
+	'sujet_votre_location_accepte' => '@nom@ : confirmation de votre location',
+	'sujet_votre_location_partiel' => '@nom@ : confirmation partielle de votre location',
+	'sujet_votre_location_paye' => '@nom@ : confirmation de votre location',
+	'sujet_votre_objets_location_sur' => '@nom@ : votre location',
 	'supprimer_objets_location' => 'Supprimer cette location',
 
 	// T

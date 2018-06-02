@@ -375,7 +375,7 @@ function objets_location_instituer($id_objets_location, $c, $calcul_rub = true) 
 
 	// Notifications
 	$notifications = charger_fonction('notifications', 'inc');
-	$notifications($id, $statut, $statut_ancien, $config, $row, $date, $date_ancienne);
+	$notifications($id, $statut, $statut_ancien, $config, $row['id_auteur'], $date, $date_ancienne);
 	if ($notifications ) {
 		$notifications("instituer$objet", $id,
 			array('statut' => $statut, 'statut_ancien' => $statut_ancien, 'date' => $date, 'date_ancienne' => $date_ancienne)

@@ -1,0 +1,53 @@
+#HTTP_HEADER{Content-Type:text/html}
+#INCLURE{fond=emails/inc-haut}
+#SET{config,#CONFIG{reservation_evenement}}
+[(#SET{envoi_separe,#GET{config}|table_valeur{envoi_separe}})]
+[(#GET{envoi_separe}|is_array|oui)
+	[(#STATUT|in_array{#GET{envoi_separe}}|oui)#SET{statut,#STATUT}]
+]
+
+<BOUCLE_locations(OBJETS_LOCATION){id_objets_location}{tout}>
+	#SET{statut,#STATUT}
+	#SET{nom_client,#NOM}
+	#SET{extras,#DONNEES_AUTEUR|unserialize}
+	#SET{email,#EMAIL}
+	#SET{extras,#VAL|champs_extras_reservation}
+	#SET{date,#DATE}
+	<BOUCLE_contact(AUTEURS){id_auteur=#ID_AUTEUR}{si #ID_AUTEUR|!={0}|oui}{tout}>
+		#SET{nom_client,#NOM}
+		#SET{valeurs_extras,#ARRAY}
+		#SET{email,#EMAIL}
+
+	[(#ENV{qui}|=={client}|oui)
+		<p><:reservation:bonjour:> #NOM</p>
+		<p><:reservation:merci_de_votre_reservation:></p>
+		]
+	[(#ENV{qui}|=={client}|non)
+		<p><:reservation:une_reservation_de:> #NOM</p>
+	]
+
+		<h3><:reservation:recapitulatif:></h3>
+
+		<p><:reservation:reservation_numero:>#REFERENCE</p>
+		<p><:reservation:reservation_date:>#GET{date}</p>
+		<p><:reservation:label_email:> #EMAIL</p>
+
+	</BOUCLE_contact>
+
+	<p><:reservation:details_reservation:></p>
+	<INCLURE{fond=inclure/location,id_objets_location,env,statut=#GET{statut}}/>
+
+	[(#ENV{qui}|=={client}|oui)
+		<p><:reservation:remerciement:></p>
+	]
+
+<p>#NOM_SITE_SPIP</p>
+
+<hr />
+<p><a href="#URL_SITE_SPIP">#URL_SITE_SPIP</a></p>
+</BOUCLE_locations>
+[(#ENV{format_envoi}|=={plain}|oui)
+	#FILTRE{supprimer_tags|filtrer_entites|trim}]
+[(#ENV{format_envoi}|=={plain}|non)
+	#FILTRE{filtrer_entites|trim}]
+#INCLURE{fond=emails/inc-bas}

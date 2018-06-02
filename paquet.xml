@@ -36,4 +36,6 @@
 
 	<menu nom="objets_locations" titre="objets_location:titre_objets_locations" parent="menu_activite" icone="images/objets_location-16.png" action="objets_locations" />
 
+	<chemin path="squelettes" />
+	<chemin path="" />
 </paquet>
