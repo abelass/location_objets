@@ -16,6 +16,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'champ_id_location_objet_label' => 'L\'objet loué',
 	'champ_jour_debut_label' => 'Jour debut',
 	'champ_jour_fin_label' => 'Jour fin',
+	'champ_lang_label' => 'Langue',
 	'champ_location_objet_label' => 'Type d\'objet à louer',
 	'champ_reference_label' => 'Référence',
 	'champ_type_label' => 'Type',
