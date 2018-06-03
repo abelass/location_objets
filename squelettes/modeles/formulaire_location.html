@@ -1,3 +1,15 @@
+[(#SESSION{id_auteur}|non)
+	<div class="login">
+		#SET{url,#URL_PAGE{login}|parametre_url{url,#SELF}}
+		[(#SET{titre_login,<:lien_connecter:>})]
+		<strong class="explication"><:objets_location:explication_login{url=#GET{url},titre_login=#GET{titre_login}}:></strong>
+	</div>
+	[
+		(#FORMULAIRE_INSCRIPTION{6forum})
+	]
+]
+
+[(#SESSION{id_auteur}|oui)
 <div class="ajax">
 	[(#FORMULAIRE_EDITER_OBJETS_LOCATION{
 		#ENV{id_objets_location},
@@ -10,3 +22,4 @@
 		}
 	})]
 </div>
+]

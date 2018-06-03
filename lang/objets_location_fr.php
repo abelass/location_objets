@@ -24,6 +24,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 
 	// E
 	'erreur_access_formulaire' => 'Formulaire inaccesible pour des raisons techniques!',
+	'explication_login' => '<a rel="nofollow" class="login_modal" href="@url@" title="@titre_login@">Connectez-vous</a> si vous êtes déjà enregistré sur ce site',
 
 	// I
 	'icone_creer_objets_location' => 'Créer une location',
