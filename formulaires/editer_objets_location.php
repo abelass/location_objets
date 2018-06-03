@@ -112,6 +112,19 @@ function formulaires_editer_objets_location_charger_dist(
 		$hidden = '') {
 	include_spip('inc/config');
 	include_spip('inc/autoriser');
+
+	if (!is_numeric($id_objets_location) or $id_objets_location == 0) {
+		$new = 'oui';
+		$valeurs['new'] = $new;
+		$valeurs['_hidden'] .= '<input type="hidden" name="new" value="' . $new . '"/>';
+	}
+	elseif (!autoriser('modifier', 'objetslocation', $id_objets_location)) {
+		return array(
+			'editable' => FALSE,
+			'message_erreur' => _T('objets_location:erreur_access_formulaire')
+		);
+	}
+
 	$id_auteur = session_get('id_auteur');
 
 	$espace_prive = test_espace_prive();
@@ -128,23 +141,13 @@ function formulaires_editer_objets_location_charger_dist(
 			$row,
 			$hidden);
 
+
 	$valeurs['nombre_langues'] = count(liste_options_langues('changer_lang'));
 	if (empty($VALEURS['lang'])) {
 		$VALEURS['lang'] = $lang = $GLOBALS['meta']['langue_site'];
 	}
 	$valeurs['_hidden'] .= '<input type="hidden" name="lang" value="' . $lang . '"/>';
 
-	if (!is_numeric($id_objets_location) or $id_objets_location == 0) {
-		$new = 'oui';
-		$valeurs['new'] = $new;
-		$valeurs['_hidden'] .= '<input type="hidden" name="new" value="' . $new . '"/>';
-	}
-	elseif (!autoriser('modifier', 'objetslocation', $id_objets_location)) {
-		return array(
-			'editable' => FALSE,
-			'message_erreur' => _T('objets_location:erreur_access_formulaire')
-		);
-	}
 
 	if ($location_objet and $id_location_objet) {
 		$valeurs['location_objet'] =  objet_type($location_objet);
