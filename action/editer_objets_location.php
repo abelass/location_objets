@@ -135,57 +135,8 @@ function objets_location_instituer($id_objets_location, $c, $calcul_rub = true) 
 		$difference = $_date_fin - $_date_debut;
 		$nombre_jours = round($difference / (60 * 60 * 24)) + $fin;
 	}
-
-	$champs = array('date_debut' => _request('date_debut'), 'date_fin' => _request('date_fin'));
-
-
-
-	$d = ($date and isset($c[$champ_date])) ? $c[$champ_date] : null;
-	$s = (isset($desc['field']['statut']) and isset($c['statut'])) ? $c['statut'] : $statut;
-
-	// cf autorisations dans inc/instituer_objet
-	if ($s != $statut or ($d and $d != $date)) {
-		if (autoriser('instituer', $objet, $id_objets_location, null, array('statut' => $s))
-		) {
-			$statut = $champs['statut'] = $s;
-		} else {
-			if ($s != 'publie' and autoriser('modifier', $objet, $id_objets_location)) {
-				$statut = $champs['statut'] = $s;
-			} else {
-				spip_log("editer_objet $id_objets_location refus " . join(' ', $c));
-			}
-		}
-	}
-
-	// Envoyer aux plugins
-	$champs = pipeline('pre_edition',
-		array(
-			'args' => array(
-				'table' => $table_sql,
-				'id_objet' => $id_objets_location,
-				'action' => 'instituer',
-				'statut_ancien' => $statut_ancien,
-				'date_ancienne' => $date_ancienne,
-				'id_parent_ancien' => $id_rubrique,
-			),
-			'data' => $champs
-		)
-	);
-
-	if (!count($champs)) {
-		return '';
-	}
-
-	// Envoyer les modifs.
-	objet_editer_heritage($objet, $id_objets_location, $id_rubrique, $statut_ancien, $champs, $calcul_rub);
-
-	// Invalider les caches
-	include_spip('inc/invalideur');
-	suivre_invalideur("id='$objet/$id_objets_location'");
-
-
+	$editer_objet = charger_fonction('editer_objet', 'action');
 	if ($new) {
-		$editer_objet = charger_fonction('editer_objet', 'action');
 		// Enregistrement de l'objet de location
 		$set = array(
 			'id_objets_location' => $id_objets_location,
@@ -227,51 +178,50 @@ function objets_location_instituer($id_objets_location, $c, $calcul_rub = true) 
 		if (isset($objet_location[0]) and
 				$id_objets_locations_detail = $objet_location[0] and
 				$objets_extras = array_filter(explode(',', _request('objets_extras')))) {
-
-					foreach ($objets_extras as $table_extra) {
-						$objet_extra = objet_type($table_extra);
-						$set = array();
-						if ($extras = _request('extras_' . $objet_extra) and is_array($extras)) {
-							foreach($extras as $index => $id_extra) {
-								if ($id_extra) {
-									$set = array(
-										'id_objets_location' => $id_objets_location,
-										'id_objets_locations_detail_source' => $id_objets_locations_detail,
-										'objet' => $objet_extra,
-										'id_objet' => $id_extra,
-										'titre' => generer_info_entite($id_extra, $objet_extra, 'titre'),
-										'jours' => $nombre_jours,
-									);
-									if ($prix_objet) {
-										$set['prix_unitaire_ht'] = prix_par_objet(
-												$objet_extra,
-												$id_extra,
-												array(
-													'date_debut' => $date_debut,
-													'date_fin' => $date_fin,
-												)
-												);
-										$prix_ttc = prix_par_objet(
-												$objet_extra,
-												$id_extra,
-												array(
-													'date_debut' => $date_debut,
-													'date_fin' => $date_fin,
-												),
-												'prix'
-												);
-										$set['prix_total'] = _request('prix_total');
-										$set['taxe'] = $prix_ttc - $set['prix_unitaire_ht'];
-										$set['devise'] = devise_defaut_objet($id_extra, $objet_extra);
-									}
-									$editer_objet('oui', 'objets_locations_detail', $set);
-								}
+			foreach ($objets_extras as $table_extra) {
+				$objet_extra = objet_type($table_extra);
+				$set = array();
+				if ($extras = _request('extras_' . $objet_extra) and is_array($extras)) {
+					foreach($extras as $index => $id_extra) {
+						if ($id_extra) {
+							$set = array(
+								'id_objets_location' => $id_objets_location,
+								'id_objets_locations_detail_source' => $id_objets_locations_detail,
+								'objet' => $objet_extra,
+								'id_objet' => $id_extra,
+								'titre' => generer_info_entite($id_extra, $objet_extra, 'titre'),
+								'jours' => $nombre_jours,
+							);
+							if ($prix_objet) {
+								$set['prix_unitaire_ht'] = prix_par_objet(
+										$objet_extra,
+										$id_extra,
+										array(
+											'date_debut' => $date_debut,
+											'date_fin' => $date_fin,
+										)
+										);
+								$prix_ttc = prix_par_objet(
+										$objet_extra,
+										$id_extra,
+										array(
+											'date_debut' => $date_debut,
+											'date_fin' => $date_fin,
+										),
+										'prix'
+										);
+								$set['prix_total'] = _request('prix_total');
+								$set['taxe'] = $prix_ttc - $set['prix_unitaire_ht'];
+								$set['devise'] = devise_defaut_objet($id_extra, $objet_extra);
 							}
+							$editer_objet('oui', 'objets_locations_detail', $set);
 						}
 					}
 				}
+			}
+		}
 	}
-	else {
+	elseif ($date_debut and $date_fin) {
 		$details = sql_allfetsel(
 				'id_objets_locations_detail,objet,id_objet',
 				'spip_objets_locations_details',
@@ -280,11 +230,8 @@ function objets_location_instituer($id_objets_location, $c, $calcul_rub = true) 
 		foreach ($details as $detail) {
 			$objet = $detail['objet'];
 			$id_objet = $detail['id_objet'];
-			$set = array(
-				'jours' => $nombre_jours,
-				'statut' => $statut,
-			);
-
+			$set = array();
+			$set['jours'] = $nombre_jours;
 			if ($prix_objet) {
 				$set['prix_unitaire_ht'] = prix_par_objet(
 						$objet,
@@ -307,13 +254,57 @@ function objets_location_instituer($id_objets_location, $c, $calcul_rub = true) 
 				$set['taxe'] = $prix_ttc - $set['prix_unitaire_ht'];
 				$set['devise'] = devise_defaut_objet($id_objet, $objet);
 			}
-
-			sql_updateq(
-					'spip_objets_locations_details',
-					$set,
-					'id_objets_locations_detail=' . $detail['id_objets_locations_detail']);
+			$editer_objet($detail['id_objets_locations_detail'], 'objets_locations_detail', $set);
 		}
 	}
+
+	$champs = array();
+
+	$d = ($date and isset($c[$champ_date])) ? $c[$champ_date] : null;
+	$s = (isset($desc['field']['statut']) and isset($c['statut'])) ? $c['statut'] : $statut;
+
+	// cf autorisations dans inc/instituer_objet
+	if ($s != $statut or ($d and $d != $date)) {
+		if (autoriser('instituer', 'objetslocations', $id_objets_location, null, array('statut' => $s))
+		) {
+			$statut = $champs['statut'] = $s;
+		} else {
+			if ($s != 'publie' and autoriser('modifier', 'objetslocations', $id_objets_location)) {
+				$statut = $champs['statut'] = $s;
+			} else {
+				spip_log("editer_objet $id_objets_location refus " . join(' ', $c));
+			}
+		}
+	}
+	//$statut = $champs['statut'] = $s;
+	// Envoyer aux plugins
+	$champs = pipeline('pre_edition',
+		array(
+			'args' => array(
+				'table' => $table_sql,
+				'id_objet' => $id_objets_location,
+				'action' => 'instituer',
+				'statut_ancien' => $statut_ancien,
+				'date_ancienne' => $date_ancienne,
+				'id_parent_ancien' => $id_rubrique,
+			),
+			'data' => $champs
+		)
+	);
+
+	if (!count($champs)) {
+		return '';
+	}
+
+	// Envoyer les modifs.
+	objet_editer_heritage($objet, $id_objets_location, $id_rubrique, $statut_ancien, $champs, $calcul_rub);
+
+	// Invalider les caches
+	include_spip('inc/invalideur');
+	suivre_invalideur("id='$objet/$id_objets_location'");
+
+
+
 
 
 	// Notifications

@@ -85,6 +85,9 @@ function autoriser_objetslocation_voir_dist($faire, $type, $id, $qui, $opt) {
 function autoriser_objetslocation_modifier_dist($faire, $type, $id, $qui, $opt) {
 	$autoriser = FALSE;
 
+	if (!$id = intval($id)) {
+		$autoriser = TRUE;
+	}
 	if (in_array($qui['statut'], array('0minirezo', '1comite'))) {
 		$autoriser = TRUE;
 	}

@@ -141,15 +141,13 @@ function formulaires_editer_objets_location_charger_dist(
 			$hidden);
 
 	$valeurs['new'] = $new;
+
 	$valeurs['_hidden'] .= '<input type="hidden" name="new" value="' . $new . '"/>';
-
-
 	$valeurs['nombre_langues'] = count(liste_options_langues('changer_lang'));
 	if (empty($VALEURS['lang'])) {
 		$VALEURS['lang'] = $lang = $GLOBALS['meta']['langue_site'];
 	}
 	$valeurs['_hidden'] .= '<input type="hidden" name="lang" value="' . $lang . '"/>';
-
 
 	if ($location_objet and $id_location_objet) {
 		$valeurs['location_objet'] =  objet_type($location_objet);

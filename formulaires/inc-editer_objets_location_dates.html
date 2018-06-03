@@ -4,8 +4,8 @@
 	id_objet=#ENV{id_location_objet},
 	decalage_debut=#ENV{disponibilite_decalage_debut},
 	decalage_fin=#ENV{disponibilite_decalage_fin,1},
-	date_limite_debut=#ENV{date_limite_debut},
-	date_limite_fin=#ENV{date_limite_fin},
+	date_limite_debut=#ENV{date_limite_debut,#DATE},
+	date_limite_fin=#ENV{date_limite_fin,#DATE},
 	utilisation_squelette=disponibilites/utilisees_objet_location
 })]
 
@@ -15,8 +15,8 @@
 	id_objet=#ENV{id_location_objet},
 	decalage_debut=#ENV{disponibilite_decalage_debut},
 	decalage_fin=#ENV{disponibilite_decalage_fin,1},
-	date_limite_debut=#ENV{date_debut},
-	date_limite_fin=#ENV{date_limite_fin},
+	date_limite_debut=#ENV{date_debut,#DATE},
+	date_limite_fin=#ENV{date_limite_fin,#DATE},
 	defaut=#ENV{date_debut},
 	utilisation_squelette=disponibilites/utilisees_objet_location
 })]
