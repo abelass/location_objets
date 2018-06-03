@@ -1,6 +1,6 @@
 <BOUCLE_location(OBJETS_LOCATIONS){id_objets_location}{tout}>
 	[(#REM) Si on trouve une location on prend ça comme base ]
-	#SET{details, #ARRAY} #SET{total,0}
+	#SET{details, #ARRAY} #SET{total,#PRIX*}
 	<BOUCLE_location_details(OBJETS_LOCATIONS_DETAILS){id_objets_location}{id_locations_detail ?}{tout}>
 		#SET{details, #GET{details}|push{
 			#ARRAY{
@@ -11,7 +11,7 @@
 				}
 			}
 		}
-		[(#SET{total,[(#GET{total}|plus{#PRIX*})]})]
+
 	</BOUCLE_location_details>
 	#SET{location,#ARRAY{
 		details, #GET**{details}
@@ -35,10 +35,10 @@
 		<table class="location" cellspacing="0">
 			<thead>
 				<tr>
-					<th class="description"><:objet_location:designation:></th>
+					<th class="description"><:objets_location:texte_designation:></th>
 					[(#GET{total}|floatval|>{0.00}|oui)
-					<th class="montant"><:objet_location:montant:></th>]
-					<th class="statut"><:objet_location:label_statut:></th>
+					<th class="montant"><:objet_location:texte_montant:></th>]
+					<th class="statut"><:objet_location:texte_statut:></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -57,8 +57,8 @@
 			[(#GET{total}|floatval|>{0.00}|oui)
 			<tfoot>
 				<tr class="total_ttc">
-					<td class="descriptif">[(#PLUGIN{prix}|?{<:prix:label_total_ttc:>,<:objet_location:total:>})]</td>
-					<td class="montant">[(#GET{total}|appliquer_filtre{prix_formater,#GET{total}})]</td>
+					<td class="descriptif"><:prix:label_total_ttc:></td>
+					<td class="montant">[(#GET{total}|appliquer_filtre{prix_formater})]</td>
 					<td></td>
 				</tr>
 			</tfoot>

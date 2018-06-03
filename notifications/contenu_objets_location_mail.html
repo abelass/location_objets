@@ -2,9 +2,7 @@
 #INCLURE{fond=emails/inc-haut}
 #SET{config,#CONFIG{location_objets}}
 
-#ENV
 <BOUCLE_locations(OBJETS_LOCATIONS){id_objets_location}{tout}>
-#REFERENCE
 	#SET{statut,#STATUT}
 	#SET{nom_client,#NOM}
 	#SET{extras,#DONNEES_AUTEUR|unserialize}
@@ -17,26 +15,26 @@
 		#SET{email,#EMAIL}
 
 	[(#ENV{qui}|=={client}|oui)
-		<p><:reservation:bonjour:> #NOM</p>
-		<p><:reservation:merci_de_votre_reservation:></p>
-		]
+		<p><:public:bonjour:> #NOM</p>
+		<p><:objets_location:texte_merci_de_votre_location:></p>
+	]
 	[(#ENV{qui}|=={client}|non)
-		<p><:reservation:une_reservation_de:> #NOM</p>
+		<p><:objets_location:texte_une_location_de:> #NOM</p>
 	]
 
-		<h3><:reservation:recapitulatif:></h3>
+		<h3><:objets_location:texte_recapitulatif:></h3>
 
-		<p><:reservation:reservation_numero:>#REFERENCE</p>
-		<p><:reservation:reservation_date:>#GET{date}</p>
-		<p><:reservation:label_email:> #EMAIL</p>
+		<p><:objets_location:champ_reference_label:> #REFERENCE</p>
+		<p><:date:> : #GET{date}</p>
+		<p><:ecrire:entree_adresse_email_2:> : #EMAIL</p>
 
 	</BOUCLE_contact>
 
-	<p><:reservation:details_reservation:></p>
+	<p><:objets_location:texte_details_location:></p>
 	<INCLURE{fond=inclure/location,id_objets_location,env,statut=#GET{statut}}/>
 
 	[(#ENV{qui}|=={client}|oui)
-		<p><:reservation:remerciement:></p>
+		<p><:objets_location:texte_remerciement:></p>
 	]
 
 <p>#NOM_SITE_SPIP</p>
