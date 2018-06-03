@@ -8,19 +8,18 @@
 	date_limite_fin=#ENV{date_limite_fin},
 	utilisation_squelette=disponibilites/utilisees_objet_location
 })]
-[(#ENV{date_debut}|oui)
-	[(#SAISIE{dates_disponibles, date_fin,
-		label=<:dates_outils:champ_date_fin_label:>,
-		objet=[(#ENV{location_objet}|objet_type)],
-		id_objet=#ENV{id_location_objet},
-		decalage_debut=#ENV{disponibilite_decalage_debut},
-		decalage_fin=#ENV{disponibilite_decalage_fin,1},
-		date_limite_debut=#ENV{date_debut},
-		date_limite_fin=#ENV{date_limite_fin},
-		defaut=#ENV{date_debut},
-		utilisation_squelette=disponibilites/utilisees_objet_location
-	})]
-]
+
+[(#SAISIE{dates_disponibles, date_fin,
+	label=<:dates_outils:champ_date_fin_label:>,
+	objet=[(#ENV{location_objet}|objet_type)],
+	id_objet=#ENV{id_location_objet},
+	decalage_debut=#ENV{disponibilite_decalage_debut},
+	decalage_fin=#ENV{disponibilite_decalage_fin,1},
+	date_limite_debut=#ENV{date_debut},
+	date_limite_fin=#ENV{date_limite_fin},
+	defaut=#ENV{date_debut},
+	utilisation_squelette=disponibilites/utilisees_objet_location
+})]
 
 <script type="text/javascript">
 	$(function() {
@@ -29,7 +28,6 @@
 			ajaxReload('objets_location_dates', {
 				args : {
 					date_debut : date_debut
-
 				}
 			});
 		});
