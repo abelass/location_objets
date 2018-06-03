@@ -144,8 +144,6 @@ function formulaires_editer_objets_location_charger_dist(
 		$valeurs['message_erreur'] = _T('objets_location:erreur_access_formulaire');
 	}
 
-
-
 	if ($location_objet and $id_location_objet) {
 		$valeurs['location_objet'] =  objet_type($location_objet);
 		$valeurs['id_location_objet'] = $id_location_objet;
@@ -155,9 +153,8 @@ function formulaires_editer_objets_location_charger_dist(
 		'spip_objets_locations_details',
 		'id_objets_locations_detail_source=0 AND id_objets_location=' . $id_objets_location) and
 		$espace_prive) {
-		$valeurs['objet'] = $objet['objet'];
-		$location_objet = table_objet_sql($objet['objet']);
-		$id_location_objet = $objet['id_objet'];
+			$valeurs['location_objet'] = $location_objet = table_objet_sql($objet['objet']);
+			$valeurs['id_location_objet'] = $id_location_objet = $objet['id_objet'];
 	}
 	elseif(!$espace_prive) {
 		$valeurs['editable'] = FALSE;
