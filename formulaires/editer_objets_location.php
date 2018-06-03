@@ -140,8 +140,10 @@ function formulaires_editer_objets_location_charger_dist(
 		$valeurs['_hidden'] .= '<input type="hidden" name="new" value="' . $new . '"/>';
 	}
 	elseif (!autoriser('modifier', 'objetslocation', $id_objets_location)) {
-		$valeurs['editable'] = FALSE;
-		$valeurs['message_erreur'] = _T('objets_location:erreur_access_formulaire');
+		return array(
+			'editable' => FALSE,
+			'message_erreur' => _T('objets_location:erreur_access_formulaire')
+		);
 	}
 
 	if ($location_objet and $id_location_objet) {
