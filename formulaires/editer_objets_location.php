@@ -111,6 +111,9 @@ function formulaires_editer_objets_location_charger_dist(
 		$row = array(),
 		$hidden = '') {
 	include_spip('inc/config');
+	include_spip('inc/autoriser');
+	$id_auteur = session_get('id_auteur');
+
 	$espace_prive = test_espace_prive();
 	$config = lire_config('location_objets');
 
@@ -135,7 +138,10 @@ function formulaires_editer_objets_location_charger_dist(
 		$new = 'oui';
 		$valeurs['new'] = $new;
 		$valeurs['_hidden'] .= '<input type="hidden" name="new" value="' . $new . '"/>';
-
+	}
+	elseif (!autoriser('modifier', 'objetslocation', $id_objets_location)) {
+		$valeurs['editable'] = FALSE;
+		$valeurs['message_erreur'] = _T('objets_location:erreur_access_formulaire');
 	}
 
 
@@ -194,7 +200,7 @@ function formulaires_editer_objets_location_charger_dist(
 		$valeurs['_hidden'] .= '<input type="hidden" name="espace_prive" value="1"/>';
 	}
 	else {
-		$valeurs['id_auteur'] = session_get('id_auteur');
+		$valeurs['id_auteur'] = $id_auteur;
 		$valeurs['_hidden'] .= '<input type="hidden" name="id_auteur" value="' . $valeurs['id_auteur'] . '"/>';
 	}
 

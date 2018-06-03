@@ -83,7 +83,19 @@ function autoriser_objetslocation_voir_dist($faire, $type, $id, $qui, $opt) {
  * @return bool          true s'il a le droit, false sinon
 **/
 function autoriser_objetslocation_modifier_dist($faire, $type, $id, $qui, $opt) {
-	return in_array($qui['statut'], array('0minirezo', '1comite'));
+
+	$autoriser = FALSE;
+	if (in_array($qui['statut'], array('0minirezo', '1comite'))) {
+		$autoriser = TRUE;
+	}
+	elseif (sql_getfetsel(
+					'id_objets_location',
+					'spip_objets_locations',
+					'id_objets_location=' .$id . ' AND id_auteur=' . $qui['id_auteur'])) {
+		$autoriser = TRUE;
+	}
+
+	return $autoriser;
 }
 
 /**
