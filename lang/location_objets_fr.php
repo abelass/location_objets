@@ -8,8 +8,9 @@ if (!defined('_ECRIRE_INC_VERSION')) {
 $GLOBALS[$GLOBALS['idx_lang']] = array(
 
 	// C
-	'champ_location_extras_objets' => 'Activer les objets à utiliser comme service extra :',
+	'champ_location_extras_objets_label' => 'Activer les objets à utiliser comme service extra :',
 	'cfg_titre_parametrages' => 'Paramètres',
+	'cfg_titre_formulaire' => 'Formulaire',
 
 	// L
 	'label_client' => 'Client :',

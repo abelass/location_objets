@@ -68,6 +68,23 @@ function formulaires_configurer_location_objets_saisies_dist() {
 				//$poubelle_duree,
 			)
 		),
+		array (
+			'saisie' => 'fieldset',
+			'options' => array(
+				'nom' => 'formulaire',
+				'label' => _T('location_objets:cfg_titre_formulaire'),
+			),
+			'saisies' => array(
+				array(
+					'saisie' => 'choisir_objets',
+					'options' => array(
+						'nom' => 'location_extras_objets',
+						'label' => _T('location_objets:champ_location_extras_objets_label'),
+						'defaut' => $config['location_extras_objets'],
+					),
+				),
+			),
+		),
 		array(
 			'saisie' => 'fieldset',
 			'options' => array(

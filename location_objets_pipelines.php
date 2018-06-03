@@ -29,6 +29,7 @@ if (!defined('_ECRIRE_INC_VERSION')) {
  * @return array       Données du pipeline
 **/
 function location_objets_affiche_enfants($flux) {
+
 	if ($e = trouver_objet_exec($flux['args']['exec']) and $e['edition'] == false) {
 		$id_objet = $flux['args']['id_objet'];
 
@@ -40,7 +41,6 @@ function location_objets_affiche_enfants($flux) {
 					'id_objets_location' => $id_objet
 				)
 			);
-
 			if (autoriser('creerobjetslocationsdetaildans', 'objets_locations', $id_objet)) {
 				include_spip('inc/presentation');
 				$flux['data'] .= icone_verticale(
@@ -53,6 +53,8 @@ function location_objets_affiche_enfants($flux) {
 			}
 		}
 	}
+
+
 	return $flux;
 }
 

@@ -7,7 +7,6 @@
 	#SET{nom_client,#NOM}
 	#SET{extras,#DONNEES_AUTEUR|unserialize}
 	#SET{email,#EMAIL}
-	#SET{extras,#VAL|champs_extras_reservation}
 	#SET{date,#DATE}
 	<BOUCLE_contact(AUTEURS){id_auteur=#ID_AUTEUR}{si #ID_AUTEUR|!={0}|oui}{tout}>
 		#SET{nom_client,#NOM}

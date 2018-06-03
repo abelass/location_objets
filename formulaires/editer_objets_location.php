@@ -115,7 +115,6 @@ function formulaires_editer_objets_location_charger_dist(
 
 	if (!is_numeric($id_objets_location) or $id_objets_location == 0) {
 		$new = 'oui';
-		$valeurs['new'] = $new;
 		$valeurs['_hidden'] .= '<input type="hidden" name="new" value="' . $new . '"/>';
 	}
 	elseif (!autoriser('modifier', 'objetslocation', $id_objets_location)) {
@@ -140,6 +139,9 @@ function formulaires_editer_objets_location_charger_dist(
 			$config_fonc,
 			$row,
 			$hidden);
+
+	$valeurs['new'] = $new;
+	$valeurs['_hidden'] .= '<input type="hidden" name="new" value="' . $new . '"/>';
 
 
 	$valeurs['nombre_langues'] = count(liste_options_langues('changer_lang'));
@@ -181,6 +183,7 @@ function formulaires_editer_objets_location_charger_dist(
 				$valeurs['_location_extras_objets'] = array($objets_extras);
 			}
 		}
+
 		$objets_extras = $valeurs['_location_extras_objets'];
 		unset($valeurs['location_extras_objets']);
 	}
