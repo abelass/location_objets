@@ -1,31 +1,31 @@
 <BOUCLE_objets_location(OBJETS_LOCATIONS){id_objets_location}{statut?}>
 [<div class="champ contenu_type[ (#TYPE*|strlen|?{'',vide})]">
-	<label><:objets_location:champ_type_label:> : </label>
+	<label><:objets_location:champ_type_label:> </label>
 	<span dir="#LANG_DIR" class="#EDIT{type} type">(#TYPE)</span>
 </div>]
 
 [<div class="champ contenu_date_debut[ (#DATE_DEBUT*|!={0000-00-00 00:00:00}|?{'',vide})]">
-	<label><:dates_outils:champ_date_debut_label:> : </label>
+	<label><:dates_outils:champ_date_debut_label:> </label>
 	<span dir="#LANG_DIR" class="#EDIT{date_debut} date_debut">(#DATE_DEBUT|=={0000-00-00 00:00:00}|?{'',[(#DATE_DEBUT|affdate)]})</span>
 </div>]
 
 [<div class="champ contenu_date_fin[ (#DATE_FIN*|!={0000-00-00 00:00:00}|?{'',vide})]">
-	<label><:dates_outils:champ_date_fin_label:> : </label>
+	<label><:dates_outils:champ_date_fin_label:> </label>
 	<span dir="#LANG_DIR" class="#EDIT{date_fin} date_fin">(#DATE_FIN|=={0000-00-00 00:00:00}|?{'',[(#DATE_FIN|affdate)]})</span>
 </div>]
 
 [<div class="champ contenu_jour_debut[ (#JOUR_DEBUT*|strlen|?{'',vide})]">
-	<label><:objets_location:champ_jour_debut_label:> : </label>
+	<label><:objets_location:champ_jour_debut_label:> </label>
 	<span dir="#LANG_DIR" class="#EDIT{jour_debut} jour_debut">(#JOUR_DEBUT)</span>
 </div>]
 
 [<div class="champ contenu_jour_fin[ (#JOUR_FIN*|strlen|?{'',vide})]">
-	<label><:objets_location:champ_jour_fin_label:> : </label>
+	<label><:objets_location:champ_jour_fin_label:> </label>
 	<span dir="#LANG_DIR" class="#EDIT{jour_fin} jour_fin">(#JOUR_FIN)</span>
 </div>]
 
 [<div class="champ contenu_reference[ (#REFERENCE*|strlen|?{'',vide})]">
-	<label><:objets_location:champ_reference_label:> : </label>
+	<label><:objets_location:champ_reference_label:> </label>
 	<span dir="#LANG_DIR" class="#EDIT{reference} reference">(#REFERENCE)</span>
 </div>]
 
