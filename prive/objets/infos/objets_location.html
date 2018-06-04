@@ -1,6 +1,6 @@
 <BOUCLE_objets_location(OBJETS_LOCATIONS){id_objets_location=#ENV{id}}{statut?}>
 <div class="infos">
-[(#SET{texte_objet,<:objets_location:titre_objets_location:>})]
+[(#SET{texte_objet,<:ecrire:info_titre:>})]
 <div class="numero"><:titre_cadre_numero_objet{objet=#GET{texte_objet}}:><p>#ID_OBJETS_LOCATION</p></div>
 
 [(#FORMULAIRE_INSTITUER_OBJET{objets_location,#ID_OBJETS_LOCATION})]
