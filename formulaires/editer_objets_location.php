@@ -143,6 +143,7 @@ function formulaires_editer_objets_location_charger_dist(
 	$valeurs['new'] = $new;
 
 	$valeurs['_hidden'] .= '<input type="hidden" name="new" value="' . $new . '"/>';
+
 	$valeurs['nombre_langues'] = count(liste_options_langues('changer_lang'));
 	if (empty($VALEURS['lang'])) {
 		$VALEURS['lang'] = $lang = $GLOBALS['meta']['langue_site'];

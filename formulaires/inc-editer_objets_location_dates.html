@@ -6,7 +6,8 @@
 	decalage_fin=#ENV{disponibilite_decalage_fin,1},
 	date_limite_debut=#ENV{date_limite_debut,#DATE},
 	date_limite_fin=#ENV{date_limite_fin,#DATE},
-	utilisation_squelette=disponibilites/utilisees_objet_location
+	utilisation_squelette=disponibilites/utilisees_objet_location,
+	utilisation_id_exclu=#ENV{id_objets_location}
 })]
 
 [(#SAISIE{dates_disponibles, date_fin,
@@ -18,7 +19,8 @@
 	date_limite_debut=#ENV{date_debut,#DATE},
 	date_limite_fin=#ENV{date_limite_fin,#DATE},
 	defaut=#ENV{date_debut},
-	utilisation_squelette=disponibilites/utilisees_objet_location
+	utilisation_squelette=disponibilites/utilisees_objet_location,
+	utilisation_id_exclu=#ENV{id_objets_location}
 })]
 
 <script type="text/javascript">
