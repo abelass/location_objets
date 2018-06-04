@@ -66,7 +66,7 @@ la variable `options` du formulaire en utilisant `location_extras_objets`, par e
 # Examples
 
 le plugin [location_immeubles](https://github.com/abelass/location_immeubles), propose
-une locsation pour des immeubles/espaces
+une location pour des immeubles/espaces
 
 
 
