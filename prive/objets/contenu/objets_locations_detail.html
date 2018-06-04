@@ -1,42 +1,49 @@
 <BOUCLE_objets_locations_detail(OBJETS_LOCATIONS_DETAILS){id_objets_locations_detail}{statut?}>
 
-[<div class="champ contenu_objet[ (#OBJET*|strlen|?{'',vide})]">
-	<label><:objets_locations_detail:champ_objet_label:></label>
-	<span dir="#LANG_DIR" class="#EDIT{objet} objet">(#OBJET)</span>
-</div>]
-
-[<div class="champ contenu_id_objet[ (#ID_OBJET*|strlen|?{'',vide})]">
-	<label><:objets_locations_detail:champ_id_objet_label:></label>
-	<span dir="#LANG_DIR" class="#EDIT{id_objet} id_objet">(#ID_OBJET)</span>
-</div>]
+<div class="champ contenu_objet[ (#OBJET*|strlen|?{'',vide})]">
+	<label><:objets_locations_detail:champ_objet_label:> </label>
+	<span dir="#LANG_DIR" class="#EDIT{objet, id_} objet">
+		<a href="[(#OBJET|generer_url_ecrire{id_#OBJET=#ID_OBJET})]">#INFO_TITRE{#OBJET,#ID_OBJET}</a>
+	</span>
+</div>
 
 [<div class="champ contenu_titre[ (#TITRE*|strlen|?{'',vide})]">
-	<label><:objets_locations_detail:champ_titre_label:></label>
+	<label><:objets_locations_detail:champ_titre_label:> </label>
 	<span dir="#LANG_DIR" class="#EDIT{titre} titre">(#TITRE)</span>
 </div>]
 
 [<div class="champ contenu_quantite[ (#QUANTITE*|strlen|?{'',vide})]">
-	<label><:objets_locations_detail:champ_quantite_label:></label>
-	<span dir="#LANG_DIR" class="#EDIT{quantite} quantite">(#QUANTITE)</span>
+	<label><:objets_locations_detail:champ_quantite_label:> </label>
+	<span dir="#LANG_DIR" class="quantite">(#QUANTITE)</span>
 </div>]
 
-[<div class="champ contenu_prix_ht[ (#PRIX_HT*|strlen|?{'',vide})]">
-	<label><:objets_locations_detail:champ_prix_ht_label:></label>
-	<span dir="#LANG_DIR" class="#EDIT{prix_ht} prix_ht">(#PRIX_HT)</span>
+[<div class="champ contenu_jours[ (#JOURS*|strlen|?{'',vide})]">
+	<label><:ecrire:jours:> : </label>
+	<span dir="#LANG_DIR" class="jours">(#JOURS)</span>
+</div>]
+
+[<div class="champ contenu_prix_unitaire_ht[ (#PRIX_UNITAIRE_HT*|strlen|?{'',vide})]">
+	<label><:objets_locations_detail:champ_prix_unitaire_ht_label:> </label>
+	<span dir="#LANG_DIR" class="prix_unitaire_ht">(#PRIX_UNITAIRE_HT)</span>
+</div>]
+
+[<div class="champ contenu_prix[ (#PRIX*|strlen|?{'',vide})]">
+	<label><:objets_locations_detail:champ_prix_label:> </label>
+	<span dir="#LANG_DIR" class="prix">(#PRIX)</span>
 </div>]
 
 [<div class="champ contenu_taxe[ (#TAXE*|strlen|?{'',vide})]">
-	<label><:objets_locations_detail:champ_taxe_label:></label>
+	<label><:objets_locations_detail:champ_taxe_label:> </label>
 	<span dir="#LANG_DIR" class="#EDIT{taxe} taxe">(#TAXE)</span>
 </div>]
 
 [<div class="champ contenu_devise[ (#DEVISE*|strlen|?{'',vide})]">
-	<label><:objets_locations_detail:champ_devise_label:></label>
+	<label><:objets_locations_detail:champ_devise_label:> </label>
 	<span dir="#LANG_DIR" class="#EDIT{devise} devise">(#DEVISE)</span>
 </div>]
 
 [<div class="champ contenu_reduction[ (#REDUCTION*|strlen|?{'',vide})]">
-	<label><:objets_locations_detail:champ_reduction_label:></label>
+	<label><:objets_locations_detail:champ_reduction_label:> </label>
 	<span dir="#LANG_DIR" class="#EDIT{reduction} reduction">(#REDUCTION)</span>
 </div>]
 </BOUCLE_objets_locations_detail>
