@@ -1,6 +1,6 @@
 #SET{dates,#ARRAY}
 <BOUCLE_disponibilite_dates(OBJETS_LOCATIONS objets_locations_details)
-	{id_objets_location!=32}
+	{id_objets_location!=#ENV{utilisation_id_exclu}}
 	{objet}
 	{id_objet}>
 	[(#DATE_DEBUT|!={#DATE_FIN}|?{
