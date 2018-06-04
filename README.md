@@ -1,4 +1,4 @@
-# location_objets
+# Location d'objets
 
 Gère la location d'objets
 
