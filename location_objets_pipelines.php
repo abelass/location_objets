@@ -152,12 +152,11 @@ function location_objets_objet_compte_enfants($flux) {
 	return $flux;
 }
 
-
 /**
  * Optimiser la base de données
  *
  * Supprime les liens orphelins de l'objet vers quelqu'un et de quelqu'un vers l'objet.
- * Supprime les objets à la poubelle.
+ * Supprime les objets à la poubelle et encours.
  *
  * @pipeline optimiser_base_disparus
  * @param  array $flux Données du pipeline
@@ -175,12 +174,12 @@ function location_objets_optimiser_base_disparus($flux) {
 	return $flux;
 }
 
-
-/*
- * Définitions des notifications pour https://github.com/abelass/notifications_archive
+/**
+ * Définitions des notifications pour https://plugins.spip.net/notifications_archive.html
  *
  * @pipeline notifications_archive
- *
+ * @param  array $flux Données du pipeline
+ * @return array       Données du pipeline
  */
 function location_objets_notifications_archive($flux) {
 	$flux = array_merge($flux, array(
@@ -194,4 +193,3 @@ function location_objets_notifications_archive($flux) {
 	));
 	return $flux;
 }
-

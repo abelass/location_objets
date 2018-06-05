@@ -1,11 +1,14 @@
 <BOUCLE_location(OBJETS_LOCATIONS){id_objets_location}{tout}>
 	[(#REM) Si on trouve une location on prend ça comme base ]
 	#SET{details, #ARRAY} #SET{total,#PRIX*}
-	<BOUCLE_location_details(OBJETS_LOCATIONS_DETAILS){id_objets_location}{id_locations_detail ?}{tout}>
+	<BOUCLE_location_details(OBJETS_LOCATIONS_DETAILS){id_objets_location}{par id_objets_locations_detail}{tout}>
+	#SET{jours,''}
+	[(#JOURS|>{1}|>{0}|oui)#SET{jours, #JOURS|concat{' '}|concat{#VAL{ecrire:jours}|_T}|concat{'  : '}}]
 		#SET{details, #GET{details}|push{
 			#ARRAY{
-				descriptif,#JOURS|>{1}|?{#QUANTITE&times;}|concat{#TITRE},
-				quantite, #JOURS,
+				descriptif,#GET{jours}|concat{#TITRE},
+				jours, #JOURS,
+				quantite,#QUANTITE,
 				prix, #PRIX*,
 				statut,#STATUT
 				}
@@ -37,8 +40,8 @@
 				<tr>
 					<th class="description"><:objets_location:texte_designation:></th>
 					[(#GET{total}|floatval|>{0.00}|oui)
-					<th class="montant"><:objet_location:texte_montant:></th>]
-					<th class="statut"><:objet_location:texte_statut:></th>
+					<th class="montant"><:objets_location:texte_montant:></th>]
+					<th class="statut"><:objets_location:texte_statut:></th>
 				</tr>
 			</thead>
 			<tbody>

@@ -12,12 +12,13 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'ajouter_lien_objets_location' => 'Ajouter cette location',
 
 	// C
-	'champ_date_location_label' => 'Date location :',
+	'champ_date_location_label' => 'Date de la location :',
 	'champ_id_location_objet_label' => 'L\'objet loué : ',
 	'champ_jour_debut_label' => 'Jour debut :',
 	'champ_jour_fin_label' => 'Jour fin :',
 	'champ_lang_label' => 'Langue :',
 	'champ_location_objet_label' => 'Type d\'objet à louer :',
+	'champ_periode_label' => 'Période :',
 	'champ_reference_label' => 'Référence :',
 	'champ_type_label' => 'Type :',
 	'confirmer_supprimer_objets_location' => 'Confirmez-vous la suppression de cette location ?',
@@ -42,6 +43,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'retirer_tous_liens_objets_locations_locations' => 'Retirer toutes les locations',
 
 	// S
+	'sujet_une_location_sur' => 'Une location sur @nom@',
 	'sujet_une_location_accepte' => 'Location confirmé sur @nom@',
 	'sujet_une_location_partiel' => 'Location partiellement confirmé sur @nom@',
 	'sujet_une_location_paye' => 'Location confirmé sur @nom@',

@@ -24,7 +24,8 @@
 		<h3><:objets_location:texte_recapitulatif:></h3>
 
 		<p><:objets_location:champ_reference_label:> #REFERENCE</p>
-		<p><:date:> : #GET{date}</p>
+		<p><:objets_location:champ_date_location_label:> #GET{date}</p>
+		<p><:objets_location:champ_periode_label:> [(#DATE_DEBUT|dates_affdate_debut_fin{#DATE_FIN,#HORRAIRE,complet})]</p>
 		<p><:ecrire:entree_adresse_email_2:> : #EMAIL</p>
 
 	</BOUCLE_contact>

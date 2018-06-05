@@ -23,7 +23,7 @@ function notifications_objets_location_vendeur_dist($quoi, $id_objets_location, 
 		$email[] = $data['email'];
 	}
 
-	$subject = _T('location:une_location_sur', array(
+	$subject = _T('objets_location:sujet_une_location_sur', array(
 		'nom' => $GLOBALS['meta']['nom_site']
 	));
 
@@ -40,7 +40,6 @@ function notifications_objets_location_vendeur_dist($quoi, $id_objets_location, 
 
 	$message = recuperer_fond('notifications/contenu_objets_location_mail', $options);
 
-	//spip_log($message, 'teste');
 	//
 	// Envoyer les emails
 	//
