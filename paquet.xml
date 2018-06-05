@@ -35,6 +35,7 @@
 	<pipeline nom="boite_infos" inclure="location_objets_pipelines.php" />
 	<pipeline nom="objet_compte_enfants" inclure="location_objets_pipelines.php" />
 	<pipeline nom="optimiser_base_disparus" inclure="location_objets_pipelines.php" />
+	<pipeline nom="notifications_archive" inclure="location_objets_pipelines.php" />
 
 	<menu nom="objets_locations" titre="ecrire:info_titres" parent="menu_activite" icone="images/objets_location-16.png" action="objets_locations" />
 

@@ -157,8 +157,6 @@ function location_objets_objet_compte_enfants($flux) {
  * Optimiser la base de données
  *
  * Supprime les liens orphelins de l'objet vers quelqu'un et de quelqu'un vers l'objet.
- * Supprime les liens orphelins de l'objet vers quelqu'un et de quelqu'un vers l'objet.
- * Supprime les objets à la poubelle.
  * Supprime les objets à la poubelle.
  *
  * @pipeline optimiser_base_disparus
@@ -170,9 +168,30 @@ function location_objets_optimiser_base_disparus($flux) {
 	include_spip('action/editer_liens');
 	$flux['data'] += objet_optimiser_liens(array('objets_location'=>'*', 'objets_locations_detail'=>'*'), '*');
 
-	sql_delete('spip_objets_locations', "statut='poubelle' AND maj < " . $flux['args']['date']);
+	sql_delete('spip_objets_locations', "statut IN ('poubelle','encours') AND maj < " . $flux['args']['date']);
 
-	sql_delete('spip_objets_locations_details', "statut='poubelle' AND maj < " . $flux['args']['date']);
+	sql_delete('spip_objets_locations_details', "statut IN ('poubelle','encours') AND maj < " . $flux['args']['date']);
 
 	return $flux;
 }
+
+
+/*
+ * Définitions des notifications pour https://github.com/abelass/notifications_archive
+ *
+ * @pipeline notifications_archive
+ *
+ */
+function location_objets_notifications_archive($flux) {
+	$flux = array_merge($flux, array(
+		'location_client' => array(
+			'activer' => 'on',
+			'duree' => '180'
+		),
+		'location_vendeur' => array(
+			'duree' => '180'
+		)
+	));
+	return $flux;
+}
+
