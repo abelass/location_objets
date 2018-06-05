@@ -3,7 +3,7 @@
 	#SET{details, #ARRAY} #SET{total,#PRIX*}
 	<BOUCLE_location_details(OBJETS_LOCATIONS_DETAILS){id_objets_location}{par id_objets_locations_detail}{tout}>
 	#SET{jours,''}
-	[(#JOURS|>{1}|>{0}|oui)#SET{jours, #JOURS|concat{' '}|concat{#VAL{ecrire:jours}|_T}|concat{'  : '}}]
+	[(#JOURS|>{1}|oui)#SET{jours, #JOURS|concat{' '}|concat{#VAL{ecrire:jours}|_T}|concat{'  : '}}]
 		#SET{details, #GET{details}|push{
 			#ARRAY{
 				descriptif,#GET{jours}|concat{#TITRE},
