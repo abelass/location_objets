@@ -184,11 +184,11 @@ function location_objets_optimiser_base_disparus($flux) {
  */
 function location_objets_notifications_archive($flux) {
 	$flux = array_merge($flux, array(
-		'location_client' => array(
+		'objets_location_client' => array(
 			'activer' => 'on',
 			'duree' => '180'
 		),
-		'location_vendeur' => array(
+		'objets_location_vendeur' => array(
 			'duree' => '180'
 		)
 	));

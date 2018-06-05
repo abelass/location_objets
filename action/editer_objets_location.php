@@ -303,10 +303,6 @@ function objets_location_instituer($id_objets_location, $c, $calcul_rub = true) 
 	include_spip('inc/invalideur');
 	suivre_invalideur("id='$objet/$id_objets_location'");
 
-
-
-
-
 	// Notifications
 	$notifications = charger_fonction('objets_location_notifications', 'inc');
 	$notifications($id_objets_location, $statut, $statut_ancien, $config, $row['id_auteur'], $date, $date_ancienne);
