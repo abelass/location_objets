@@ -20,7 +20,6 @@ if (!defined('_ECRIRE_INC_VERSION')) {
  * sur des pipelines existants.
  */
 
-
 /**
  * Ajouter les objets sur les vues des parents directs
  *
@@ -58,7 +57,6 @@ function location_objets_affiche_enfants($flux) {
 	return $flux;
 }
 
-
 /**
  * Ajout de contenu sur certaines pages,
  * notamment des formulaires de liaisons entre objets
@@ -92,7 +90,6 @@ function location_objets_affiche_milieu($flux) {
 
 	return $flux;
 }
-
 
 /**
  * Ajout de liste sur la vue d'un auteur
@@ -130,7 +127,6 @@ function location_objets_boite_infos($flux) {
 	}
 	return $flux;
 }
-
 
 /**
  * Compter les enfants d'un objet
