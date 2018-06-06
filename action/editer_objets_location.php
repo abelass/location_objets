@@ -1,19 +1,12 @@
 <?php
-
-/***************************************************************************\
- *  SPIP, Systeme de publication pour l'internet                           *
- *                                                                         *
- *  Copyright (c) 2001-2017                                                *
- *  Arnaud Martin, Antoine Pitrou, Philippe Riviere, Emmanuel Saint-James  *
- *                                                                         *
- *  Ce programme est un logiciel libre distribue sous licence GNU/GPL.     *
- *  Pour plus de details voir le fichier COPYING.txt ou l'aide en ligne.   *
-\***************************************************************************/
-
 /**
- * Gestion générique de modification des objets éditoriaux
+ * Gestion de modification des objets locations
  *
- * @package SPIP\Core\Edition
+ * @plugin     Location d&#039;objets
+ * @copyright  2018
+ * @author     Rainer Müller
+ * @licence    GNU/GPL v3
+ * @package    SPIP\Location_objets\Actions
  */
 
 if (!defined('_ECRIRE_INC_VERSION')) {
@@ -136,7 +129,11 @@ function objets_location_instituer($id_objets_location, $c, $calcul_rub = true) 
 		$nombre_jours = round($difference / (60 * 60 * 24)) + $fin;
 	}
 	$editer_objet = charger_fonction('editer_objet', 'action');
+
+	// Crátion d'une location.
 	if ($new) {
+		$statut_defaut = $c['statut'] = isset($config['statut_defaut'])? $config['statut_defaut'] : 'attente';
+		set_request('statut', $statut_defaut);
 		// Enregistrement de l'objet de location
 		$set = array(
 			'id_objets_location' => $id_objets_location,
@@ -144,6 +141,7 @@ function objets_location_instituer($id_objets_location, $c, $calcul_rub = true) 
 			'id_objet' => $id_location_objet,
 			'titre' => generer_info_entite($id_location_objet, $location_objet, 'titre'),
 			'jours' => $nombre_jours,
+			'statut' => $statut_defaut,
 		);
 
 		if ($prix_objet) {
@@ -174,7 +172,7 @@ function objets_location_instituer($id_objets_location, $c, $calcul_rub = true) 
 
 		$objet_location = $editer_objet('oui', 'objets_locations_detail', $set);
 
-		// Enregistrement de  des service extras
+		// Enregistrement de des service extras
 		if (isset($objet_location[0]) and
 				$id_objets_locations_detail = $objet_location[0] and
 				$objets_extras = array_filter(explode(',', _request('objets_extras')))) {
@@ -191,6 +189,7 @@ function objets_location_instituer($id_objets_location, $c, $calcul_rub = true) 
 								'id_objet' => $id_extra,
 								'titre' => generer_info_entite($id_extra, $objet_extra, 'titre'),
 								'jours' => $nombre_jours,
+								'statut' => $statut_defaut,
 							);
 							if ($prix_objet) {
 								$set['prix_unitaire_ht'] = prix_par_objet(
@@ -221,19 +220,24 @@ function objets_location_instituer($id_objets_location, $c, $calcul_rub = true) 
 			}
 		}
 	}
-	elseif ($date_debut and $date_fin) {
+	/* Modifier  les détails*/
+	else {
 		$details = sql_allfetsel(
-				'id_objets_locations_detail,objet,id_objet',
-				'spip_objets_locations_details',
-				'id_objets_location=' .$id_objets_location);
+			'id_objets_locations_detail,objet,id_objet',
+			'spip_objets_locations_details',
+			'id_objets_location=' .$id_objets_location);
 
-		foreach ($details as $detail) {
-			$objet = $detail['objet'];
-			$id_objet = $detail['id_objet'];
-			$set = array();
-			$set['jours'] = $nombre_jours;
-			if ($prix_objet) {
-				$set['prix_unitaire_ht'] = prix_par_objet(
+		// Modification des donnés d'une location depuis le formulaire
+		if ($date_debut and $date_fin) {
+			foreach ($details as $detail) {
+				$objet = $detail['objet'];
+				$id_objet = $detail['id_objet'];
+				$set = array(
+					'jours' => $nombre_jours,
+				);
+
+				if ($prix_objet) {
+					$set['prix_unitaire_ht'] = prix_par_objet(
 						$objet,
 						$id_objet,
 						array(
@@ -241,7 +245,7 @@ function objets_location_instituer($id_objets_location, $c, $calcul_rub = true) 
 							'date_fin' => $date_fin,
 						)
 						);
-				$prix_ttc = prix_par_objet(
+					$prix_ttc = prix_par_objet(
 						$objet,
 						$id_objet,
 						array(
@@ -250,13 +254,15 @@ function objets_location_instituer($id_objets_location, $c, $calcul_rub = true) 
 						),
 						'prix'
 						);
-				$set['prix_total'] = _request('prix_total');
-				$set['taxe'] = $prix_ttc - $set['prix_unitaire_ht'];
-				$set['devise'] = devise_defaut_objet($id_objet, $objet);
+					$set['prix_total'] = _request('prix_total');
+					$set['taxe'] = $prix_ttc - $set['prix_unitaire_ht'];
+					$set['devise'] = devise_defaut_objet($id_objet, $objet);
+				}
+				$editer_objet($detail['id_objets_locations_detail'], 'objets_locations_detail', $set);
 			}
-			$editer_objet($detail['id_objets_locations_detail'], 'objets_locations_detail', $set);
 		}
 	}
+
 
 	$champs = array();
 
@@ -298,6 +304,15 @@ function objets_location_instituer($id_objets_location, $c, $calcul_rub = true) 
 
 	// Envoyer les modifs.
 	objet_editer_heritage($objet, $id_objets_location, $id_rubrique, $statut_ancien, $champs, $calcul_rub);
+
+	// Changement de statut pour les détails.
+	if($details) {
+		foreach ($details as $detail) {
+			$objet = $detail['objet'];
+			$id_objet = $detail['id_objet'];
+			$editer_objet($detail['id_objets_locations_detail'], 'objets_locations_detail', array('statut' => $statut));
+		}
+	}
 
 	// Invalider les caches
 	include_spip('inc/invalideur');
