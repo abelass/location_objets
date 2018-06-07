@@ -1,4 +1,4 @@
-[(#SAISIE{dates_disponibles, date_debut,
+[(#SAISIE{dates_disponibles, date_debut,	obligatoire=oui,
 	label=<:dates_outils:champ_date_debut_label:>,
 	objet=[(#ENV{location_objet}|objet_type)],
 	id_objet=#ENV{id_location_objet},
@@ -10,7 +10,7 @@
 	utilisation_id_exclu=#ENV{id_objets_location}
 })]
 
-[(#SAISIE{dates_disponibles, date_fin,
+[(#SAISIE{dates_disponibles, date_fin,obligatoire=oui,
 	label=<:dates_outils:champ_date_fin_label:>,
 	objet=[(#ENV{location_objet}|objet_type)],
 	id_objet=#ENV{id_location_objet},

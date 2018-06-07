@@ -258,6 +258,10 @@ function formulaires_editer_objets_location_verifier_dist(
 		$config_fonc = '',
 		$row = array(),
 		$hidden = '') {
+	$date_debut = _request('date_debut');
+	$date_fin = _request('date_fin');
+	$horaire = _request('horaire');
+
 	$erreurs = array();
 
 	$verifier = charger_fonction('verifier', 'inc');
@@ -275,16 +279,54 @@ function formulaires_editer_objets_location_verifier_dist(
 		}
 	}*/
 
+
 	$erreurs += formulaires_editer_objet_verifier(
 		'objets_location',
 		$id_objets_location,
 		array(
 			'id_auteur',
 			'location_objet',
-			'id_location_objet'
+			'id_location_objet',
+			'date_debut',
+			'date_fin',
 		)
 	);
 
+	if (strtotime($date_debut) > strtotime($date_fin)) {
+		$erreurs['date_fin'] = _T('objets_location:erreur_date_fin_anterieur_date_debut');
+	}
+	else {
+		$format = 'd-m-Y';
+		if ($horaire) {
+			$format = 'd-m-Y H:i:s';
+		}
+			$intervalle = dates_intervalle($date_debut, $date_fin, 1, 0, $horaire, $format) ;
+		$disponible = dates_disponibles(
+				array(
+					'objet' => _request('location_objet'),
+					'id_objet' => _request('id_location_objet'),
+					'debut' => 1,
+					'fin' => 0,
+					'date_limite_debut' => $date_debut,
+					'date_limite_fin' => $date_fin,
+					'utilisation_squelette' => 'disponibilites/utilisees_objet_location',
+					'utilisation_id_exclu' => $id_objets_location,
+				)
+			);
+				$difference = array_diff($intervalle, $disponible);
+		print_r($intervalle);
+		print '<br><br>';
+		print_r($id_objets_location);
+		print '<br><br>';
+		print_r($difference);
+		print '<br><br>';
+
+
+		if (count($difference) > 0) {
+			$erreurs['date_fin'] = _T('objets_location:erreur_jours_indisponible', array('jours' => implode(', ', $difference)));
+		}
+	}
+	$erreurs['nimporte'] = 1;
 	return $erreurs;
 }
 
@@ -347,6 +389,7 @@ function formulaires_editer_objets_location_traiter_dist(
 			$row,
 			$hidden);
 
+	// Le messaage de confirmation pour le formulaire public
 	if (isset($retours['message_ok']) and !_request('espace_prive')) {
 		$message = '<div class="intro"><p>' . _T('objets_location:texte_merci_de_votre_location') . '</p></div>';
 		$message .= '<div class="detail_reservation">';
