@@ -123,10 +123,7 @@ function formulaires_editer_objets_location_charger_dist(
 			'message_erreur' => _T('objets_location:erreur_access_formulaire')
 		);
 	}
-
 	$id_auteur = session_get('id_auteur');
-
-	$espace_prive = test_espace_prive();
 	$config = lire_config('location_objets');
 
 
@@ -139,7 +136,10 @@ function formulaires_editer_objets_location_charger_dist(
 			$config_fonc,
 			$row,
 			$hidden);
-
+	$valeurs['espace_prive'] = '';
+	if($espace_prive = test_espace_prive()) {
+		$valeurs['_hidden'] .= '<input type="hidden" name="espace_prive" value="' . $espace_prive . '"/>';
+	}
 	$valeurs['new'] = $new;
 
 	$valeurs['_hidden'] .= '<input type="hidden" name="new" value="' . $new . '"/>';
@@ -347,6 +347,16 @@ function formulaires_editer_objets_location_traiter_dist(
 			$row,
 			$hidden);
 
+	if (isset($retours['message_ok']) and !_request('espace_prive')) {
+		$message = '<div class="intro"><p>' . _T('objets_location:texte_merci_de_votre_location') . '</p></div>';
+		$message .= '<div class="detail_reservation">';
+		$message .= '<h3>' . _T('objets_location:texte_details_location') . '</h3>';
+		$message .= recuperer_fond('inclure/location', array(
+			'id_objets_location' => $retours['id_objets_location']
+		));
+		$message .= '</div>';
+		$retours['message_ok'] = $message;
+	}
 	// Un lien a prendre en compte ?
 	if ($associer_objet and $id_objets_location = $retours['id_objets_location']) {
 		list($objet, $id_objet) = explode('|', $associer_objet);

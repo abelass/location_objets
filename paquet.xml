@@ -1,7 +1,7 @@
 <paquet
 	prefix="location_objets"
 	categorie="divers"
-	version="1.0.8"
+	version="1.0.9"
 	etat="test"
 	compatibilite="[3.0.0;3.2.*]"
 	logo="prive/themes/spip/images/location_objets-64.png"
@@ -20,7 +20,7 @@
 
 	<necessite nom="saisies" compatibilite="[2.4.0;]" />
 	<necessite nom="verifier" compatibilite="[1.0.6;]" />
-	<necessite nom="prix_objets_periodes" compatibilite="[1.0.0;]" />
+	<necessite nom="prix_objets" compatibilite="[2.1.4;]" />
 	<necessite nom="objets_disponibilites" compatibilite="[1.0.0;]" />
 	<necessite nom="facteur" compatibilite="[3.5.2;]" />
 	<necessite nom="dates_outils" compatibilite="[1.0.2;]" />

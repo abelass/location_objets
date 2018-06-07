@@ -1,5 +1,7 @@
 <div class='formulaire_spip formulaire_editer formulaire_#FORM formulaire_#FORM-#ENV{id_objets_location,nouveau}'>
-	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV**{message_ok})</p>]
+#SET{balise_message,p}
+[(#ENV{space_prive}|non)#SET{balise_message,div}]
+	[<[(#GET{balise_message}) ]class="reponse_formulaire reponse_formulaire_ok">(#ENV**{message_ok})</[(#GET{balise_message})]>]
 	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
 
 	[(#ENV{editable})
