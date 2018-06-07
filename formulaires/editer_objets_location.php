@@ -300,33 +300,30 @@ function formulaires_editer_objets_location_verifier_dist(
 		if ($horaire) {
 			$format = 'd-m-Y H:i:s';
 		}
-			$intervalle = dates_intervalle($date_debut, $date_fin, 1, 0, $horaire, $format) ;
-		$disponible = dates_disponibles(
+
+
+			$intervalle = dates_intervalle($date_debut, $date_fin, 1, -1, $horaire, $format) ;
+
+			$disponible = dates_disponibles(
 				array(
 					'objet' => _request('location_objet'),
 					'id_objet' => _request('id_location_objet'),
 					'debut' => 1,
-					'fin' => 0,
+					'fin' => 1,
 					'date_limite_debut' => $date_debut,
 					'date_limite_fin' => $date_fin,
 					'utilisation_squelette' => 'disponibilites/utilisees_objet_location',
 					'utilisation_id_exclu' => $id_objets_location,
 				)
-			);
-				$difference = array_diff($intervalle, $disponible);
-		print_r($intervalle);
-		print '<br><br>';
-		print_r($id_objets_location);
-		print '<br><br>';
-		print_r($difference);
-		print '<br><br>';
+				);
 
+		$difference = array_diff($intervalle, $disponible);
 
 		if (count($difference) > 0) {
 			$erreurs['date_fin'] = _T('objets_location:erreur_jours_indisponible', array('jours' => implode(', ', $difference)));
 		}
 	}
-	$erreurs['nimporte'] = 1;
+
 	return $erreurs;
 }
 

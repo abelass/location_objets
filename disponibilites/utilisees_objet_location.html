@@ -1,11 +1,10 @@
 #SET{dates,#ARRAY}
 <BOUCLE_disponibilite_dates(OBJETS_LOCATIONS objets_locations_details)
-	{id_objets_location!=$dates_utilisees}
+	{id_objets_location!=#ENV{utilisation_id_exclu}}
 	{objet}
 	{id_objet}>
-	
 	[(#DATE_DEBUT|!={#DATE_FIN}|?{
-		#SET{nombre_dates,#DATE_DEBUT|dates_intervalle{#DATE_FIN,#ENV{debut,0},0,#ENV{horaire}}}
+		#SET{nombre_dates,#DATE_DEBUT|dates_intervalle{#DATE_FIN,#ENV{debut,0},#ENV{fin,0},#ENV{horaire}}}
 		#SET{dates,#GET{dates}|array_merge{#GET{nombre_dates}}}
 		,
 		[(#ENV{horaire}|?{
