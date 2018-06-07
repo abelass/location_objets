@@ -89,17 +89,13 @@ function location_objets_declarer_tables_objets_sql($tables) {
 		'statut_textes_instituer' => array(
 			'encours' => 'objets_location:texte_statut_encours',
 			'attente' => 'objets_location:texte_statut_attente',
-			'partiel' => 'objets_location:texte_statut_partiel',
 			'accepte' => 'objets_location:texte_statut_accepte',
-			'paye' => 'objets_location:texte_statut_paye',
 			'erreur' => 'objets_location:texte_statut_erreur',
 			'poubelle' => 'texte_statut_poubelle',
 		),
 		'statut_images' => array(
 			'encours' => 'puce-location-encours.png',
 			'attente' => 'puce-location-attente.png',
-			'partiel' => 'puce-location-partiel.png',
-			'paye' => 'puce-location-paye.png',
 			'accepte' => 'puce-location-accepte.png',
 			'erreur' => 'puce-location-erreur.png',
 			'poubelle' => 'puce-location-poubelle.png',
