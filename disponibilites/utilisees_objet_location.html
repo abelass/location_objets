@@ -4,12 +4,12 @@
 	{objet}
 	{id_objet}>
 	[(#DATE_DEBUT|!={#DATE_FIN}|?{
-		#SET{nombre_dates,#DATE_DEBUT|dates_intervalle{#DATE_FIN,#ENV{debut,0},#ENV{fin,0},#ENV{horaire}}}
+		#SET{nombre_dates,#DATE_DEBUT|dates_intervalle{#DATE_FIN,0,0,#ENV{horaire},#ENV{format}}}
 		#SET{dates,#GET{dates}|array_merge{#GET{nombre_dates}}}
 		,
 		[(#ENV{horaire}|?{
 			#SET{dates,#GET{dates}|push{#DATE_DEBUT}},
-			#SET{dates,#GET{dates}|push{#DATE_DEBUT|affdate{Y-m-d}}}
+			#SET{dates,#GET{dates}|push{#DATE_DEBUT|affdate{#ENV{format,Y-m-d H:i:s}}}}
 		})]
 	})]
 </BOUCLE_disponibilite_dates>
