@@ -308,12 +308,13 @@ function formulaires_editer_objets_location_verifier_dist(
 				array(
 					'objet' => _request('location_objet'),
 					'id_objet' => _request('id_location_objet'),
-					'debut' => 1,
-					'fin' => 1,
+					'debut' => 0,
+					'fin' => 0,
 					'date_limite_debut' => $date_debut,
 					'date_limite_fin' => $date_fin,
 					'utilisation_squelette' => 'disponibilites/utilisees_objet_location',
 					'utilisation_id_exclu' => $id_objets_location,
+					'format' => $format,
 				)
 				);
 
