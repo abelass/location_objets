@@ -14,12 +14,12 @@
 	<span dir="#LANG_DIR" class="#EDIT{date_fin} date_fin">(#DATE_FIN|=={0000-00-00 00:00:00}|?{'',[(#DATE_FIN|affdate)]})</span>
 </div>]
 
-[<div class="champ contenu_jour_debut[ (#JOUR_DEBUT*|strlen|?{'',vide})]">
+[<div class="champ contenu_jour_debut[ (#JOUR_DEBUT*|>{0}|?{'',vide})]">
 	<label><:objets_location:champ_jour_debut_label:> </label>
 	<span dir="#LANG_DIR" class="#EDIT{jour_debut} jour_debut">(#JOUR_DEBUT)</span>
 </div>]
 
-[<div class="champ contenu_jour_fin[ (#JOUR_FIN*|strlen|?{'',vide})]">
+[<div class="champ contenu_jour_fin[ (#JOUR_FIN*|>{0}|?{'',vide})]">
 	<label><:objets_location:champ_jour_fin_label:> </label>
 	<span dir="#LANG_DIR" class="#EDIT{jour_fin} jour_fin">(#JOUR_FIN)</span>
 </div>]
