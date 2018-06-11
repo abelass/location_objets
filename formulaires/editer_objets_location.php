@@ -150,6 +150,7 @@ function formulaires_editer_objets_location_charger_dist(
 	}
 	$valeurs['_hidden'] .= '<input type="hidden" name="lang" value="' . $lang . '"/>';
 
+	// L'objet de loa location.
 	if ($location_objet and $id_location_objet) {
 		$valeurs['location_objet'] =  objet_type($location_objet);
 		$valeurs['id_location_objet'] = $id_location_objet;
@@ -165,6 +166,17 @@ function formulaires_editer_objets_location_charger_dist(
 	elseif(!$espace_prive) {
 		$valeurs['editable'] = FALSE;
 		$valeurs['message_erreur'] = _T('objets_location:erreur_access_formulaire');
+	}
+
+	// Les valeurs des services extras enregistrés
+	if (!$new and
+		$objets_extras = sql_allfetsel('objet,id_objet',
+			'spip_objets_locations_details',
+			'id_objets_locations_detail_source!=0 AND id_objets_location=' . $id_objets_location)) {
+			foreach($objets_extras as $objet_extras) {
+				$valeurs['extras_' . $objet_extras['objet']][] = $objet_extras['id_objet'];
+			}
+
 	}
 
 

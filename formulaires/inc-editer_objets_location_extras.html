@@ -3,7 +3,7 @@
 	<fieldset>
 		<legend>[(#ENV{legende_extras}|sinon{<:objets_location:legende_extras:>})]</legend>
 		<div class="editer-groupe">
-	<BOUCLE_extras(DATA){source tableau, #ENV{_location_extras_objets}} {si #ENV{new}}>
+	<BOUCLE_extras(DATA){source tableau, #ENV{_location_extras_objets}}>
 		#SET{fichier,formulaires/location_extras_#VALEUR}
 		[(#CHEMIN{#GET{fichier}|concat{.html}}|oui)
 			<INCLURE{fond=#GET{fichier},env}/>

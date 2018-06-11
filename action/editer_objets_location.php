@@ -84,6 +84,7 @@ function objets_location_instituer($id_objets_location, $c, $calcul_rub = true) 
 	include_spip('inc/config');
 
 	$config = lire_config('location_objets');
+	$editer_objet = charger_fonction('editer_objet', 'action');
 	$objet = 'objets_location';
 	$table_sql = 'spip_objets_locations';
 	$trouver_table = charger_fonction('trouver_table', 'base');
@@ -93,6 +94,7 @@ function objets_location_instituer($id_objets_location, $c, $calcul_rub = true) 
 		return _L("Impossible d'instituer $objet : non connu en base");
 	}
 
+	$objets_extras = array_filter(explode(',', _request('objets_extras')));
 	$new = _request('new');
 	$prix_objet = test_plugin_actif('prix_objets') ? TRUE : FALSE;
 
@@ -128,7 +130,6 @@ function objets_location_instituer($id_objets_location, $c, $calcul_rub = true) 
 		$difference = $_date_fin - $_date_debut;
 		$nombre_jours = round($difference / (60 * 60 * 24)) + $fin;
 	}
-	$editer_objet = charger_fonction('editer_objet', 'action');
 
 	// Crátion d'une location.
 	if ($new) {
@@ -174,8 +175,7 @@ function objets_location_instituer($id_objets_location, $c, $calcul_rub = true) 
 
 		// Enregistrement de des service extras
 		if (isset($objet_location[0]) and
-				$id_objets_locations_detail = $objet_location[0] and
-				$objets_extras = array_filter(explode(',', _request('objets_extras')))) {
+				$id_objets_locations_detail = $objet_location[0]) {
 			foreach ($objets_extras as $table_extra) {
 				$objet_extra = objet_type($table_extra);
 				$set = array();
@@ -221,44 +221,105 @@ function objets_location_instituer($id_objets_location, $c, $calcul_rub = true) 
 		}
 	}
 	/* Modifier  les détails*/
-	else {
-		$details = sql_allfetsel(
+	elseif ($date_debut and $date_fin) {
+		$objet_location = sql_fetsel(
 			'id_objets_locations_detail,objet,id_objet',
 			'spip_objets_locations_details',
-			'id_objets_location=' .$id_objets_location);
+			'id_objets_location=' .$id_objets_location . ' AND id_objets_locations_detail_source=0');
 
-		// Modification des donnés d'une location depuis le formulaire
-		if ($date_debut and $date_fin) {
-			foreach ($details as $detail) {
-				$objet = $detail['objet'];
-				$id_objet = $detail['id_objet'];
-				$set = array(
+		$id_source = $id_objets_locations_detail = $objet_location['id_objets_locations_detail'];
+		$objet = $objet_location['objet'];
+		$id_objet = $objet_location['id_objet'];
+
+		$set = array(
+			'jours' => $nombre_jours,
+		);
+
+		if ($objet != $location_objet or $id_objet != $id_location_objet) {
+			$set = array_merge(
+				$set,
+				array(
+					'objet' => $location_objet,
+					'id_objet' => $id_location_objet,
+					'titre' => generer_info_entite($id_location_objet, $location_objet, 'titre'),
 					'jours' => $nombre_jours,
-				);
+				)
+			);
+		}
 
-				if ($prix_objet) {
-					$set['prix_unitaire_ht'] = prix_par_objet(
-						$objet,
-						$id_objet,
-						array(
-							'date_debut' => $date_debut,
-							'date_fin' => $date_fin,
-						)
-						);
+		if ($prix_objet) {
+			$prix_objet = TRUE;
+			if ($prix_unitaire_ht = prix_par_objet(
+				$location_objet,
+				$id_location_objet,
+				array(
+					'date_debut' => $date_debut,
+					'date_fin' => $date_fin,
+				)
+				)) {
+					$set['prix_unitaire_ht'] = $prix_unitaire_ht;
 					$prix_ttc = prix_par_objet(
-						$objet,
-						$id_objet,
+						$location_objet,
+						$id_location_objet,
 						array(
 							'date_debut' => $date_debut,
 							'date_fin' => $date_fin,
 						),
 						'prix'
 						);
+					$set['taxe'] = $prix_ttc - $prix_unitaire_ht;
+					$set['devise'] = devise_defaut_objet($id_location_objet, $location_objet);
 					$set['prix_total'] = _request('prix_total');
-					$set['taxe'] = $prix_ttc - $set['prix_unitaire_ht'];
-					$set['devise'] = devise_defaut_objet($id_objet, $objet);
 				}
-				$editer_objet($detail['id_objets_locations_detail'], 'objets_locations_detail', $set);
+		}
+
+		$objet_location = $editer_objet($id_objets_locations_detail, 'objets_locations_detail', $set);
+
+
+		sql_delete(
+			'spip_objets_locations_details',
+			'id_objets_location=' .$id_objets_location . ' AND id_objets_locations_detail_source!=0');
+
+		foreach ($objets_extras as $table_extra) {
+			$objet_extra = objet_type($table_extra);
+			$set = array();
+			if ($extras = _request('extras_' . $objet_extra) and is_array($extras)) {
+				foreach($extras as $index => $id_extra) {
+					if ($id_extra) {
+						$set = array(
+							'id_objets_location' => $id_objets_location,
+							'id_objets_locations_detail_source' => $id_objets_locations_detail,
+							'objet' => $objet_extra,
+							'id_objet' => $id_extra,
+							'titre' => generer_info_entite($id_extra, $objet_extra, 'titre'),
+							'jours' => $nombre_jours,
+							'statut' => $statut_defaut,
+						);
+						if ($prix_objet) {
+							$set['prix_unitaire_ht'] = prix_par_objet(
+								$objet_extra,
+								$id_extra,
+								array(
+									'date_debut' => $date_debut,
+									'date_fin' => $date_fin,
+								)
+								);
+							$prix_ttc = prix_par_objet(
+								$objet_extra,
+								$id_extra,
+								array(
+									'date_debut' => $date_debut,
+									'date_fin' => $date_fin,
+								),
+								'prix'
+								);
+							$set['prix_total'] = _request('prix_total');
+							$set['taxe'] = $prix_ttc - $set['prix_unitaire_ht'];
+							$set['devise'] = devise_defaut_objet($id_extra, $objet_extra);
+						}
+						$editer_objet('oui', 'objets_locations_detail', $set);
+					}
+				}
 			}
 		}
 	}
