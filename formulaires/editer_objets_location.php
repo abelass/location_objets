@@ -117,7 +117,7 @@ function formulaires_editer_objets_location_charger_dist(
 		$new = 'oui';
 		$valeurs['_hidden'] .= '<input type="hidden" name="new" value="' . $new . '"/>';
 	}
-	elseif (!_request('checkout') and !autoriser('modifier', 'objetslocation', $id_objets_location)) {
+	elseif (!autoriser('modifier', 'objetslocation', $id_objets_location)) {
 		return array(
 			'editable' => FALSE,
 			'message_erreur' => _T('objets_location:erreur_access_formulaire')
@@ -162,7 +162,7 @@ function formulaires_editer_objets_location_charger_dist(
 			$valeurs['location_objet'] = $location_objet = table_objet_sql($objet['objet']);
 			$valeurs['id_location_objet'] = $id_location_objet = $objet['id_objet'];
 	}
-	elseif(!$espace_prive and !_request('checkout')) {
+	elseif(!$espace_prive) {
 		$valeurs['editable'] = FALSE;
 		$valeurs['message_erreur'] = _T('objets_location:erreur_access_formulaire');
 	}
