@@ -25,6 +25,9 @@
 	<necessite nom="facteur" compatibilite="[3.5.2;]" />
 	<necessite nom="dates_outils" compatibilite="[1.0.2;]" />
 
+	<!-- Déclaration de pipelines-->
+	<pipeline nom="location_prix_objet" action='' />
+
 	<pipeline nom="autoriser" inclure="location_objets_autorisations.php" />
 
 	<pipeline nom="declarer_tables_objets_sql" inclure="base/location_objets.php" />
