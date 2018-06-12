@@ -44,6 +44,9 @@
 					<div class="titre">#TITRE</div>
 				</BOUCLE_details>
 				<div class="prix">#PRIX</div>
+				[(#CHEMIN{prive/inclure/location_lien_paiement.html}|oui)
+					<INCLURE{fond=prive/inclure/location_lien_paiement,id_objets_location,prix=#PRIX*} />
+				]
 			</td>
 			<td class="id">[(#AUTORISER{modifier,objets_location,#ID_OBJETS_LOCATION}|?{
 				<a href="[(#URL_ECRIRE{objets_location_edit,id_objets_location=#ID_OBJETS_LOCATION})]">#ID_OBJETS_LOCATION</a>,
