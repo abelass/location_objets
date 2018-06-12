@@ -303,23 +303,23 @@ function formulaires_editer_objets_location_verifier_dist(
 			'date_fin',
 		)
 	);
-
+	print _request('id_objets_location');
 	if (strtotime($date_debut) > strtotime($date_fin)) {
 		$erreurs['date_fin'] = _T('objets_location:erreur_date_fin_anterieur_date_debut');
 	}
 	elseif ($erreur = $verifier(
 				array(
-					$date_debut,
-					$date_fin
+					'date_debut' => $date_debut,
+					'date_fin' => $date_fin
 				),
 				'dates_diponibles',
 				array(
-					'objet' => _request('location_objet'),
+					'objet' => objet_type(_request('location_objet')),
 					'id_objet' => _request('id_location_objet'),
 					'debut' => 0,
 					'fin' => 0,
 					'utilisation_squelette' => 'disponibilites/utilisees_objet_location',
-					'utilisation_id_exclu' => $id_objets_location,
+					'utilisation_id_exclu' => _request('id_objets_location'),
 					'format' => $format,
 				)
 			)
