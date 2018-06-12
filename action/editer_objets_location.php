@@ -76,6 +76,7 @@ function action_editer_objets_location_dist($id = null) {
 function objets_location_modifier($id_objets_location, $set = null) {
 	include_spip('inc/config');
 	include_spip('inc/objets_location');
+	include_spip('inc/filtres');
 	$config = lire_config('location_objets');
 	$objet = 'objets_location';
 
@@ -136,6 +137,7 @@ function objets_location_modifier($id_objets_location, $set = null) {
 			return $err;
 		}
 
+		// Les dails de location
 		$date_debut = _request('date_debut');
 		$date_fin = _request('date_fin');
 		$_date_debut = strtotime($date_debut);
@@ -153,7 +155,7 @@ function objets_location_modifier($id_objets_location, $set = null) {
 		}
 
 		$editer_objet = charger_fonction('editer_objet', 'action');
-		// Création d'une location.
+		// Création
 		if ($new) {
 			$statut_defaut = $c['statut'] = isset($config['statut_defaut'])? $config['statut_defaut'] : 'attente';
 			set_request('statut', $statut_defaut);
@@ -212,16 +214,17 @@ function objets_location_modifier($id_objets_location, $set = null) {
 					}
 				}
 		}
-		/* Modifier  les détails*/
+		// M9odification
 		elseif ($date_debut and $date_fin) {
-			$objet_location = sql_fetsel(
-				'id_objets_locations_detail,objet,id_objet',
+			$objet_location_actuel = sql_fetsel(
+				'id_objets_locations_detail,objet,id_objet,statut',
 				'spip_objets_locations_details',
-				'id_objets_location=' .$id_objets_location . ' AND id_objets_locations_detail_source=0');
+				'id_objets_location LIKE ' . sql_quote($id_objets_location) . ' AND id_objets_locations_detail_source=0');
 
-			$id_source = $id_objets_locations_detail = $objet_location['id_objets_locations_detail'];
-			$objet = $objet_location['objet'];
-			$id_objet = $objet_location['id_objet'];
+			$id_source = $id_objets_locations_detail = $objet_location_actuel['id_objets_locations_detail'];
+			$statut_actuel = $objet_location_actuel['statut'];
+			$objet = $objet_location_actuel['objet'];
+			$id_objet = $objet_location_actuel['id_objet'];
 
 			$set = array(
 				'jours' => $nombre_jours,
@@ -249,9 +252,15 @@ function objets_location_modifier($id_objets_location, $set = null) {
 
 			$objet_location = $editer_objet($id_objets_locations_detail, 'objets_locations_detail', $set);
 
-			sql_delete(
+			$objets_extras_actuels = sql_allfetsel(
+				'id_objets_locations_detail,objet,id_objet',
 				'spip_objets_locations_details',
-				'id_objets_location=' .$id_objets_location . ' AND id_objets_locations_detail_source!=0');
+				'id_objets_location=' .$id_objets_location . ' AND id_objets_locations_detail_source=' .$id_source);;
+
+			$extras_actuels = array();
+			foreach($objets_extras_actuels as $objet_extra_actuel) {
+				$extras_actuels[$objet_extra_actuel['id_objets_locations_detail']] = $objet_extra_actuel;
+			}
 
 			foreach ($objets_extras as $table_extra) {
 				$objet_extra = objet_type($table_extra);
@@ -259,15 +268,29 @@ function objets_location_modifier($id_objets_location, $set = null) {
 				if ($extras = _request('extras_' . $objet_extra) and is_array($extras)) {
 					foreach($extras as $index => $id_extra) {
 						if ($id_extra) {
+
 							$set = array(
 								'id_objets_location' => $id_objets_location,
-								'id_objets_locations_detail_source' => $id_objets_locations_detail,
+								'id_objets_locations_detail_source' => $id_source,
 								'objet' => $objet_extra,
 								'id_objet' => $id_extra,
 								'titre' => generer_info_entite($id_extra, $objet_extra, 'titre'),
 								'jours' => $nombre_jours,
-								'statut' => $statut_defaut,
 							);
+
+							if (!$id_objets_locations_detail = sql_getfetsel(
+								'id_objets_locations_detail',
+								'spip_objets_locations_details',
+								'id_objets_location=' .$id_objets_location . '
+									AND id_objets_locations_detail_source!=0
+									AND objet LIKE ' . sql_quote($objet_extra) . '
+									AND id_objet=' . $id_extra)) {
+								$id_objets_locations_detail = 'oui';
+								$set['statut'] = $statut_actuel;
+							}
+							else {
+								unset($extras_actuels[$id_objets_locations_detail]);
+							}
 
 							// Les prix événtuels
 							$set = location_prix_objet($set, array(
@@ -277,10 +300,18 @@ function objets_location_modifier($id_objets_location, $set = null) {
 								'id_location_objet' => $id_extra,
 							));
 
-							$editer_objet('oui', 'objets_locations_detail', $set);
+							$editer_objet($id_objets_locations_detail, 'objets_locations_detail', $set);
 						}
 					}
 				}
+			}
+
+			if (
+				$extras_restant = array_keys($extras_actuels) and
+				count($extras_restant) > 0) {
+				sql_delete(
+					'spip_objets_locations_details',
+					'id_objets_locations_detail IN (' . implode(',', $extras_restant) . ')');
 			}
 		}
 
@@ -360,7 +391,7 @@ function objets_location_instituer($id_objets_location, $c, $calcul_rub = true) 
 			}
 		}
 	}
-	//$statut = $champs['statut'] = $s;
+
 	// Envoyer aux plugins
 	$champs = pipeline('pre_edition',
 		array(
