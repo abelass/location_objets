@@ -303,7 +303,7 @@ function formulaires_editer_objets_location_verifier_dist(
 			'date_fin',
 		)
 	);
-	print _request('id_objets_location');
+
 	if (strtotime($date_debut) > strtotime($date_fin)) {
 		$erreurs['date_fin'] = _T('objets_location:erreur_date_fin_anterieur_date_debut');
 	}
