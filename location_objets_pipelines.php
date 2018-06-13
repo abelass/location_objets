@@ -14,49 +14,6 @@ if (!defined('_ECRIRE_INC_VERSION')) {
 }
 
 
-/*
- * Un fichier de pipelines permet de regrouper
- * les fonctions de branchement de votre plugin
- * sur des pipelines existants.
- */
-
-/**
- * Ajouter les objets sur les vues des parents directs
- *
- * @pipeline affiche_enfants
- * @param  array $flux Données du pipeline
- * @return array       Données du pipeline
-**/
-function location_objets_affiche_enfants($flux) {
-
-	if ($e = trouver_objet_exec($flux['args']['exec']) and $e['edition'] == false) {
-		$id_objet = $flux['args']['id_objet'];
-
-		if ($e['type'] == 'objets_location') {
-			$flux['data'] .= recuperer_fond(
-				'prive/objets/liste/objets_locations_details',
-				array(
-					'titre' => _T('objets_locations_detail:titre_objets_locations_details'),
-					'id_objets_location' => $id_objet
-				)
-			);
-			if (autoriser('creerobjetslocationsdetaildans', 'objets_locations', $id_objet)) {
-				include_spip('inc/presentation');
-				$flux['data'] .= icone_verticale(
-					_T('objets_locations_detail:icone_creer_objets_locations_detail'),
-					generer_url_ecrire('objets_locations_detail_edit', "id_objets_location=$id_objet"),
-					'objets_locations_detail-24.png',
-					'new',
-					'right'
-				) . "<br class='nettoyeur' />";
-			}
-		}
-	}
-
-
-	return $flux;
-}
-
 /**
  * Ajout de contenu sur certaines pages,
  * notamment des formulaires de liaisons entre objets
@@ -187,5 +144,17 @@ function location_objets_notifications_archive($flux) {
 			'duree' => '180'
 		)
 	));
+	return $flux;
+}
+
+/**
+ * Ajouter des contenus dans la partie <head> des pages de l’espace privé.
+ *
+ * @pipeline header_prive
+ * @param  array $flux Données du pipeline
+ * @return array       Données du pipeline
+ */
+function location_objets_header_prive($flux){
+	$flux .= '<link rel="stylesheet" href="' . _DIR_PLUGIN_LOCATION_OBJETS  .'prive/css/location_objets.css" type="text/css" media="all" />';
 	return $flux;
 }
