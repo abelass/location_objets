@@ -82,7 +82,7 @@ function location_objets_declarer_tables_objets_sql($tables) {
 			'reference',
 			'horaire'
 		),
-		'rechercher_champs' => array(),
+		'rechercher_champs' => array('reference' => 8),
 		'tables_jointures' => array(
 			'spip_objets_locations_liens'
 		),
