@@ -15,7 +15,7 @@
 
 	[(#ENV{qui}|=={client}|oui)
 		<p><:public:bonjour:> #NOM</p>
-		<p><:objets_location:texte_merci_de_votre_location:></p>
+		<p><:objets_location:texte_enregistrement:></p>
 	]
 	[(#ENV{qui}|=={client}|non)
 		<p><:objets_location:texte_une_location_de:> #NOM</p>
@@ -34,7 +34,10 @@
 	<INCLURE{fond=inclure/location,id_objets_location,env,statut=#GET{statut}}/>
 
 	[(#ENV{qui}|=={client}|oui)
-		<p><:objets_location:texte_remerciement:></p>
+		[(#GET{statut}|!={paye}|oui)
+			<p><:objets_location:texte_remerciement:></p>
+		]
+		<p><:objets_location:texte_cordialement:></p>
 	]
 
 <p>#NOM_SITE_SPIP</p>

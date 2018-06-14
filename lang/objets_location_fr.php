@@ -57,12 +57,13 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 
 	// T
 	'texte_ajouter_objets_location' => 'Ajouter une location',
+	'texte_cordialement' => 'Cordialment',
 	'texte_changer_statut_objets_location' => 'Cette location est :',
 	'texte_creer_associer_objets_location' => 'Créer et associer une location',
 	'texte_definir_comme_traduction_objets_location' => 'Cette location est une traduction de la location numéro :',
 	'texte_designation' => 'Désignation',
 	'texte_details_location' => 'Détails de la location :',
-	'texte_merci_de_votre_location' => 'Nous avons bien enregistré votre demande de location et nous vous remercions de votre confiance.',
+	'texte_enregistrement' => 'Nous avons bien enregistré votre demande de location.',
 	'texte_montant' => 'Montant',
 	'texte_recapitulatif' => 'Récapitulatif :',
 	'texte_remerciement' => 'Nous vous remercions pour votre inscription<br/>Cordialement',
