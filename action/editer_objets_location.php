@@ -139,6 +139,7 @@ function objets_location_modifier($id_objets_location, $set = null) {
 
 		// Les dails de location
 		$mode_calcul_prix = isset($set['mode_calcul_prix']) ? $set['mode_calcul_prix'] : _request('mode_calcul_prix');
+		spip_log("mode $mode_calcul_prix");
 		$date_debut = _request('date_debut');
 		$date_fin = _request('date_fin');
 		$_date_debut = strtotime($date_debut);
@@ -217,7 +218,7 @@ function objets_location_modifier($id_objets_location, $set = null) {
 					}
 				}
 		}
-		// M9odification
+		// Modification
 		elseif ($date_debut and $date_fin) {
 			$objet_location_actuel = sql_fetsel(
 				'id_objets_locations_detail,objet,id_objet,statut',
@@ -251,6 +252,7 @@ function objets_location_modifier($id_objets_location, $set = null) {
 				'date_fin' => $date_fin,
 				'location_objet' => $location_objet,
 				'id_location_objet' => $id_location_objet,
+				'mode_calcul_prix' => $mode_calcul_prix,
 			));
 
 			$objet_location = $editer_objet($id_objets_locations_detail, 'objets_locations_detail', $set);
@@ -301,6 +303,7 @@ function objets_location_modifier($id_objets_location, $set = null) {
 								'date_fin' => $date_fin,
 								'location_objet' => $objet_extra,
 								'id_location_objet' => $id_extra,
+								'mode_calcul_prix' => $mode_calcul_prix,
 							));
 
 							$editer_objet($id_objets_locations_detail, 'objets_locations_detail', $set);
