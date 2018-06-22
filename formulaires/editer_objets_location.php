@@ -184,6 +184,14 @@ function formulaires_editer_objets_location_charger_dist(
 		$valeurs[$index] = $valeur;
 	}
 
+	// Le mode de calcul de prix.
+	if (!$mode_calcul_prix) {
+		$mode_calcul_prix = lire_config('prix_objets/prix_par_objet_mode', 'prorata');
+	}
+
+	$valeurs['mode_calcul_prix'] = $mode_calcul_prix;
+	$valeurs['_hidden'] .= '<input type="hidden" name="mode_calcul_prix" value="' . $valeurs['mode_calcul_prix'] . '"/>';
+
 	if (isset($valeurs['location_extras_objets'])) {
 		$objets_extras = $valeurs['location_extras_objets'];
 		if (!is_array($objets_extras)) {

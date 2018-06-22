@@ -23,21 +23,39 @@ if (!defined('_ECRIRE_INC_VERSION')) {
  * 	        Les valeurs à enregistrer.
  */
 function location_prix_objet($set, $contexte) {
+
+	// Crée une variable pour chaque élément du contexte.
 	foreach ($contexte as $cle => $valeur) {
 		$$cle = $valeur;
 	}
 
 	if (test_plugin_actif('prix_objets')) {
 		$prix_objet = TRUE;
-		if ($prix_unitaire_ht = prix_par_objet($location_objet, $id_location_objet, array(
-			'date_debut' => $date_debut,
-			'date_fin' => $date_fin
-		))) {
+		if ($prix_unitaire_ht = prix_par_objet(
+					$location_objet,
+					$id_location_objet,
+					array(
+						'date_debut' => $date_debut,
+						'date_fin' => $date_fin
+					),
+					'prix_ht',
+					array(
+						'mode' => $mode_calcul_prix,
+					)
+				)) {
 			$set['prix_unitaire_ht'] = $prix_unitaire_ht;
-			$prix_ttc = prix_par_objet($location_objet, $id_location_objet, array(
-				'date_debut' => $date_debut,
-				'date_fin' => $date_fin
-			), 'prix');
+			$prix_ttc = prix_par_objet(
+				$location_objet,
+				$id_location_objet,
+				array(
+					'date_debut' => $date_debut,
+					'date_fin' => $date_fin
+				),
+				'prix',
+				array(
+					'mode' => $mode_calcul_prix,
+				)
+			);
 			$set['taxe'] = $prix_ttc - $prix_unitaire_ht;
 			$set['devise'] = devise_defaut_objet($id_location_objet, $location_objet);
 			$set['prix_total'] = _request('prix_total');
