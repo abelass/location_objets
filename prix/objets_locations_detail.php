@@ -32,7 +32,7 @@ function prix_objets_locations_detail_ht_dist($id_objets_locations_detail, $lign
 		$prix = $ligne['quantite'] * $ligne['prix_unitaire_ht'];
 	}
 
-	if ($ligne['jours'] > 0 and $ligne['prix_total'] == FALSE) {
+	if ($ligne['prix_total'] == FALSE) {
 		$prix = $prix * $ligne['jours'];
 	}
 
