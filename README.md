@@ -2,7 +2,7 @@
 
 Gère la location d'objets
 
-## Nécessite
+## Dépendances
 - [saisies](https://plugins.spip.net/saisies.html)
 - [verifier](https://plugins.spip.net/verifier.html)
 - [prix_objets_periodes](https://github.com/abelass/prix_objets_periodes)
