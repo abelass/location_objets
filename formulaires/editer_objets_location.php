@@ -401,7 +401,7 @@ function formulaires_editer_objets_location_traiter_dist(
 
 	// Le messaage de confirmation pour le formulaire public
 	if (isset($retours['message_ok']) and !_request('espace_prive')) {
-		$message = '<div class="intro"><p>' . _T('objets_location:texte_merci_de_votre_location') . '</p></div>';
+		$message = '<div class="intro"><p>' . _T('objets_location:texte_enregistrement') . '</p></div>';
 		$message .= '<div class="detail_reservation">';
 		$message .= '<h3>' . _T('objets_location:texte_details_location') . '</h3>';
 		$message .= recuperer_fond('inclure/location', array(
