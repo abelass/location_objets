@@ -26,12 +26,10 @@ Activez :
 - Accepter l’inscription de visiteurs du site public
 
 ## Utilisation
-
 Prenez votre objet que vous aimeriez louer et ajoutez lui des prix avec les deux plugins
 [prix_objets](https://plugins.spip.net/prix_objets.html) et [prix_objets_periodes](https://github.com/abelass/prix_objets_periodes)
 
 ### Dans vos squelettes placez la balise
-
 	#FORMULAIRE_EDITER_OBJETS_LOCATION{#ENV{id_objets_location},#ENV{location_objet},#ENV{id_location_objet}, #ENV{options}}
 
 Prenez l'example dans La fonction `squelettes/modeles/formulaire_location.html`
