@@ -28,12 +28,13 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'icone_modifier_objets_locations_detail' => 'Modifier ce location detail',
 	'info_1_objets_locations_detail' => 'Un location detail',
 	'info_aucun_objets_locations_detail' => 'Aucun location detail',
-	'info_nb_objets_locations_details_locations_details' => '@nb@ location details',
-	'info_objets_locations_details_locations_details_auteur' => 'Les location details de cet auteur',
+	'info_nb_objets_locations_details' => '@nb@ location details',
+	'info_objets_locations_details_espace' => 'Les locations de cet espace : ',
+	'info_objets_locations_details_immeuble' => 'Les locations de cet immeuble : ',
 
 	// R
 	'retirer_lien_objets_locations_detail' => 'Retirer ce location detail',
-	'retirer_tous_liens_objets_locations_details_locations_details' => 'Retirer tous les location details',
+	'retirer_tous_liens_objets_locations_details' => 'Retirer tous les location details',
 
 	// S
 	'supprimer_objets_locations_detail' => 'Supprimer cet location detail',

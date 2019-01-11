@@ -25,16 +25,17 @@ if (!defined('_ECRIRE_INC_VERSION')) {
 function location_objets_affiche_milieu($flux) {
 	$texte = '';
 	$e = trouver_objet_exec($flux['args']['exec']);
-
+	$objet = $e['type'];
 
 
 	// objets_locations sur les immeubles
-	if (!$e['edition'] and in_array($e['type'], array('immeuble'))) {
-		$texte .= recuperer_fond('prive/objets/editer/liens', array(
-			'table_source' => 'objets_locations',
-			'objet' => $e['type'],
-			'id_objet' => $flux['args'][$e['id_table_objet']]
-		));
+	if (!$e['edition'] and in_array($objet, array('immeuble','espaces'))) {
+
+		$texte .= recuperer_fond('prive/objets/liste/objets_locations_details', array(
+			'objet' => $objet,
+			'id_objet' => $flux['args'][$e['id_table_objet']],	
+			'titre' => _T('objets_locations_detail:info_objets_locations_details_' . $objet)
+		), array('ajax' => true));
 	}
 
 	if ($texte) {
