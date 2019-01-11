@@ -1,7 +1,7 @@
 <paquet
 	prefix="location_objets"
 	categorie="divers"
-	version="1.0.18"
+	version="1.0.19"
 	etat="test"
 	compatibilite="[3.0.0;3.2.*]"
 	logo="prive/themes/spip/images/location_objets-64.png"
@@ -34,7 +34,6 @@
 	<pipeline nom="declarer_tables_objets_sql" inclure="base/location_objets.php" />
 	<pipeline nom="declarer_tables_interfaces" inclure="base/location_objets.php" />
 	<pipeline nom="declarer_tables_auxiliaires" inclure="base/location_objets.php" />
-	<pipeline nom="affiche_milieu" inclure="location_objets_pipelines.php" />
 	<pipeline nom="affiche_auteurs_interventions" inclure="location_objets_pipelines.php" />
 	<pipeline nom="boite_infos" inclure="location_objets_pipelines.php" />
 	<pipeline nom="optimiser_base_disparus" inclure="location_objets_pipelines.php" />
