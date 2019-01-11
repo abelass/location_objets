@@ -150,7 +150,7 @@ function formulaires_editer_objets_location_charger_dist(
 	}
 	$valeurs['_hidden'] .= '<input type="hidden" name="lang" value="' . $lang . '"/>';
 
-	// L'objet de loa location.
+	// L'objet de la location.
 	if ($location_objet and $id_location_objet) {
 		$valeurs['location_objet'] =  objet_type($location_objet);
 		$valeurs['id_location_objet'] = $id_location_objet;
@@ -210,6 +210,7 @@ function formulaires_editer_objets_location_charger_dist(
 		$valeurs['_location_extras_objets'] = $config['location_extras_objets'];
 		$objets_extras = $valeurs['_location_extras_objets'];
 	}
+
 	if($objets_extras) {
 		$valeurs['_hidden'] .= '<input type="hidden" name="objets_extras" value="' . implode(',',$objets_extras) . '"/>';
 	}
