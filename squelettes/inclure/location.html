@@ -52,7 +52,7 @@
 					<td class="montant">[(#VALEUR{prix}|appliquer_filtre{prix_formater,[(#VALEUR{prix})]})]</td>
 					]
 					<td class="statut">
-						#VALEUR{statut}
+						[(#VAL{objets_location}|re_statut_titre{#STATUT})]
 					</td>
 				</tr>
 				</BOUCLE_details>
