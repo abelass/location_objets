@@ -51,8 +51,8 @@ include_spip('inc/editer');
  */
 function formulaires_editer_objets_location_identifier_dist(
 		$id_objets_location = 'new',
-		$location_objet='',
-		$id_location_objet='',
+		$location_objet = '',
+		$id_location_objet = '',
 		$options,
 		$retour = '',
 		$associer_objet = '',
@@ -101,8 +101,8 @@ function formulaires_editer_objets_location_identifier_dist(
  */
 function formulaires_editer_objets_location_charger_dist(
 		$id_objets_location = 'new',
-		$location_objet='',
-		$id_location_objet='',
+		$location_objet = '',
+		$id_location_objet = '',
 		$options = array(),
 		$retour = '',
 		$associer_objet = '',
@@ -165,18 +165,13 @@ function formulaires_editer_objets_location_charger_dist(
 				$valeurs['date_debut'] = $date_debut;
 				$valeurs['date_fin'] = $date_fin;
 			}
-
 		}
-
-
-
 	}
 
 
 	if($espace_prive = test_espace_prive()) {
 		$valeurs['_hidden'] .= '<input type="hidden" name="espace_prive" value="' . $espace_prive . '"/>';
 	}
-
 
 	$valeurs['new'] = $new;
 
