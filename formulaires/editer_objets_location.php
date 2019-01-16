@@ -137,9 +137,47 @@ function formulaires_editer_objets_location_charger_dist(
 			$row,
 			$hidden);
 	$valeurs['espace_prive'] = '';
+
+	if (!$new) {
+		if ($details = sql_allfetsel(
+			'id_objets_location,id_objets_locations_detail,date_debut,date_fin',
+			'spip_objets_locations_details',
+			'id_objets_location=' . $id_objets_location)) {
+
+			$dates_debut = [];
+			$dates_fin = [];
+			foreach ($details AS $data) {
+				$date_debut = date('d/m/Y',strtotime($data['date_debut']));
+				$date_fin = date('d/m/Y',strtotime($data['date_fin']));
+				if (!in_array($date_debut, $dates_debut)) {
+					$dates_debut[] = $date_debut;
+				}
+				if (!in_array($date_fin, $dates_fin)) {
+					$dates_fin[] = $date_fin;
+				}
+				$valeurs['date_debut'][$data['id_objets_locations_detail']] = $date_debut;
+				$valeurs['date_fin'][$data['id_objets_locations_detail']] = $data['date_fin'];
+			}
+			print_r($dates_debut);
+			print_r($dates_fin);
+			// Unique cas actuel, tous les details ont les mêmes dates
+			if (count($dates_debut) == 1 and count($dates_fin) == 1) {
+				$valeurs['date_debut'] = $date_debut;
+				$valeurs['date_fin'] = $date_fin;
+			}
+
+		}
+
+
+
+	}
+
+
 	if($espace_prive = test_espace_prive()) {
 		$valeurs['_hidden'] .= '<input type="hidden" name="espace_prive" value="' . $espace_prive . '"/>';
 	}
+
+
 	$valeurs['new'] = $new;
 
 	$valeurs['_hidden'] .= '<input type="hidden" name="new" value="' . $new . '"/>';
@@ -178,7 +216,6 @@ function formulaires_editer_objets_location_charger_dist(
 			}
 
 	}
-
 
 	foreach($options as $index => $valeur) {
 		$valeurs[$index] = $valeur;
