@@ -1,6 +1,7 @@
 [(#SET{defaut_tri,#ARRAY{
 	titre,1,
-	date,-1,
+	date_debut,-1,
+	date_fin,-1,
 	id_objets_locations_detail,1,
 	points,-1
 }})]<B_liste_objets_locations_details>
@@ -14,9 +15,10 @@
 			<th class="statut" scope="col">[(#TRI{statut,<span title="<:lien_trier_statut|attribut_html:>">#</span>,ajax})]</th>
 			<th class="titre" scope="col">[(#TRI{titre,<:ecrire:info_titre:>,ajax})]</th>
 			<th class="jours" scope="col"><:ecrire:jours:></th>
+			<th class="date_debut" scope="col">[(#TRI{date_debut,<:dates_outils:champ_date_debut_label:>,ajax})]</th>
+			<th class="date_fin" scope="col">[(#TRI{date_fin,<:dates_outils:champ_date_fin_label:>,ajax})]</th>
 			<th class="prix_unitaire_ht" scope="col"><:objets_locations_detail:champ_prix_unitaire_ht_label:></th>
 			<th class="prix" scope="col"><:objets_locations_detail:champ_prix_label:></th>
-			<th class="date" scope="col">[(#TRI{date,<:date:>,ajax})]</th>
 			<th class="id" scope="col">[(#TRI{id_objets_locations_detail,<:info_numero_abbreviation:>,ajax})]</th>
 		</tr>
 	</thead>
@@ -31,6 +33,8 @@
 					[(#RANG). ]#TITRE</a>
 			</td>
 			<td class="jours">#JOURS</td>
+			<td class="date debut">[(#DATE_DEBUT|affdate_jourcourt)]</td>
+			<td class="date fin">[(#DATE_FIN|affdate_jourcourt)]</td>
 			<td class="prix_unitaire_ht">[(#PRIX_UNITAIRE_HT|prix_formater)]</td>
 			<td class="prix">#PRIX</td>
 			<td class="date secondaire">[(#DATE|affdate_jourcourt)]</td>
