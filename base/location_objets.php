@@ -65,8 +65,6 @@ function location_objets_declarer_tables_objets_sql($tables) {
 		'date' => 'date',
 		'champs_editables' => array(
 			'id_auteur',
-			'date_debut',
-			'date_fin',
 			'jour_debut',
 			'jour_fin',
 			'reference',
@@ -75,8 +73,6 @@ function location_objets_declarer_tables_objets_sql($tables) {
 		),
 		'champs_versionnes' => array(
 			'id_auteur',
-			'date_debut',
-			'date_fin',
 			'jour_debut',
 			'jour_fin',
 			'reference',
@@ -127,6 +123,8 @@ function location_objets_declarer_tables_objets_sql($tables) {
 			'id_objets_location' => 'bigint(21) NOT NULL',
 			'objet' => 'varchar(50) NOT NULL DEFAULT ""',
 			'id_objet' => 'bigint(21) NOT NULL DEFAULT "0"',
+			'date_debut' => 'datetime NOT NULL DEFAULT "0000-00-00 00:00:00"',
+			'date_fin' => 'datetime NOT NULL DEFAULT "0000-00-00 00:00:00"',
 			'titre' => 'text NOT NULL',
 			'jours' => 'int(11) NOT NULL DEFAULT "0"',
 			'quantite' => 'int(11) NOT NULL DEFAULT "1"',
@@ -154,6 +152,8 @@ function location_objets_declarer_tables_objets_sql($tables) {
 			'id_objets_location',
 			'objet',
 			'id_objet',
+			'date_debut',
+			'date_fin',
 			'titre',
 			'jours',
 			'quantite',
@@ -168,6 +168,8 @@ function location_objets_declarer_tables_objets_sql($tables) {
 			'id_objets_location',
 			'objet',
 			'id_objet',
+			'date_debut',
+			'date_fin',
 			'titre',
 			'jours',
 			'quantite',
@@ -251,4 +253,31 @@ function location_objets_declarer_tables_auxiliaires($tables) {
 	);
 
 	return $tables;
+}
+
+/**
+ * Actualise la bd
+ *
+ * @param string $version_cible
+ *        	la version de la bd
+ */
+function lo_upgrade($version_cible) {
+
+	// date_debut et date vont de spip_objets_locations vers spip_objets_locations_details.
+	if ($version_cible == '1.1.0') {
+		$sql = sql_select('id_objets_location,date_debut,date_fin', 'spip_objets_locations');
+
+		while ($row = sql_fetch($sql)) {
+
+			sql_updateq(
+				'spip_objets_locations_details',
+				array(
+					'date_debut' => $row['date_debut'],
+					'date_fin' => $row['date_fin'],
+				),
+				'id_objets_location=' . $row['id_objets_location']
+			);
+		}
+	}
+
 }

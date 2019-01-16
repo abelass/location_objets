@@ -38,6 +38,12 @@ function location_objets_upgrade($nom_meta_base_version, $version_cible) {
 	$maj['1.0.2'] = array(array('maj_tables', array('spip_objets_locations_details')));
 	$maj['1.0.4'] = array(array('maj_tables', array('spip_objets_locations_details')));
 	$maj['1.0.5'] = array(array('maj_tables', array('spip_objets_locations')));
+	$maj['1.1.0'] = array(
+		array('maj_tables', array('spip_objets_locations_details')),
+		array('lo_upgrade', '1.1.0'),
+		array('sql_alter','TABLE spip_objets_locations DROP COLUMN `date_debut`'),
+		array('sql_alter','TABLE spip_objets_locations DROP COLUMN `date_fin`'),
+	);
 
 	include_spip('base/upgrade');
 	maj_plugin($nom_meta_base_version, $version_cible, $maj);
