@@ -180,7 +180,6 @@ function objets_location_modifier($id_objets_location, $set = null) {
 				'mode_calcul_prix' => $mode_calcul_prix,
 			));
 
-
 			$objet_location = $editer_objet('oui', 'objets_locations_detail', $set);
 
 			// Enregistrement de des service extras
