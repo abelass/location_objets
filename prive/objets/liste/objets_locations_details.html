@@ -37,7 +37,6 @@
 			<td class="date fin">[(#DATE_FIN|affdate_jourcourt)]</td>
 			<td class="prix_unitaire_ht">[(#PRIX_UNITAIRE_HT|prix_formater)]</td>
 			<td class="prix">#PRIX</td>
-			<td class="date secondaire">[(#DATE|affdate_jourcourt)]</td>
 			<td class="id">[(#AUTORISER{modifier,objets_locations_detail,#ID_OBJETS_LOCATIONS_DETAIL}|?{
 				<a href="[(#URL_ECRIRE{objets_locations_detail_edit,id_objets_locations_detail=#ID_OBJETS_LOCATIONS_DETAIL})]">
 				#ID_OBJETS_LOCATIONS_DETAIL</a>,
