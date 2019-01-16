@@ -94,3 +94,18 @@ function objet_location_extras_champs($service, $location_objet_table, $id_locat
 		)
 	);
 }
+
+/*
+ * Permet d'appeler la fonction statut_texte_instituer por établir le nom ou traductions d'un statut
+ *
+ * @param string $objet Objet dont on cherche le nom
+ * @param string $statut Nom de machine du statut
+ * @return string Nom du statut.
+ */
+function ol_statut_titre($objet, $statut) {
+	include_spip('inc/puce_statut');
+	if(!$texte = statut_texte_instituer($objet , trim($statut))) {
+		$texte = $statut;
+	}
+	return $texte;
+}
