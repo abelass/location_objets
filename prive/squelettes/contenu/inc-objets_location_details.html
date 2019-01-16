@@ -8,6 +8,9 @@
 				<th class="statut"><:objets_location:texte_statut:></th>
 				<th class="description"><:objets_location:texte_designation:></th>
 				<th class="jours" scope="col"><:ecrire:jours:></th>
+				<th class="date_debut" scope="col"><:dates_outils:champ_date_debut_label:></th>
+				<th class="date_fin" scope="col"><:dates_outils:champ_date_fin_label:></th>
+
 				[(#GET{total}|floatval|>{0.00}|oui)
 				<th class="prix_unitaire_ht" scope="col"><:objets_locations_detail:champ_prix_unitaire_ht_label:></th>
 				<th class="prix" scope="col"><:objets_locations_detail:champ_prix_label:></th>
@@ -29,6 +32,8 @@
 			</a>
 		</td>
 			<td class="jours">#JOURS</td>
+			<td class="date debut">[(#DATE_DEBUT|affdate_jourcourt)]</td>
+			<td class="date fin">[(#DATE_FIN|affdate_jourcourt)]</td>
 			[(#GET{total}|floatval|>{0.00}|oui)
 			<td class="prix_unitaire_ht">[(#PRIX_UNITAIRE_HT|prix_formater)]</td>
 			<td class="montant">[(#PRIX)]</td>
@@ -47,6 +52,8 @@
 					<td></td>
 					<td></td>
 					<td></td>
+					<td></td>
+					<td></td>
 					<td class="descriptif"><:prix:label_total_ht:></td>
 					<td class="montant">#PRIX_HT</td>
 					<td></td>
@@ -55,11 +62,15 @@
 					<td></td>
 					<td></td>
 					<td></td>
+					<td></td>
+					<td></td>
 					<td class="descriptif"><:prix:label_taxes:></td>
 					<td class="montant">[(#PRIX*|moins{#PRIX_HT*}|appliquer_filtre{prix_formater})]</td>
 					<td></td>
 				</tr>
 				<tr class="total_ttc">
+					<td></td>
+					<td></td>
 					<td></td>
 					<td></td>
 					<td></td>
