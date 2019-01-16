@@ -279,13 +279,13 @@ function formulaires_editer_objets_location_verifier_dist(
 		$config_fonc = '',
 		$row = array(),
 		$hidden = '') {
-	$date_debut = date('d/m/Y',strtotime(_request('date_debut'))); //. ' 00:00:00';
-	$date_fin = date('d/m/Y',strtotime(_request('date_fin'))); //. ' 00:00:00';;
+	$date_debut = date('d/m/Y',strtotime(_request('date_debut')));
+	$date_fin = date('d/m/Y',strtotime(_request('date_fin')));
 
 	$erreurs = array();
 
+	// Vérifier si on a une date correcte.
 	$verifier = charger_fonction('verifier', 'inc');
-
 	foreach (array('date_debut', 'date_fin') AS $champ) {
 		$normaliser = null;
 
@@ -294,6 +294,7 @@ function formulaires_editer_objets_location_verifier_dist(
 			// si une valeur de normalisation a ete transmis, la prendre.
 		} elseif (!is_null($normaliser)) {
 			set_request($champ, $normaliser);
+			$$champ = $normaliser;
 			// si pas de normalisation ET pas de date soumise, il ne faut pas tenter d'enregistrer ''
 		} else {
 			set_request($champ, null);
