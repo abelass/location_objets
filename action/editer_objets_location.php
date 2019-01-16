@@ -166,6 +166,8 @@ function objets_location_modifier($id_objets_location, $set = null) {
 				'id_objets_location' => $id_objets_location,
 				'objet' => $location_objet,
 				'id_objet' => $id_location_objet,
+				'date_debut' => $date_debut,
+				'date_fin' => $date_fin,
 				'titre' => generer_info_entite($id_location_objet, $location_objet, 'titre'),
 				'jours' => $nombre_jours,
 				'statut' => $statut_defaut,
@@ -173,8 +175,6 @@ function objets_location_modifier($id_objets_location, $set = null) {
 
 			// Les prix événtuels
 			$set = location_prix_objet($set, array(
-				'date_debut' => $date_debut,
-				'date_fin' => $date_fin,
 				'location_objet' => $location_objet,
 				'id_location_objet' => $id_location_objet,
 				'mode_calcul_prix' => $mode_calcul_prix,
@@ -193,6 +193,8 @@ function objets_location_modifier($id_objets_location, $set = null) {
 							foreach($extras as $index => $id_extra) {
 								if ($id_extra) {
 									$set = array(
+										'date_debut' => $date_debut,
+										'date_fin' => $date_fin,
 										'id_objets_location' => $id_objets_location,
 										'id_objets_locations_detail_source' => $id_objets_locations_detail,
 										'objet' => $objet_extra,
