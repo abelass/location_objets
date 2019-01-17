@@ -167,7 +167,6 @@ function formulaires_editer_objets_location_charger_dist(
 		}
 	}
 
-
 	if($espace_prive = test_espace_prive()) {
 		$valeurs['_hidden'] .= '<input type="hidden" name="espace_prive" value="' . $espace_prive . '"/>';
 	}
