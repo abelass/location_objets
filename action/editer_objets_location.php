@@ -139,7 +139,6 @@ function objets_location_modifier($id_objets_location, $set = null) {
 
 		// Les dails de location
 		$mode_calcul_prix = isset($set['mode_calcul_prix']) ? $set['mode_calcul_prix'] : _request('mode_calcul_prix');
-		spip_log("mode $mode_calcul_prix");
 		$date_debut = _request('date_debut');
 		$date_fin = _request('date_fin');
 		$_date_debut = strtotime($date_debut);
@@ -221,6 +220,7 @@ function objets_location_modifier($id_objets_location, $set = null) {
 		}
 		// Modification
 		elseif ($date_debut and $date_fin) {
+			// L'objet de location.
 			$objet_location_actuel = sql_fetsel(
 				'id_objets_locations_detail,objet,id_objet,statut',
 				'spip_objets_locations_details',
@@ -235,17 +235,17 @@ function objets_location_modifier($id_objets_location, $set = null) {
 				'jours' => $nombre_jours,
 			);
 
-			if ($objet != $location_objet or $id_objet != $id_location_objet) {
-				$set = array_merge(
-					$set,
-					array(
-						'objet' => $location_objet,
-						'id_objet' => $id_location_objet,
-						'titre' => generer_info_entite($id_location_objet, $location_objet, 'titre'),
-						'jours' => $nombre_jours,
-					)
-					);
-			}
+			$set = array_merge(
+				$set,
+				array(
+					'date_debut' => $date_debut,
+					'date_fin' => $date_fin,
+					'objet' => $location_objet,
+					'id_objet' => $id_location_objet,
+					'titre' => generer_info_entite($id_location_objet, $location_objet, 'titre'),
+					'jours' => $nombre_jours,
+				)
+			);
 
 			// Les prix événtuels
 			$set = location_prix_objet($set, array(
@@ -258,6 +258,7 @@ function objets_location_modifier($id_objets_location, $set = null) {
 
 			$objet_location = $editer_objet($id_objets_locations_detail, 'objets_locations_detail', $set);
 
+			// Les extras.
 			$objets_extras_actuels = sql_allfetsel(
 				'id_objets_locations_detail,objet,id_objet',
 				'spip_objets_locations_details',
@@ -278,6 +279,8 @@ function objets_location_modifier($id_objets_location, $set = null) {
 							$set = array(
 								'id_objets_location' => $id_objets_location,
 								'id_objets_locations_detail_source' => $id_source,
+								'date_debut' => $date_debut,
+								'date_fin' => $date_fin,
 								'objet' => $objet_extra,
 								'id_objet' => $id_extra,
 								'titre' => generer_info_entite($id_extra, $objet_extra, 'titre'),
