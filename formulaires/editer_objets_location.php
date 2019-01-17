@@ -158,8 +158,7 @@ function formulaires_editer_objets_location_charger_dist(
 				$valeurs['date_debut'][$data['id_objets_locations_detail']] = $date_debut;
 				$valeurs['date_fin'][$data['id_objets_locations_detail']] = $data['date_fin'];
 			}
-			print_r($dates_debut);
-			print_r($dates_fin);
+
 			// Unique cas actuel, tous les details ont les mêmes dates
 			if (count($dates_debut) == 1 and count($dates_fin) == 1) {
 				$valeurs['date_debut'] = $date_debut;
@@ -178,8 +177,8 @@ function formulaires_editer_objets_location_charger_dist(
 	$valeurs['_hidden'] .= '<input type="hidden" name="new" value="' . $new . '"/>';
 
 	$valeurs['nombre_langues'] = count(liste_options_langues('changer_lang'));
-	if (empty($VALEURS['lang'])) {
-		$VALEURS['lang'] = $lang = $GLOBALS['meta']['langue_site'];
+	if (empty($valeurs['lang'])) {
+		$valeurs['lang'] = $lang = $GLOBALS['meta']['langue_site'];
 	}
 	$valeurs['_hidden'] .= '<input type="hidden" name="lang" value="' . $lang . '"/>';
 
