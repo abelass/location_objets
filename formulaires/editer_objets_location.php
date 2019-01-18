@@ -113,6 +113,16 @@ function formulaires_editer_objets_location_charger_dist(
 	include_spip('inc/config');
 	include_spip('inc/autoriser');
 
+	$valeurs = formulaires_editer_objet_charger(
+		'objets_location',
+		$id_objets_location,
+		'',
+		$lier_trad,
+		$retour,
+		$config_fonc,
+		$row,
+		$hidden);
+
 	if (!is_numeric($id_objets_location) or $id_objets_location == 0) {
 		$new = 'oui';
 		$valeurs['_hidden'] .= '<input type="hidden" name="new" value="' . $new . '"/>';
@@ -126,17 +136,8 @@ function formulaires_editer_objets_location_charger_dist(
 	$id_auteur = session_get('id_auteur');
 	$config = lire_config('location_objets');
 
-
-	$valeurs = formulaires_editer_objet_charger(
-			'objets_location',
-			$id_objets_location,
-			'',
-			$lier_trad,
-			$retour,
-			$config_fonc,
-			$row,
-			$hidden);
 	$valeurs['espace_prive'] = '';
+	$valeurs['date'] = date('d-m-Y H:i:s');
 
 	if (!$new) {
 		if ($details = sql_allfetsel(
