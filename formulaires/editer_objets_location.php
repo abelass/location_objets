@@ -319,7 +319,6 @@ function formulaires_editer_objets_location_verifier_dist(
 	$verifier = charger_fonction('verifier', 'inc');
 	foreach (array('date_debut', 'date_fin') AS $champ) {
 		$normaliser = null;
-spip_log($$champ,'teste');
 		if ($erreur = $verifier($$champ, 'date', array('normaliser'=>'datetime'), $normaliser)) {
 			$erreurs[$champ] = $erreur;
 			// si une valeur de normalisation a ete transmis, la prendre.
@@ -327,7 +326,6 @@ spip_log($$champ,'teste');
 			set_request($champ, $normaliser);
 			$$champ = $normaliser;
 			// si pas de normalisation ET pas de date soumise, il ne faut pas tenter d'enregistrer ''
-			spip_log($normaliser,'teste');
 		} else {
 			set_request($champ, null);
 		}
