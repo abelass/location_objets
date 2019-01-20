@@ -310,8 +310,8 @@ function formulaires_editer_objets_location_verifier_dist(
 		$config_fonc = '',
 		$row = array(),
 		$hidden = '') {
-	$date_debut = date('d/m/Y',strtotime(_request('date_debut')));
-	$date_fin = date('d/m/Y',strtotime(_request('date_fin')));
+	$date_debut = _request('date_debut');
+	$date_fin = _request('date_fin');
 
 	$erreurs = array();
 
@@ -319,7 +319,7 @@ function formulaires_editer_objets_location_verifier_dist(
 	$verifier = charger_fonction('verifier', 'inc');
 	foreach (array('date_debut', 'date_fin') AS $champ) {
 		$normaliser = null;
-
+spip_log($$champ,'teste');
 		if ($erreur = $verifier($$champ, 'date', array('normaliser'=>'datetime'), $normaliser)) {
 			$erreurs[$champ] = $erreur;
 			// si une valeur de normalisation a ete transmis, la prendre.
@@ -327,6 +327,7 @@ function formulaires_editer_objets_location_verifier_dist(
 			set_request($champ, $normaliser);
 			$$champ = $normaliser;
 			// si pas de normalisation ET pas de date soumise, il ne faut pas tenter d'enregistrer ''
+			spip_log($normaliser,'teste');
 		} else {
 			set_request($champ, null);
 		}
