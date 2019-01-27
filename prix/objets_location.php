@@ -23,25 +23,25 @@ if (!defined('_ECRIRE_INC_VERSION')) return;
  *     Retourne le prix HT de la commande sinon 0
  */
 function prix_objets_location_ht_dist($id_objets_location) {
-	$prix_ht = 0;
+  $prix_ht = 0;
 
-	// On va chercher tous les détails
-	$details = sql_allfetsel(
-		'id_objets_locations_detail',
-		'spip_objets_locations_details',
-		'id_objets_location = '.$id_objets_location);
+  // On va chercher tous les détails
+  $details = sql_allfetsel(
+    'id_objets_locations_detail',
+    'spip_objets_locations_details',
+    'id_objets_location = '.$id_objets_location);
 
-	if ($details and is_array($details)) {
-		$fonction_ht = charger_fonction('ht', 'inc/prix');
-		$details = array_map('reset', $details);
+  if ($details and is_array($details)) {
+    $fonction_ht = charger_fonction('ht', 'inc/prix');
+    $details = array_map('reset', $details);
 
-		// Pour chaque détail on va chercher son prix HT x sa quantité
-		foreach ($details as $id_objets_locations_detail) {
-			$prix_ht += $fonction_ht('objets_locations_detail', $id_objets_locations_detail);
-		}
-	}
+    // Pour chaque détail on va chercher son prix HT x sa quantité
+    foreach ($details as $id_objets_locations_detail) {
+      $prix_ht += $fonction_ht('objets_locations_detail', $id_objets_locations_detail);
+    }
+  }
 
-	return $prix_ht;
+  return $prix_ht;
 }
 
 /**
@@ -57,28 +57,28 @@ function prix_objets_location_ht_dist($id_objets_location) {
  *     Retourne le prix TTC de la commande sinon 0
  */
 function prix_objets_location_dist($id_objets_location, $prix_ht = null) {
-	if (is_null($prix_ht)) {
-		$fonction_ht = charger_fonction('ht', 'prix/objets_location');
-		$prix_ht = $fonction_ht($id_objets_location);
-	}
+  if (is_null($prix_ht)) {
+    $fonction_ht = charger_fonction('ht', 'prix/objets_location');
+    $prix_ht = $fonction_ht($id_objets_location);
+  }
 
-	$prix = 0;
+  $prix = 0;
 
-	// On va chercher tous les détails
-	$details = sql_allfetsel(
-		'id_objets_locations_detail',
-		'spip_objets_locations_details',
-		'id_objets_location = '.$id_objets_location);
+  // On va chercher tous les détails
+  $details = sql_allfetsel(
+    'id_objets_locations_detail',
+    'spip_objets_locations_details',
+    'id_objets_location = '.$id_objets_location);
 
-	if ($details and is_array($details)) {
-		$fonction_ttc = charger_fonction('prix', 'inc/');
-		$details = array_map('reset', $details);
+  if ($details and is_array($details)) {
+    $fonction_ttc = charger_fonction('prix', 'inc/');
+    $details = array_map('reset', $details);
 
-		// Pour chaque objet on va chercher son prix TTC x sa quantité
-		foreach ($details as $id_objets_location_detail) {
-			$prix += $fonction_ttc('objets_locations_detail', $id_objets_location_detail);
-		}
-	}
+    // Pour chaque objet on va chercher son prix TTC x sa quantité
+    foreach ($details as $id_objets_location_detail) {
+      $prix += $fonction_ttc('objets_locations_detail', $id_objets_location_detail);
+    }
+  }
 
-	return $prix;
+  return $prix;
 }

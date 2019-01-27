@@ -10,7 +10,7 @@
  */
 
 if (!defined('_ECRIRE_INC_VERSION')) {
-	return;
+  return;
 }
 
 
@@ -31,22 +31,22 @@ if (!defined('_ECRIRE_INC_VERSION')) {
  * @return void
 **/
 function location_objets_upgrade($nom_meta_base_version, $version_cible) {
-	$maj = array();
+  $maj = array();
 
-	$maj['create'] = array(array('maj_tables', array('spip_objets_locations', 'spip_objets_locations_liens', 'spip_objets_locations_details', 'spip_objets_locations_details_liens')));
-	$maj['1.0.1'] = array(array('maj_tables', array('spip_objets_locations')));
-	$maj['1.0.2'] = array(array('maj_tables', array('spip_objets_locations_details')));
-	$maj['1.0.4'] = array(array('maj_tables', array('spip_objets_locations_details')));
-	$maj['1.0.5'] = array(array('maj_tables', array('spip_objets_locations')));
-	$maj['1.1.0'] = array(
-		array('maj_tables', array('spip_objets_locations_details')),
-		array('lo_upgrade', '1.1.0'),
-		array('sql_alter','TABLE spip_objets_locations DROP COLUMN `date_debut`'),
-		array('sql_alter','TABLE spip_objets_locations DROP COLUMN `date_fin`'),
-	);
+  $maj['create'] = array(array('maj_tables', array('spip_objets_locations', 'spip_objets_locations_liens', 'spip_objets_locations_details', 'spip_objets_locations_details_liens')));
+  $maj['1.0.1'] = array(array('maj_tables', array('spip_objets_locations')));
+  $maj['1.0.2'] = array(array('maj_tables', array('spip_objets_locations_details')));
+  $maj['1.0.4'] = array(array('maj_tables', array('spip_objets_locations_details')));
+  $maj['1.0.5'] = array(array('maj_tables', array('spip_objets_locations')));
+  $maj['1.1.0'] = array(
+    array('maj_tables', array('spip_objets_locations_details')),
+    array('lo_upgrade', '1.1.0'),
+    array('sql_alter','TABLE spip_objets_locations DROP COLUMN `date_debut`'),
+    array('sql_alter','TABLE spip_objets_locations DROP COLUMN `date_fin`'),
+  );
 
-	include_spip('base/upgrade');
-	maj_plugin($nom_meta_base_version, $version_cible, $maj);
+  include_spip('base/upgrade');
+  maj_plugin($nom_meta_base_version, $version_cible, $maj);
 }
 
 
@@ -64,19 +64,19 @@ function location_objets_upgrade($nom_meta_base_version, $version_cible) {
 **/
 function location_objets_vider_tables($nom_meta_base_version) {
 
-	sql_drop_table('spip_objets_locations');
-	sql_drop_table('spip_objets_locations_liens');
-	sql_drop_table('spip_objets_locations_details');
-	sql_drop_table('spip_objets_locations_details_liens');
+  sql_drop_table('spip_objets_locations');
+  sql_drop_table('spip_objets_locations_liens');
+  sql_drop_table('spip_objets_locations_details');
+  sql_drop_table('spip_objets_locations_details_liens');
 
-	# Nettoyer les liens courants (le génie optimiser_base_disparus se chargera de nettoyer toutes les tables de liens)
-	sql_delete('spip_documents_liens', sql_in('objet', array('objets_location', 'objets_locations_detail')));
-	sql_delete('spip_mots_liens', sql_in('objet', array('objets_location', 'objets_locations_detail')));
-	sql_delete('spip_auteurs_liens', sql_in('objet', array('objets_location', 'objets_locations_detail')));
-	# Nettoyer les versionnages et forums
-	sql_delete('spip_versions', sql_in('objet', array('objets_location', 'objets_locations_detail')));
-	sql_delete('spip_versions_fragments', sql_in('objet', array('objets_location', 'objets_locations_detail')));
-	sql_delete('spip_forum', sql_in('objet', array('objets_location', 'objets_locations_detail')));
+  # Nettoyer les liens courants (le génie optimiser_base_disparus se chargera de nettoyer toutes les tables de liens)
+  sql_delete('spip_documents_liens', sql_in('objet', array('objets_location', 'objets_locations_detail')));
+  sql_delete('spip_mots_liens', sql_in('objet', array('objets_location', 'objets_locations_detail')));
+  sql_delete('spip_auteurs_liens', sql_in('objet', array('objets_location', 'objets_locations_detail')));
+  # Nettoyer les versionnages et forums
+  sql_delete('spip_versions', sql_in('objet', array('objets_location', 'objets_locations_detail')));
+  sql_delete('spip_versions_fragments', sql_in('objet', array('objets_location', 'objets_locations_detail')));
+  sql_delete('spip_forum', sql_in('objet', array('objets_location', 'objets_locations_detail')));
 
-	effacer_meta($nom_meta_base_version);
+  effacer_meta($nom_meta_base_version);
 }

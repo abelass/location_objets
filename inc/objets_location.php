@@ -13,7 +13,7 @@ if (!defined('_ECRIRE_INC_VERSION')) {
 }
 
 /**
- * Calcule le prix et infis relationnées d'un objet
+ * Calcule le prix et infos relationnées d'un objet
  *
  * @param array $set
  *        	Les valeurs à enregistrer.
