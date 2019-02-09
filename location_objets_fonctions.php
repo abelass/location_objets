@@ -9,7 +9,7 @@
  * @package    SPIP\Location_objets\Fonctions
  */
 if (!defined('_ECRIRE_INC_VERSION')) {
-  return;
+	return;
 }
 
 /**
@@ -30,69 +30,69 @@ if (!defined('_ECRIRE_INC_VERSION')) {
  *          La saisies
  */
 function objet_location_extras_champs($service, $location_objet_table, $id_location_objet, $contexte = array(), $options = array()) {
-  include_spip('action/editer_liens');
-  // Créer une variable pour chaque option
-  foreach ($options as $cle => $valeur) {
-    $$cle = $valeur;
-  }
+	include_spip('action/editer_liens');
+	// Créer une variable pour chaque option
+	foreach ($options as $cle => $valeur) {
+		$$cle = $valeur;
+	}
 
-  // Le type de prix
-  if (!$type_prix) {
-    $type_prix = 'prix_ht';
-  }
+	// Le type de prix
+	if (!$type_prix) {
+		$type_prix = 'prix_ht';
+	}
 
-  if (!$separateur_prix) {
-    $separateur_prix = '<span class="separateur"> - </span>';
-  }
+	if (!$separateur_prix) {
+		$separateur_prix = '<span class="separateur"> - </span>';
+	}
 
-  $objet_associable = objet_associable($service);
-  $data = array();
+	$objet_associable = objet_associable($service);
+	$data = array();
 
-  if ($objet_associable) {
-    if (function_exists('prix_par_objet')) {
-      $fonction_prix = 'prix_par_objet';
-    }
+	if ($objet_associable) {
+		if (function_exists('prix_par_objet')) {
+			$fonction_prix = 'prix_par_objet';
+		}
 
-    list ($id_table_objet, $table_liens) = $objet_associable;
-    $location_objet = objet_type($location_objet_table);
-    $table_extra = table_objet_sql($service);
-    $identifiant_extra = id_table_objet($service);
-    $objet_extra = objet_type($service);
+		list ($id_table_objet, $table_liens) = $objet_associable;
+		$location_objet = objet_type($location_objet_table);
+		$table_extra = table_objet_sql($service);
+		$identifiant_extra = id_table_objet($service);
+		$objet_extra = objet_type($service);
 
-    $sql = sql_select('*',
-      "$table_extra LEFT JOIN $table_liens USING(id_objets_service)",
-      'objet=' . sql_quote($location_objet) . ' AND id_objet=' . $id_location_objet);
-    while ($row = sql_fetch($sql)) {
-      $id_objet = $row[$identifiant_extra];
+		$sql = sql_select('*',
+			"$table_extra LEFT JOIN $table_liens USING(id_objets_service)",
+			'objet=' . sql_quote($location_objet) . ' AND id_objet=' . $id_location_objet);
+		while ($row = sql_fetch($sql)) {
+			$id_objet = $row[$identifiant_extra];
 
-      if ($prix = $fonction_prix($objet_extra, $id_objet, $contexte, $type_prix)) {
-        $prix = $separateur_prix . filtres_prix_formater($prix);
-      }
-      else {
-        $prix = '';
-      }
+			if ($prix = $fonction_prix($objet_extra, $id_objet, $contexte, $type_prix)) {
+				$prix = $separateur_prix . filtres_prix_formater($prix);
+			}
+			else {
+				$prix = '';
+			}
 
-      $titre = isset($row['titre']) ?
-        $row['titre'] :
-        (
-          isset($row['nom']) ?
-          $row['nom'] :
-          generer_info_entite($objet_extra, $id_objet, 'titre'));
+			$titre = isset($row['titre']) ?
+				$row['titre'] :
+				(
+					isset($row['nom']) ?
+					$row['nom'] :
+					generer_info_entite($objet_extra, $id_objet, 'titre'));
 
-      $data[$id_objet] = $titre . $prix;
-    }
-  }
+			$data[$id_objet] = $titre . $prix;
+		}
+	}
 
-  return array(
-    array(
-      'saisie' => 'checkbox',
-      'options' => array(
-        'nom' => 'extras_' . $objet_extra,
-        'label' => _T(objet_info($objet_extra, 'texte_objets')),
-        'data' => $data
-      )
-    )
-  );
+	return array(
+		array(
+			'saisie' => 'checkbox',
+			'options' => array(
+				'nom' => 'extras_' . $objet_extra,
+				'label' => _T(objet_info($objet_extra, 'texte_objets')),
+				'data' => $data
+			)
+		)
+	);
 }
 
 /*
@@ -103,9 +103,9 @@ function objet_location_extras_champs($service, $location_objet_table, $id_locat
  * @return string Nom du statut.
  */
 function ol_statut_titre($objet, $statut) {
-  include_spip('inc/puce_statut');
-  if(!$texte = statut_texte_instituer($objet , trim($statut))) {
-    $texte = $statut;
-  }
-  return $texte;
+	include_spip('inc/puce_statut');
+	if(!$texte = statut_texte_instituer($objet , trim($statut))) {
+		$texte = $statut;
+	}
+	return $texte;
 }
