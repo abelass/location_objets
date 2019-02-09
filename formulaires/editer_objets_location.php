@@ -138,6 +138,8 @@ function formulaires_editer_objets_location_charger_dist(
 
   $valeurs['espace_prive'] = '';
   $valeurs['date'] = date('d-m-Y H:i:s');
+  $valeurs['date_debut'] = _request('date_debut');
+  $valeurs['date_fin'] = _request('date_fin');
 
   if (!$new) {
     if ($details = sql_allfetsel(
