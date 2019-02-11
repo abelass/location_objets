@@ -128,7 +128,7 @@ function location_objets_declarer_tables_objets_sql($tables) {
       'titre' => 'text NOT NULL',
       'jours' => 'int(11) NOT NULL DEFAULT "0"',
       'quantite' => 'int(11) NOT NULL DEFAULT "1"',
-      'prix_unitaire_ht' => 'decimal(20.6) NOT NULL DEFAULT "0"',
+      'prix_unitaire_ht' => 'decimal(20,6) not null default 0',
       "prix_total" => "int(1) NOT NULL DEFAULT '0'",
       'taxe' => 'decimal(20,4) NOT NULL DEFAULT "0"',
       'devise' => 'varchar(3) NOT NULL DEFAULT ""',
