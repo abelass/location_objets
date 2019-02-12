@@ -35,7 +35,7 @@
 			<td class="date debut">[(#DATE_DEBUT|affdate_jourcourt)]</td>
 			<td class="date fin">[(#DATE_FIN|affdate_jourcourt)]</td>
 			[(#GET{total}|floatval|>{0.00}|oui)
-			<td class="prix_unitaire_ht">[(#PRIX_UNITAIRE_HT|prix_formater)]</td>
+			<td class="prix_unitaire_ht">[(#PRIX_UNITAIRE_HT|round{2}|prix_formater)]</td>
 			<td class="montant">[(#PRIX)]</td>
 			]
 			<td class="id">[(#AUTORISER{modifier,objets_locations_detail,#ID_OBJETS_LOCATIONS_DETAIL}|?{

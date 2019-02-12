@@ -23,7 +23,7 @@
 		</tr>
 	</thead>
 	<tbody>
-	<BOUCLE_liste_objets_locations_details(OBJETS_LOCATIONS_DETAILS){id_objets_location?}{objet ?}{id_objet?}{id_mot?}{id_auteur?}{where?}{statut?}{recherche?}{tri #ENV{par,num titre},#GET{defaut_tri}}{par titre}{pagination #ENV{nb,10}}>
+	<BOUCLE_liste_objets_locations_details(OBJETS_LOCATIONS_DETAILS){id_objets_location?}{objet?}{id_objet?}{id_mot?}{where?}{statut?}{recherche?}{tri #ENV{par,num titre},#GET{defaut_tri}}{par titre}{pagination #ENV{nb,10}}>
 		<tr class="[(#COMPTEUR_BOUCLE|alterner{row_odd,row_even})]">
 			<td class="picto">[(#CHEMIN_IMAGE{objets_locations_detail-16.png}|balise_img)]</td>
 			<td class="statut">[(#STATUT|puce_statut{objets_locations_detail,#ID_OBJETS_LOCATIONS_DETAIL})]</td>
@@ -35,7 +35,7 @@
 			<td class="jours">#JOURS</td>
 			<td class="date debut">[(#DATE_DEBUT|affdate_jourcourt)]</td>
 			<td class="date fin">[(#DATE_FIN|affdate_jourcourt)]</td>
-			<td class="prix_unitaire_ht">[(#PRIX_UNITAIRE_HT|prix_formater)]</td>
+			<td class="prix_unitaire_ht">[(#PRIX_UNITAIRE_HT|round{2}|prix_formater)]</td>
 			<td class="prix">#PRIX</td>
 			<td class="id">[(#AUTORISER{modifier,objets_locations_detail,#ID_OBJETS_LOCATIONS_DETAIL}|?{
 				<a href="[(#URL_ECRIRE{objets_locations_detail_edit,id_objets_locations_detail=#ID_OBJETS_LOCATIONS_DETAIL})]">
