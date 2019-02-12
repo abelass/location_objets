@@ -1,17 +1,12 @@
 <BOUCLE_objets_location(OBJETS_LOCATIONS){id_objets_location}{statut?}>
-[<div class="champ contenu_type[ (#TYPE*|strlen|?{'',vide})]">
-	<label><:objets_location:champ_type_label:> </label>
-	<span dir="#LANG_DIR" class="#EDIT{type} type">(#TYPE)</span>
+[<div class="champ contenu_id_auteur[ (#ID_AUTEUR*|>{0}|?{'',vide})]">
+	<label><:ecrire:auteur:> </label>
+	<span dir="#LANG_DIR" class="#EDIT{id_auteur} id_auteur"><a href="#URL_ECRIRE{auteur,id_auteur=#ID_AUTEUR}">(#INFO_NOM{auteur,#ID_AUTEUR})</a></span>
 </div>]
 
-[<div class="champ contenu_jour_debut[ (#JOUR_DEBUT*|>{0}|?{'',vide})]">
-	<label><:objets_location:champ_jour_debut_label:> </label>
-	<span dir="#LANG_DIR" class="#EDIT{jour_debut} jour_debut">(#JOUR_DEBUT)</span>
-</div>]
-
-[<div class="champ contenu_jour_fin[ (#JOUR_FIN*|>{0}|?{'',vide})]">
-	<label><:objets_location:champ_jour_fin_label:> </label>
-	<span dir="#LANG_DIR" class="#EDIT{jour_fin} jour_fin">(#JOUR_FIN)</span>
+[<div class="champ contenu_lang[ (#LANG*|>{0}|?{'',vide})]">
+	<label><:objets_location:champ_lang_label:> </label>
+	<span dir="#LANG_DIR" class="#EDIT{jour_debut} jour_debut">(#LANG|traduire_nom_langue)</span>
 </div>]
 
 [<div class="champ contenu_reference[ (#REFERENCE*|strlen|?{'',vide})]">
