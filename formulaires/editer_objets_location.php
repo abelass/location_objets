@@ -314,16 +314,17 @@ function formulaires_editer_objets_location_verifier_dist(
 		$config_fonc = '',
 		$row = array(),
 		$hidden = '') {
-	$date_debut = _request('date_debut');
-	$date_fin = _request('date_fin');
+
 
 	$erreurs = array();
 
+	$champs_dates = ['date_debut', 'date_fin'];
+
 	// Vérifier si on a une date correcte.
 	$verifier = charger_fonction('verifier', 'inc');
-	foreach (array('date_debut', 'date_fin') AS $champ) {
+	foreach ($champs_dates  AS $champ) {
 		$normaliser = null;
-		if ($erreur = $verifier($$champ, 'date', array('normaliser'=>'datetime'), $normaliser)) {
+		if ($erreur = $verifier(_request($champ), 'date', array('normaliser'=>'datetime'), $normaliser)) {
 			$erreurs[$champ] = $erreur;
 			// si une valeur de normalisation a ete transmis, la prendre.
 		} elseif (!is_null($normaliser)) {
@@ -334,6 +335,9 @@ function formulaires_editer_objets_location_verifier_dist(
 			set_request($champ, null);
 		}
 	}
+
+	$date_debut = _request('date_debut');
+	$date_fin = _request('date_fin');
 
 
 	$erreurs += formulaires_editer_objet_verifier(
@@ -370,6 +374,8 @@ function formulaires_editer_objets_location_verifier_dist(
 		) {
 		$erreurs['date_fin'] = $erreur;
 	}
+
+
 
 	return $erreurs;
 }

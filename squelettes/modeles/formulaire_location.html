@@ -1,8 +1,20 @@
+
+
 [(#SESSION{id_auteur}|non)
 	<div class="login">
 		#SET{url,#URL_PAGE{login}|parametre_url{url,#SELF}}
-		[(#SET{titre_login,<:lien_connecter:>})]
-		<strong class="explication"><:objets_location:explication_login{url=#GET{url},titre_login=#GET{titre_login}}:></strong>
+
+	[(#SET{lien,#GET{url}|lien_ou_expose{
+		<:objets_location:connectez_vous:>,
+		'',
+		login_modal,
+		<:lien_connecter:>,
+		nofollow,
+	}})]
+
+
+
+		<strong class="explication"><:objets_location:explication_login{lien=#GET{lien}}:></strong>
 	</div>
 	[
 		(#FORMULAIRE_INSCRIPTION{6forum})
@@ -25,3 +37,5 @@
 	})]
 </div>
 ]
+
+

@@ -21,13 +21,14 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'champ_periode_label' => 'Période :',
 	'champ_reference_label' => 'Référence :',
 	'champ_type_label' => 'Type :',
+	'connectez_vous' => 'Connectez vous',
 	'confirmer_supprimer_objets_location' => 'Confirmez-vous la suppression de cette location ?',
 
 	// E
 	'erreur_access_formulaire' => 'Formulaire inaccesible pour des raisons techniques!',
 	'erreur_date_fin_anterieur_date_debut' => 'La date fin doit être postérieure à la date début',
 	'erreur_jours_indisponible' => 'Veuillez choisir une autre date fin, car les dates @jours@ ne sont pas disponibles',
-	'explication_login' => '<a rel="nofollow" class="login_modal" href="@url@" title="@titre_login@">Connectez-vous</a> si vous êtes déjà enregistré sur ce site',
+	'explication_login' => '@lien@ si vous êtes déjà enregistré sur ce site.',
 
 	// I
 	'icone_creer_objets_location' => 'Créer une location',
