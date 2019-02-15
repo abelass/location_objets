@@ -47,7 +47,10 @@ function location_objets_upgrade($nom_meta_base_version, $version_cible) {
 	$maj['1.1.10'] = array(
 		array('sql_alter', 'TABLE spip_objets_locations_details CHANGE prix_unitaire_ht prix_unitaire_ht DECIMAL(20,6) NULL DEFAULT NULL')
 	);
-
+	$maj['1.2.0'] = array(
+		array('sql_alter', 'TABLE spip_objets_locations_details CHANGE jours duree INT(11) NOT NULL DEFAULT 0'),
+		array('maj_tables', array('spip_objets_locations')),
+	);
 
 	include_spip('base/upgrade');
 	maj_plugin($nom_meta_base_version, $version_cible, $maj);
