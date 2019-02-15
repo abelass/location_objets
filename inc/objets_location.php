@@ -70,6 +70,12 @@ function location_prix_objet($set, $contexte) {
 	return $set;
 }
 
+/**
+ * Retourne les valeurs disponibles pour le champ entite_duree
+ *
+ * @return array
+ *   les valeurs.
+ */
 function entite_duree_definitions() {
 	return [
 		'jour' => _T('ecrire:jour'),
