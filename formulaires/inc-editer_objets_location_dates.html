@@ -36,15 +36,18 @@
 
 		$("#champ_date_debut").on('change',function() {
 			var date_debut = $(this).val();
-			var date_fin = $( "input[name='date_fin']" ).attr('value');
-			var location_objet = $( "input[name='location_objet']" ).attr('value');
-			var id_location_objet = $( "input[name='id_location_objet']" ).attr('value');
+			var date_fin = $( "input[name='date_fin']" ).val();
+			var location_objet = $( "input[name='location_objet']" ).val();
+			var id_location_objet = $( "input[name='id_location_objet']" ).val();
+			var entite_duree = $( "input[name='entite_duree']" ).val();
+
 			ajaxReload('objets_location_dates', {
 				args : {
 					date_debut : date_debut,
 					date_fin : date_fin,
 					location_objet: location_objet,
 					id_location_objet : id_location_objet,
+					entite_duree: entite_duree,
 					recharge_ajax : true
 				}
 			});
