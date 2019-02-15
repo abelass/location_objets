@@ -78,7 +78,7 @@ function location_prix_objet($set, $contexte) {
  */
 function entite_duree_definitions() {
 	return [
-		'jour' => _T('ecrire:jour'),
+		'jour' => _T('ecrire:jours'),
 		'nuit' => _T('dates_outils:nuits'),
 	];
 }
