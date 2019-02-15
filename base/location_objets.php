@@ -70,14 +70,16 @@ function location_objets_declarer_tables_objets_sql($tables) {
       'jour_fin',
       'reference',
       'lang',
-      'horaire'
+      'horaire',
+      'entite_duree',
     ),
     'champs_versionnes' => array(
       'id_auteur',
       'jour_debut',
       'jour_fin',
       'reference',
-      'horaire'
+      'horaire',
+      'entite_duree',
     ),
     'rechercher_champs' => array('reference' => 8),
     'tables_jointures' => array(
@@ -156,7 +158,7 @@ function location_objets_declarer_tables_objets_sql($tables) {
       'date_debut',
       'date_fin',
       'titre',
-      'jours',
+      'duree',
       'quantite',
       'prix_unitaire_ht',
       'prix_total',
@@ -172,7 +174,7 @@ function location_objets_declarer_tables_objets_sql($tables) {
       'date_debut',
       'date_fin',
       'titre',
-      'jours',
+      'duree',
       'quantite',
       'prix_unitaire_ht',
       'prix_total',

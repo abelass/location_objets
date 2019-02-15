@@ -13,6 +13,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 
 	// C
 	'champ_devise_label' => 'Devise&nbsp;: ',
+	'champ_duree_label' => 'Durée :',
 	'champ_id_objet_label' => 'Id objet&nbsp;: ',
 	'champ_objet_label' => 'Objet&nbsp;: ',
 	'champ_prix_ht_label' => 'Prix ht&nbsp;: ',

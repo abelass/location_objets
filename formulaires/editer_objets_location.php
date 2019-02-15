@@ -136,6 +136,13 @@ function formulaires_editer_objets_location_charger_dist(
 	$id_auteur = session_get('id_auteur');
 	$config = lire_config('location_objets');
 
+	if (empty($valeurs['entite_duree'])) {
+		$valeurs['entite_duree'] = isset($options['entite_duree']) ?
+		$options['entite_duree'] :
+		(isset($config['entite_duree']) ? $config['entite_duree'] : 'jour');
+	}
+
+
 	$valeurs['espace_prive'] = '';
 	$valeurs['date'] = date('d-m-Y H:i:s');
 	$valeurs['date_debut'] = _request('date_debut');
@@ -216,7 +223,10 @@ function formulaires_editer_objets_location_charger_dist(
 	}
 
 	foreach($options as $index => $valeur) {
-		$valeurs[$index] = $valeur;
+		if (!isset($valeurs[$index]) OR
+			(isset($valeurs[$index]) AND empty($valeurs[$index]))) {
+			$valeurs[$index] = trim($valeur);
+		}
 	}
 
 	// Le mode de calcul de prix.
@@ -256,12 +266,15 @@ function formulaires_editer_objets_location_charger_dist(
 	}
 
 	if ($espace_prive) {
+		include_spip('inc/objets_location');
 		$valeurs['espace_prive'] = true;
+		$valeurs['entite_duree_definitions'] = entite_duree_definitions();
 		$valeurs['_hidden'] .= '<input type="hidden" name="espace_prive" value="1"/>';
 	}
 	else {
 		$valeurs['id_auteur'] = $id_auteur;
 		$valeurs['_hidden'] .= '<input type="hidden" name="id_auteur" value="' . $valeurs['id_auteur'] . '"/>';
+		$valeurs['_hidden'] .= '<input type="hidden" name="entite_duree" value="' . $valeurs['entite_duree'] . '"/>';
 	}
 
 	return $valeurs;

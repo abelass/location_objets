@@ -143,7 +143,7 @@ function objets_location_modifier($id_objets_location, $set = null) {
 		$date_fin = _request('date_fin');
 		$_date_debut = strtotime($date_debut);
 		$_date_fin = strtotime($date_fin);
-		$nombre_jours = 0;
+		$duree = 0;
 		$objets_extras = array_filter(explode(',', _request('objets_extras')));
 		$new = _request('new');
 
@@ -152,7 +152,7 @@ function objets_location_modifier($id_objets_location, $set = null) {
 
 		if ($_date_fin >= $_date_debut) {
 			$difference = $_date_fin - $_date_debut;
-			$nombre_jours = round($difference / (60 * 60 * 24)) + $fin;
+			$duree = round($difference / (60 * 60 * 24)) + $fin;
 		}
 
 		$editer_objet = charger_fonction('editer_objet', 'action');
@@ -168,7 +168,7 @@ function objets_location_modifier($id_objets_location, $set = null) {
 				'date_debut' => $date_debut,
 				'date_fin' => $date_fin,
 				'titre' => generer_info_entite($id_location_objet, $location_objet, 'titre'),
-				'jours' => $nombre_jours,
+				'duree' => $duree,
 				'statut' => $statut_defaut,
 			);
 
@@ -200,7 +200,7 @@ function objets_location_modifier($id_objets_location, $set = null) {
 										'objet' => $objet_extra,
 										'id_objet' => $id_extra,
 										'titre' => generer_info_entite($id_extra, $objet_extra, 'titre'),
-										'jours' => $nombre_jours,
+										'duree' => $duree,
 										'statut' => $statut_defaut,
 									);
 
@@ -234,7 +234,7 @@ function objets_location_modifier($id_objets_location, $set = null) {
 			$id_objet = $objet_location_actuel['id_objet'];
 
 			$set = array(
-				'jours' => $nombre_jours,
+				'duree' => $duree,
 			);
 
 			$set = array_merge(
@@ -245,7 +245,7 @@ function objets_location_modifier($id_objets_location, $set = null) {
 					'objet' => $location_objet,
 					'id_objet' => $id_location_objet,
 					'titre' => generer_info_entite($id_location_objet, $location_objet, 'titre'),
-					'jours' => $nombre_jours,
+					'duree' => $duree,
 				)
 			);
 
@@ -286,7 +286,7 @@ function objets_location_modifier($id_objets_location, $set = null) {
 								'objet' => $objet_extra,
 								'id_objet' => $id_extra,
 								'titre' => generer_info_entite($id_extra, $objet_extra, 'titre'),
-								'jours' => $nombre_jours,
+								'duree' => $duree,
 							);
 
 							if (!$id_objets_locations_detail = sql_getfetsel(

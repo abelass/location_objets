@@ -16,6 +16,16 @@
 						label=<:objets_location:champ_lang_label:>
 					})]
 				]
+				[(#ENV{nombre_langues}|>{0}|oui)
+					[(#SAISIE{selecteur_langue, lang, obligatoire=oui,
+						label=<:objets_location:champ_lang_label:>
+					})]
+				]
+				[(#SAISIE{selection, entite_duree, obligatoire=oui,
+						label=<:objets_location:champ_entite_duree_label:>,
+						data=#ENV{entite_duree_definitions}
+					})]
+
 			]
 			[(#ENV{nombre_langues}|>{0}|oui)
 				[(#ENV{espace_prive}|non|et{#ENV{new}|non})

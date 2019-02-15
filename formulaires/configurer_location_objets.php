@@ -7,6 +7,7 @@ if (!defined('_ECRIRE_INC_VERSION'))
 function formulaires_configurer_location_objets_saisies_dist() {
 	include_spip('inc/config');
 	include_spip('inc/plugin');
+	include_spip('inc/objets_location');
 
 	$liste_objets = lister_tables_objets_sql('spip_objets_locations');
 	$statuts = [];
@@ -87,12 +88,9 @@ function formulaires_configurer_location_objets_saisies_dist() {
 					'saisie' => 'selection',
 					'options' => [
 						'nom' => 'entite_duree',
-						'label' => _T('location_objets:champ_entite_duree_label'),
-						'explication' => _T('location_objets:explication_entite_duree'),
-						'data' => [
-							'jour' => _T('ecrire:jours'),
-							'nuit' => _T('dates_outils:nuits'),
-						],
+						'label' => _T('objets_location:champ_entite_duree_label'),
+						'explication' => _T('objets_location:explication_entite_duree'),
+						'data' => entite_duree_definitions(),
 						'defaut' => $config['entite_duree'],
 					],
 				],
