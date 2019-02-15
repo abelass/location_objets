@@ -9,10 +9,10 @@ function formulaires_configurer_location_objets_saisies_dist() {
 	include_spip('inc/plugin');
 
 	$liste_objets = lister_tables_objets_sql('spip_objets_locations');
-	$statuts = array();
-	$statuts_selectionnees = array();
-	$config = lire_config('location_objets', array());
-	$quand = isset($config['quand']) ? $config['quand'] : array();
+	$statuts = [];
+	$statuts_selectionnees = [];
+	$config = lire_config('location_objets', []);
+	$quand = isset($config['quand']) ? $config['quand'] : [];
 
 	//Le statuts du plugin, sauf en cours
 	foreach ($liste_objets['statut_textes_instituer'] AS $statut => $label) {
@@ -22,36 +22,36 @@ function formulaires_configurer_location_objets_saisies_dist() {
 	}
 
 
-	$choix_expediteurs = array(
+	$choix_expediteurs = [
 		'webmaster' => _T('location_objets:notifications_expediteur_choix_webmaster'),
 		'administrateur' => _T('location_objets:notifications_expediteur_choix_administrateur'),
 		'email' => _T('location_objets:notifications_expediteur_choix_email')
-	);
+	];
 
 	if (defined('_DIR_PLUGIN_FACTEUR')) {
 		$choix_expediteurs['facteur'] = _T('location_objets:notifications_expediteur_choix_facteur');
 	}
 
-	return array(
-		array(
+	return [
+		[
 			'saisie' => 'fieldset',
-			'options' => array(
+			'options' => [
 				'nom' => 'fieldset_parametres',
 				'label' => _T('location_objets:cfg_titre_parametrages')
-			),
+			],
 
-			'saisies' => array(
-				array(
+			'saisies' => [
+				[
 					'saisie' => 'selection',
-					'options' => array(
+					'options' => [
 						'nom' => 'statut_defaut',
 						'datas' => $statuts,
 						'defaut' => 'valide',
 						'cacher_option_intro' => 'on',
 						'label' => _T('location_objets:label_statut_defaut'),
 						'defaut' => $config['statut_defaut']
-					)
-				),
+					]
+				],
 				/*array(
 					'saisie' => 'input',
 					'options' => array(
@@ -66,26 +66,26 @@ function formulaires_configurer_location_objets_saisies_dist() {
 					)
 				),*/
 				//$poubelle_duree,
-			)
-		),
-		array (
+			]
+		],
+		[
 			'saisie' => 'fieldset',
-			'options' => array(
+			'options' => [
 				'nom' => 'formulaire',
 				'label' => _T('location_objets:cfg_titre_formulaire'),
-			),
-			'saisies' => array(
-				array(
+			],
+			'saisies' => [
+				[
 					'saisie' => 'choisir_objets',
-					'options' => array(
+					'options' => [
 						'nom' => 'location_extras_objets',
 						'label' => _T('location_objets:champ_location_extras_objets_label'),
 						'defaut' => $config['location_extras_objets'],
-					),
-				),
-				array(
+					],
+				],
+				[
 					'saisie' => 'selection',
-					'options' => array(
+					'options' => [
 						'nom' => 'entite_duree',
 						'label' => _T('location_objets:champ_entite_duree_label'),
 						'explication' => _T('location_objets:explication_entite_duree'),
@@ -94,69 +94,69 @@ function formulaires_configurer_location_objets_saisies_dist() {
 							'nuit' => _T('dates_outils:nuits'),
 						],
 						'defaut' => $config['entite_duree'],
-					),
-				),
-			),
-		),
-		array(
+					],
+				],
+			],
+		],
+		[
 			'saisie' => 'fieldset',
-			'options' => array(
+			'options' => [
 				'nom' => 'fieldset_notifications',
 				'label' => _T('location_objets:notifications_cfg_titre')
-			),
-			'saisies' => array(
-				array(
+			],
+			'saisies' => [
+				[
 					'saisie' => 'explication',
-					'options' => array(
+					'options' => [
 						'nom' => 'exp1',
 						'texte' => _T('location_objets:notifications_explication')
-					)
-				),
-				array(
+					]
+				],
+				[
 					'saisie' => 'oui_non',
-					'options' => array(
+					'options' => [
 						'nom' => 'activer',
 						'label' => _T('location_objets:notifications_activer_label'),
 						'explication' => _T('location_objets:notifications_activer_explication'),
 						'defaut' => $config['activer']
-					)
-				),
-			)
-		),
-		array(
+					]
+				],
+			]
+		],
+		[
 			'saisie' => 'fieldset',
-			'options' => array(
+			'options' => [
 				'nom' => 'fieldset_notifications_parametres',
 				'label' => _T('location_objets:notifications_parametres'),
 				'afficher_si' => '@activer@ == "on"',
-			),
-			'saisies' => array(
-				array(
+			],
+			'saisies' => [
+				[
 					'saisie' => 'selection_multiple',
-					'options' => array(
+					'options' => [
 						'nom' => 'quand',
 						'label' => _T('location_objets:notifications_quand_label'),
 						'explication' => _T('location_objets:notifications_quand_explication'),
 						'cacher_option_intro' => 'on',
 						'datas' => $statuts,
 						'defaut' => $config['quand']
-					)
-				),
-				array(
+					]
+				],
+				[
 					'saisie' => 'selection',
-					'options' => array(
+					'options' => [
 						'nom' => 'expediteur',
 						'label' => _T('location_objets:notifications_expediteur_label'),
 						'explication' => _T('location_objets:notifications_expediteur_explication'),
 						'cacher_option_intro' => 'on',
 						'defaut' => $config['expediteur'],
 						'datas' => $choix_expediteurs
-					)
-				),
+					]
+				],
 
-				array(
+				[
 					'saisie' => 'auteurs',
-					'options' => array(
+					'options' => [
 						'nom' => 'expediteur_webmaster',
 						'label' => _T('location_objets:notifications_expediteur_webmaster_label'),
 						'statut' => '0minirezo',
@@ -164,46 +164,46 @@ function formulaires_configurer_location_objets_saisies_dist() {
 						'webmestre' => 'oui',
 						'defaut' => $config['expediteur_webmaster'],
 						'afficher_si' => '@expediteur@ == "webmaster"',
-					)
-				),
-				array(
+					]
+				],
+				[
 					'saisie' => 'auteurs',
-					'options' => array(
+					'options' => [
 						'nom' => 'expediteur_administrateur',
 						'label' => _T('location_objets:notifications_expediteur_administrateur_label'),
 						'statut' => '0minirezo',
 						'cacher_option_intro' => "on",
 						'defaut' => $config['expediteur_administrateur'],
 						'afficher_si' => '@expediteur@ == "administrateur"',
-					)
-				),
-				array(
+					]
+				],
+				[
 					'saisie' => 'input',
-					'options' => array(
+					'options' => [
 						'nom' => 'expediteur_email',
 						'label' => _T('location_objets:notifications_expediteur_email_label'),
 						'defaut' => $config['expediteur_email'],
 						'afficher_si' => '@expediteur@ == "email"',
-					)
-				),
-				array(
+					]
+				],
+				[
 					'saisie' => 'selection',
-					'options' => array(
+					'options' => [
 						'nom' => 'vendeur',
 						'label' => _T('location_objets:notifications_destinataire_label'),
 						'explication' => _T('location_objets:notifications_destinataire_explication'),
 						'cacher_option_intro' => 'on',
 						'defaut' => $config['vendeur'],
-						'datas' => array(
+						'datas' => [
 							'webmaster' => _T('location_objets:notifications_vendeur_choix_webmaster'),
 							'administrateur' => _T('location_objets:notifications_vendeur_choix_administrateur'),
 							'email' => _T('location_objets:notifications_vendeur_choix_email')
-						)
-					)
-				),
-				array(
+						]
+					]
+				],
+				[
 					'saisie' => 'auteurs',
-					'options' => array(
+					'options' => [
 						'nom' => 'vendeur_webmaster',
 						'label' => _T('location_objets:notifications_vendeur_webmaster_label'),
 						'statut' => '0minirezo',
@@ -212,11 +212,11 @@ function formulaires_configurer_location_objets_saisies_dist() {
 						'multiple' => 'oui',
 						'defaut' => $config['vendeur_webmaster'],
 						'afficher_si' => '@vendeur@ == "webmaster"',
-					)
-				),
-				array(
+					]
+				],
+				[
 					'saisie' => 'auteurs',
-					'options' => array(
+					'options' => [
 						'nom' => 'vendeur_administrateur',
 						'label' => _T('location_objets:notifications_vendeur_administrateur_label'),
 						'statut' => '0minirezo',
@@ -224,30 +224,30 @@ function formulaires_configurer_location_objets_saisies_dist() {
 						'cacher_option_intro' => "on",
 						'defaut' => $config['vendeur_administrateur'],
 						'afficher_si' => '@vendeur@ == "administrateur"',
-					)
-				),
+					]
+				],
 
-				array(
+				[
 					'saisie' => 'input',
-					'options' => array(
+					'options' => [
 						'nom' => 'vendeur_email',
 						'label' => _T('location_objets:notifications_vendeur_email_label'),
 						'explication' => _T('location_objets:notifications_vendeur_email_explication'),
 						'defaut' => $config['vendeur_email'],
 						'afficher_si' => '@vendeur@ == "email"',
-					)
-				),
-				array(
+					]
+				],
+				[
 					'saisie' => 'oui_non',
-					'options' => array(
+					'options' => [
 						'nom' => 'client',
 						'label' => _T('location_objets:notifications_client_label'),
 						'explication' => _T('location_objets:notifications_client_explication'),
 						'defaut' => $config['client'],
-					)
-				),
-			)
-		),
+					]
+				],
+			]
+		],
 		/*array(
 			'saisie' => 'fieldset',
 			'options' => array(
@@ -285,5 +285,5 @@ function formulaires_configurer_location_objets_saisies_dist() {
 				),
 			)
 		)*/
-	);
+	];
 }
