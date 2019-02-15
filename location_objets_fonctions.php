@@ -109,3 +109,11 @@ function ol_statut_titre($objet, $statut) {
 	}
 	return $texte;
 }
+
+function objets_locations_verifier_date($id_objets_location, $location_objet, $id_location_objet) {
+	$verifier = charger_fonction('editer_objets_location_verifier', 'formulaires');
+$erreurs = $verifier($id_objets_location, $location_objet='', $id_location_objet='','','');
+
+spip_log($erreurs, 'teste');
+	return $erreurs;
+}

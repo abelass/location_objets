@@ -1,3 +1,4 @@
+[(#REM) Vérifier les erreurs au retour d'ajax]
 [(#SAISIE{dates_disponibles, date_debut,	obligatoire=oui,
 	label=<:dates_outils:champ_date_debut_label:>,
 	objet=[(#ENV{location_objet}|objet_type)],
@@ -39,14 +40,23 @@
 			var date_fin = $( "input[name='date_fin']" ).attr('value');
 			var location_objet = $( "input[name='location_objet']" ).attr('value');
 			var id_location_objet = $( "input[name='id_location_objet']" ).attr('value');
-			ajaxReload('objets_location_dates', {
-				args : {
-					date_debut : date_debut,
-					date_fin : date_fin,
-					location_objet: location_objet,
-					id_location_objet : id_location_objet,
-					recharge_ajax : true
+			var id_auteur = $( "input[name='id_auteur']" ).attr('value');
+			var champs =  $(".formulaire_editer_objets_location form").serialize();
+
+			champs = champs.split('&');
+			var pair = '';
+			var args = {recharge_ajax : true};
+			var champ = '';
+			Object.keys(champs).forEach(function(k, i) {
+				champ =
+				pair = champs[k].split('=');
+				if (typeof(pair[1]) != 'undefined') {
+					 args[pair[0]] = pair[1];
 				}
+			});
+
+			ajaxReload('objets_location_dates', {
+				args : args
 			});
 		});
 	});

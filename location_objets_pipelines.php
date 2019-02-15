@@ -123,3 +123,30 @@ function location_objets_header_prive($flux){
 	$flux .= '<link rel="stylesheet" href="' . _DIR_PLUGIN_LOCATION_OBJETS  .'prive/css/location_objets.css" type="text/css" media="all" />';
 	return $flux;
 }
+
+function location_objets_recuperer_fond($flux){
+	include_spip('public/aiguiller');
+	/*if ($flux['args']['fond'] == 'formulaires/inc-editer_objets_location_dates'){
+
+		if ($flux['args']['contexte']['recharge_ajax']) {
+			$verifier = charger_fonction('verifier', 'formulaires/editer_objets_location');
+			include_spip('public/assembler');
+
+			// On récupère les données du contexte.
+			$contexte = calculer_contexte();
+
+			// On vérifie les erreurs de restrictions.
+			$contexte['erreurs'] = traiter_formulaires_dynamiques($flux['args']);
+
+			// On évite le loop infinie.
+			unset($contexte['recharge_ajax']);
+
+			$flux['data']['texte'] = recuperer_fond(
+				'formulaires/inc-editer_objets_location_dates',
+				$contexte,
+				['ajax' => 'objets_location_dates']);
+
+		}
+	}*/
+	return $flux;
+}

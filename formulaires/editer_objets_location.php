@@ -125,7 +125,7 @@ function formulaires_editer_objets_location_charger_dist(
 
 	if (!is_numeric($id_objets_location) or $id_objets_location == 0) {
 		$new = 'oui';
-		$valeurs['_hidden'] .= '<input type="hidden" name="new" value="' . $new . '"/>';
+	//	$valeurs['_hidden'] .= '<input type="hidden" name="new" value="' . $new . '"/>';
 	}
 	elseif (!autoriser('modifier', 'objetslocation', $id_objets_location)) {
 		return array(
