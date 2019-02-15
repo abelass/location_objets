@@ -14,7 +14,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'cfg_titre_formulaire' => 'Formulaire',
 
 	// E
-	'explication_entite_duree' => 'Définit comment les périodes de locations seront affichée.',
+	'explication_entite_duree' => 'Définit comment les périodes de location seront affichées.',
 
 	// L
 	'label_client' => 'Client :',
