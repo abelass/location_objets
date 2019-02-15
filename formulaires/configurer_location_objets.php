@@ -83,6 +83,19 @@ function formulaires_configurer_location_objets_saisies_dist() {
 						'defaut' => $config['location_extras_objets'],
 					),
 				),
+				array(
+					'saisie' => 'selection',
+					'options' => array(
+						'nom' => 'entite_duree',
+						'label' => _T('location_objets:champ_entite_duree_label'),
+						'explication' => _T('location_objets:explication_entite_duree'),
+						'data' => [
+							'jour' => _T('ecrire:jours'),
+							'nuit' => _T('dates_outils:nuits'),
+						],
+						'defaut' => $config['entite_duree'],
+					),
+				),
 			),
 		),
 		array(

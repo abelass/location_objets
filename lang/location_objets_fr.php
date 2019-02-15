@@ -8,9 +8,13 @@ if (!defined('_ECRIRE_INC_VERSION')) {
 $GLOBALS[$GLOBALS['idx_lang']] = array(
 
 	// C
+	'champ_entite_duree_label' => 'Type de période de location :',
 	'champ_location_extras_objets_label' => 'Activer les objets à utiliser comme service extra :',
 	'cfg_titre_parametrages' => 'Paramètres',
 	'cfg_titre_formulaire' => 'Formulaire',
+
+	// E
+	'explication_entite_duree' => 'Définit comment les périodes de locations seront affichée.',
 
 	// L
 	'label_client' => 'Client :',
