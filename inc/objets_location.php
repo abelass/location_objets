@@ -89,7 +89,8 @@ function objets_location_verifier() {
 	$type_verification = ['general', 'dates'];
 
 	foreach ($type_verification AS $type) {
-		$erreurs = 'objets_location_verifier_' . $type($erreurs);
+		$verifier = 'objets_location_verifier_' . $type;
+		$erreurs = $verifier($erreurs);
 	}
 
 	return $erreurs;
@@ -110,7 +111,7 @@ function objets_location_verifier_general($erreurs) {
 	);
 
 	$erreurs = pipeline('objets_location_verifier_general', [
-			'args' => ['type' => $type],
+			'args' => ['type' => 'general'],
 			'data' => $erreurs
 		]);
 
@@ -124,22 +125,26 @@ function objets_location_verifier_dates($erreurs) {
 	$verifier = charger_fonction('verifier', 'inc');
 	foreach ($champs_dates  AS $champ) {
 		$normaliser = null;
-		if ($erreur = $verifier(_request($champ), 'date', array('normaliser'=>'datetime'), $normaliser)) {
+
+		if ($erreur = $verifier(
+			_request($champ),
+			'date',
+			array('normaliser'=>'datetime'),
+			$normaliser)) {
 			$erreurs[$champ] = $erreur;
 			// si une valeur de normalisation a ete transmis, la prendre.
-		} elseif (!is_null($normaliser)) {
+		}
+		elseif (!is_null($normaliser)) {
 			set_request($champ, $normaliser);
-			$$champ = $normaliser;
 			// si pas de normalisation ET pas de date soumise, il ne faut pas tenter d'enregistrer ''
-		} else {
+		}
+		else {
 			set_request($champ, null);
 		}
 	}
 
-	$date_debut = _request('date_debut');
-	$date_fin = _request('date_fin');
-
-	if (strtotime($date_debut) > strtotime($date_fin)) {
+	if (($date_debut = _request('date_debut') AND $date_fin = _request('date_fin')) AND
+		strtotime($date_debut) > strtotime($date_fin)) {
 		$erreurs['date_fin'] = _T('objets_location:erreur_date_fin_anterieur_date_debut');
 	}
 	elseif ($erreur = $verifier(
@@ -163,9 +168,10 @@ function objets_location_verifier_dates($erreurs) {
 	}
 
 	$erreurs = pipeline('objets_location_verifier_dates', [
-			'args' => ['type' => $type],
+			'args' => ['type' => 'dates'],
 			'data' => $erreurs
 		]);
+
 return $erreurs;
 }
 
