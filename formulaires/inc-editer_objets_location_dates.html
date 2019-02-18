@@ -36,13 +36,7 @@
 	$(function() {
 
 		$("#champ_date_debut").on('change',function() {
-			var date_debut = $(this).val();
-			var date_fin = $( "input[name='date_fin']" ).attr('value');
-			var location_objet = $( "input[name='location_objet']" ).attr('value');
-			var id_location_objet = $( "input[name='id_location_objet']" ).attr('value');
-			var id_auteur = $( "input[name='id_auteur']" ).attr('value');
 			var champs =  $(".formulaire_editer_objets_location form").serialize();
-
 			champs = champs.split('&');
 			var pair = '';
 			var args = {recharge_ajax : true};

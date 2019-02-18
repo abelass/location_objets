@@ -33,7 +33,7 @@ function prix_objets_locations_detail_ht_dist($id_objets_locations_detail, $lign
 	}
 
 	if ($ligne['prix_total'] == FALSE) {
-		$prix = $prix * $ligne['jours'];
+		$prix = $prix * $ligne['duree'];
 	}
 
 	if (isset($ligne['reduction']) and ($reduction = floatval($ligne['reduction'])) > 0) {

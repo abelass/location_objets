@@ -1,5 +1,4 @@
 <BOUCLE_objets_locations_detail(OBJETS_LOCATIONS_DETAILS){id_objets_locations_detail}{statut?}>
-
 <div class="champ contenu_objet[ (#OBJET*|strlen|?{'',vide})]">
 	<label><:objets_locations_detail:champ_objet_label:> </label>
 	<span dir="#LANG_DIR" class="#EDIT{objet, id_} objet">
@@ -8,18 +7,18 @@
 </div>
 
 [<div class="champ contenu_titre[ (#TITRE*|strlen|?{'',vide})]">
-	<label><:ecrire:info_titre:>  </label>
+	<label><:ecrire:info_titre:> </label>
 	<span dir="#LANG_DIR" class="#EDIT{titre} titre">(#TITRE)</span>
 </div>]
 
 [<div class="champ contenu_quantite[ (#QUANTITE*|strlen|?{'',vide})]">
 	<label><:objets_locations_detail:champ_quantite_label:> </label>
-	<span dir="#LANG_DIR" class="quantite">(#QUANTITE)</span>
+	<span dir="#LANG_DIR" class="#EDIT{quantite} quantite">(#QUANTITE)</span>
 </div>]
 
-[<div class="champ contenu_jours[ (#JOURS*|strlen|?{'',vide})]">
-	<label><:ecrire:jours:> : </label>
-	<span dir="#LANG_DIR" class="jours">(#JOURS)</span>
+[<div class="champ contenu_duree[ (#DUREE*|strlen|?{'',vide})]">
+	<label><:objets_locations_detail:champ_duree_label:></label>
+	<span dir="#LANG_DIR" class="#EDIT{duree} duree">(#DUREE)[ (#INFO_ENTITE_DUREE{objets_location,#ID_OBJETS_LOCATION}|entite_duree_nom)]</span>
 </div>]
 
 [<div class="champ contenu_date_debut[ (#DATE_DEBUT*|!={0000-00-00 00:00:00}|?{'',vide})]">

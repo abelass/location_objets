@@ -1,4 +1,5 @@
 <BOUCLE_location(OBJETS_LOCATIONS){id_objets_location}{tout}>
+	#SET{entite_duree,#ENTITE_DUREE}
 	[(#REM) Si on trouve une location on prend ça comme base ]
 	#SET{details, #ARRAY} #SET{total,#PRIX*}
 	<B_location_details>
@@ -7,7 +8,7 @@
 			<tr>
 				<th class="statut"><:objets_location:texte_statut:></th>
 				<th class="description"><:objets_location:texte_designation:></th>
-				<th class="jours" scope="col"><:ecrire:jours:></th>
+				<th class="duree" scope="col"><:objets_locations_detail:champ_duree_label:></th>
 				<th class="date_debut" scope="col"><:dates_outils:champ_date_debut_label:></th>
 				<th class="date_fin" scope="col"><:dates_outils:champ_date_fin_label:></th>
 
@@ -20,8 +21,6 @@
 		</thead>
 		<tbody>
 	<BOUCLE_location_details(OBJETS_LOCATIONS_DETAILS){id_objets_location}{par id_objets_locations_detail}{tout}>
-	#SET{jours,''}
-	[(#JOURS|>{1}|oui)#SET{jours, #JOURS|concat{' '}|concat{#VAL{ecrire:jours}|_T}|concat{'  : '}}]
 	<tr class="detail [(#VALEUR|table_valeur{quantite}|>{0}|?{avec_quantite,sans_quantite})]">
 		<td class="statut">[(#STATUT|puce_statut{objets_locations_detail,#ID_OBJETS_LOCATIONS_DETAIL})]</td>
 		<td class="description">
@@ -31,7 +30,7 @@
 				#TITRE
 			</a>
 		</td>
-			<td class="jours">#JOURS</td>
+			<td class="duree">#DUREE[ (#GET{entite_duree}|entite_duree_nom)]</td>
 			<td class="date debut">[(#DATE_DEBUT|affdate_jourcourt)]</td>
 			<td class="date fin">[(#DATE_FIN|affdate_jourcourt)]</td>
 			[(#GET{total}|floatval|>{0.00}|oui)

@@ -110,10 +110,23 @@ function ol_statut_titre($objet, $statut) {
 	return $texte;
 }
 
-function objets_locations_verifier_date($id_objets_location, $location_objet, $id_location_objet) {
-	$verifier = charger_fonction('editer_objets_location_verifier', 'formulaires');
-$erreurs = $verifier($id_objets_location, $location_objet='', $id_location_objet='','','');
-
-spip_log($erreurs, 'teste');
-	return $erreurs;
+/**
+ * Fonctionne qui détermine le nom de l'entité durée.
+ *
+ * @param string $entite_duree
+ *   le nom d'entité pour la durée de prériode.
+ *
+ * @return string
+ *   Nom traduit ou valeur d'origine.
+ */
+function entite_duree_nom($entite_duree) {
+	include_spip('inc/objets_location');
+	$nom = _T('date_outils:nuits');
+	$entite_duree_definitions = entite_duree_definitions();
+	if (isset($entite_duree_definitions[$entite_duree])) {
+		return $entite_duree_definitions[$entite_duree];
+	}
+	else {
+		return $entite_duree;
+	}
 }

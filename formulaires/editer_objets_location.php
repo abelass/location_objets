@@ -136,6 +136,13 @@ function formulaires_editer_objets_location_charger_dist(
 	$id_auteur = session_get('id_auteur');
 	$config = lire_config('location_objets');
 
+	if (empty($valeurs['entite_duree'])) {
+		$valeurs['entite_duree'] = isset($options['entite_duree']) ?
+		$options['entite_duree'] :
+		(isset($config['entite_duree']) ? $config['entite_duree'] : 'jour');
+	}
+
+
 	$valeurs['espace_prive'] = '';
 	$valeurs['date'] = date('d-m-Y H:i:s');
 	$valeurs['date_debut'] = _request('date_debut');
@@ -216,7 +223,10 @@ function formulaires_editer_objets_location_charger_dist(
 	}
 
 	foreach($options as $index => $valeur) {
-		$valeurs[$index] = $valeur;
+		if (!isset($valeurs[$index]) OR
+			(isset($valeurs[$index]) AND empty($valeurs[$index]))) {
+			$valeurs[$index] = trim($valeur);
+		}
 	}
 
 	// Le mode de calcul de prix.
@@ -256,12 +266,15 @@ function formulaires_editer_objets_location_charger_dist(
 	}
 
 	if ($espace_prive) {
+		include_spip('inc/objets_location');
 		$valeurs['espace_prive'] = true;
+		$valeurs['entite_duree_definitions'] = entite_duree_definitions();
 		$valeurs['_hidden'] .= '<input type="hidden" name="espace_prive" value="1"/>';
 	}
 	else {
 		$valeurs['id_auteur'] = $id_auteur;
 		$valeurs['_hidden'] .= '<input type="hidden" name="id_auteur" value="' . $valeurs['id_auteur'] . '"/>';
+		$valeurs['_hidden'] .= '<input type="hidden" name="entite_duree" value="' . $valeurs['entite_duree'] . '"/>';
 	}
 
 	return $valeurs;
@@ -314,68 +327,9 @@ function formulaires_editer_objets_location_verifier_dist(
 		$config_fonc = '',
 		$row = array(),
 		$hidden = '') {
+	include_spip('inc/objets_location');
 
-
-	$erreurs = array();
-
-	$champs_dates = ['date_debut', 'date_fin'];
-
-	// Vérifier si on a une date correcte.
-	$verifier = charger_fonction('verifier', 'inc');
-	foreach ($champs_dates  AS $champ) {
-		$normaliser = null;
-		if ($erreur = $verifier(_request($champ), 'date', array('normaliser'=>'datetime'), $normaliser)) {
-			$erreurs[$champ] = $erreur;
-			// si une valeur de normalisation a ete transmis, la prendre.
-		} elseif (!is_null($normaliser)) {
-			set_request($champ, $normaliser);
-			$$champ = $normaliser;
-			// si pas de normalisation ET pas de date soumise, il ne faut pas tenter d'enregistrer ''
-		} else {
-			set_request($champ, null);
-		}
-	}
-
-	$date_debut = _request('date_debut');
-	$date_fin = _request('date_fin');
-
-
-	$erreurs += formulaires_editer_objet_verifier(
-		'objets_location',
-		$id_objets_location,
-		array(
-			'id_auteur',
-			'location_objet',
-			'id_location_objet',
-			'date_debut',
-			'date_fin',
-		)
-	);
-
-	if (strtotime($date_debut) > strtotime($date_fin)) {
-		$erreurs['date_fin'] = _T('objets_location:erreur_date_fin_anterieur_date_debut');
-	}
-	elseif ($erreur = $verifier(
-				array(
-					'date_debut' => $date_debut,
-					'date_fin' => $date_fin
-				),
-				'dates_diponibles',
-				array(
-					'objet' => objet_type(_request('location_objet')),
-					'id_objet' => _request('id_location_objet'),
-					'debut' => 0,
-					'fin' => 0,
-					'utilisation_squelette' => 'disponibilites/utilisees_objet_location',
-					'utilisation_id_exclu' => _request('id_objets_location'),
-					'format' => $format,
-				)
-			)
-		) {
-		$erreurs['date_fin'] = $erreur;
-	}
-
-
+	$erreurs = objets_location_verifier($type = '');
 
 	return $erreurs;
 }

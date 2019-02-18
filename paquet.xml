@@ -1,12 +1,12 @@
 <paquet
 	prefix="location_objets"
 	categorie="divers"
-	version="1.1.12"
+	version="1.3.0"
 	etat="test"
 	compatibilite="[3.0.0;3.2.*]"
 	logo="prive/themes/spip/images/location_objets-64.png"
 	documentation="https://github.com/abelass/location_objets"
-	schema="1.1.10"
+	schema="1.2.0"
 >
 
 
@@ -23,11 +23,13 @@
 	<necessite nom="prix_objets" compatibilite="[2.1.4;]" />
 	<necessite nom="objets_disponibilites" compatibilite="[1.0.0;]" />
 	<necessite nom="facteur" compatibilite="[3.5.2;]" />
-	<necessite nom="dates_outils" compatibilite="[1.0.2;]" />
+	<necessite nom="dates_outils" compatibilite="[1.0.10;]" />
 	<necessite nom="nospam" compatibilite="[1.5.18;]" />
 
 	<!-- Déclaration de pipelines-->
 	<pipeline nom="location_prix_objet" action='' />
+	<pipeline nom="objets_location_verifier_general" action='' />
+	<pipeline nom="objets_location_verifier_dates" action='' />
 
 	<pipeline nom="autoriser" inclure="location_objets_autorisations.php" />
 

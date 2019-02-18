@@ -13,6 +13,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 
 	// C
 	'champ_date_location_label' => 'Date de la location :',
+	'champ_entite_duree_label' => 'Type de période de location :',
 	'champ_id_location_objet_label' => 'L\'objet loué : ',
 	'champ_jour_debut_label' => 'Jour debut :',
 	'champ_jour_fin_label' => 'Jour fin :',
@@ -28,6 +29,7 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'erreur_access_formulaire' => 'Formulaire inaccesible pour des raisons techniques!',
 	'erreur_date_fin_anterieur_date_debut' => 'La date fin doit être postérieure à la date début',
 	'erreur_jours_indisponible' => 'Veuillez choisir une autre date fin, car les dates @jours@ ne sont pas disponibles',
+	'explication_entite_duree' => 'Définit comment les périodes de location seront affichées.',
 	'explication_login' => '@lien@ si vous êtes déjà enregistré sur ce site.',
 
 	// I

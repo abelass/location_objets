@@ -69,3 +69,104 @@ function location_prix_objet($set, $contexte) {
 
 	return $set;
 }
+
+/**
+ * Retourne les valeurs disponibles pour le champ entite_duree
+ *
+ * @return array
+ *   les valeurs.
+ */
+function entite_duree_definitions() {
+	return [
+		'jour' => _T('ecrire:jours'),
+		'nuit' => _T('dates_outils:nuits'),
+	];
+}
+
+function objets_location_verifier() {
+	$erreurs = [];
+
+	$type_verification = ['general', 'dates'];
+
+	foreach ($type_verification AS $type) {
+		$erreurs = 'objets_location_verifier_' . $type($erreurs);
+	}
+
+	return $erreurs;
+}
+
+function objets_location_verifier_general($erreurs) {
+
+	$erreurs += formulaires_editer_objet_verifier(
+		'objets_location',
+		$id_objets_location,
+		array(
+			'id_auteur',
+			'location_objet',
+			'id_location_objet',
+			'date_debut',
+			'date_fin',
+		)
+	);
+
+	$erreurs = pipeline('objets_location_verifier_general', [
+			'args' => ['type' => $type],
+			'data' => $erreurs
+		]);
+
+return $erreurs;
+}
+
+function objets_location_verifier_dates($erreurs) {
+	$champs_dates = ['date_debut', 'date_fin'];
+
+	// Vérifier si on a une date correcte.
+	$verifier = charger_fonction('verifier', 'inc');
+	foreach ($champs_dates  AS $champ) {
+		$normaliser = null;
+		if ($erreur = $verifier(_request($champ), 'date', array('normaliser'=>'datetime'), $normaliser)) {
+			$erreurs[$champ] = $erreur;
+			// si une valeur de normalisation a ete transmis, la prendre.
+		} elseif (!is_null($normaliser)) {
+			set_request($champ, $normaliser);
+			$$champ = $normaliser;
+			// si pas de normalisation ET pas de date soumise, il ne faut pas tenter d'enregistrer ''
+		} else {
+			set_request($champ, null);
+		}
+	}
+
+	$date_debut = _request('date_debut');
+	$date_fin = _request('date_fin');
+
+	if (strtotime($date_debut) > strtotime($date_fin)) {
+		$erreurs['date_fin'] = _T('objets_location:erreur_date_fin_anterieur_date_debut');
+	}
+	elseif ($erreur = $verifier(
+				array(
+					'date_debut' => $date_debut,
+					'date_fin' => $date_fin
+				),
+				'dates_diponibles',
+				array(
+					'objet' => objet_type(_request('location_objet')),
+					'id_objet' => _request('id_location_objet'),
+					'debut' => 0,
+					'fin' => 0,
+					'utilisation_squelette' => 'disponibilites/utilisees_objet_location',
+					'utilisation_id_exclu' => _request('id_objets_location'),
+					'format' => $format,
+				)
+			)
+		) {
+		$erreurs['date_fin'] = $erreur;
+	}
+
+	$erreurs = pipeline('objets_location_verifier_dates', [
+			'args' => ['type' => $type],
+			'data' => $erreurs
+		]);
+return $erreurs;
+}
+
+
