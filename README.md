@@ -8,15 +8,18 @@ Gère la location d'objets
 - [prix_objets_periodes](https://github.com/abelass/prix_objets_periodes)
 - [objets_disponibilites](https://github.com/abelass/objets_disponibilites)
 - [facteur](https://plugins.spip.net/facteur.html)
+- [NoSPAM](https://contrib.spip.net/NoSPAM)
 
 
 ## Configuration
 
 ### Location objets
 
-- Gestion de statuts
-- Gestion des notifications
+- Définition du statut par défaut
 - Définir les service extras
+- Type de période de location (jour ou nuit, defiuut jour), définir comment est affiche la période louée.
+- Gestion des notifications
+
 
 ### SPIP
 sous Configuration / Interactivité. (ecrire/?exec=configurer_interactions)
@@ -26,7 +29,7 @@ Activez :
 - Accepter l’inscription de visiteurs du site public
 
 ## Utilisation
-Prenez votre objet que vous aimeriez louer et ajoutez lui des prix avec les deux plugins
+Allez sur la page d'édition de l'objet que vous aimeriez louer et ajoutez lui des prix avec les deux plugins
 [prix_objets](https://plugins.spip.net/prix_objets.html) et [prix_objets_periodes](https://github.com/abelass/prix_objets_periodes)
 
 ### Dans vos squelettes placez la balise
@@ -38,8 +41,9 @@ Prenez l'example dans La fonction `squelettes/modeles/formulaire_location.html
 - la deuxième `location_objet`désigne l'objet à louer. Utilisez le nom complet de
 	la table, donc par example pour l'objet espace `location_objet=spip_espaces`
 - la troisième variable prend l'identifiant de l'objet à réserver
-- la quatrième variable est un tableau avec toutes les variables à passer dans l'environnement
-- les autres variables son les typiques d'un formulaire cvt de spip
+- la quatrième variable est un tableau avec toutes les variables à passer dans l'environnement.
+ Par example `['entite_duree => nuit']` mettrait le type de période de location en nuits.
+- les autres variables sont les typiques d'un formulaire cvt de spip
 
 ### Noisette
 utiliser la noisette `squelettes/content/location.html`en lui passant le variables
@@ -51,7 +55,7 @@ souhaitées.
 
 
 ## Les services extras
-Il s'agit de tout service s'ajoutant à location de base. N'importe quel objet spip
+Il s'agit de tout service s'ajoutant à la location de base. N'importe quel objet spip
 peut servir comme service extra, il suffit de le définir dans la configuration et de
 lui ajouter un prix, si nécessaire. Le choix dans la config peut être surchargé via
 la variable `options` du formulaire en utilisant `location_extras_objets`, par example
@@ -61,10 +65,20 @@ la variable `options` du formulaire en utilisant `location_extras_objets`, par e
 		#ENV{id_location_objet},
 		#ARRAY{location_extras_objets=objets_service}}
 
-# Examples
+# Extensions
+- [prix_objets](https://plugins.spip.net/prix_objets.html) Gestion de prix pour l'objet á louer.
+- [prix_objets_periodes](https://github.com/abelass/prix_objets_periodes) Gestion de prix par période.
+- [locations_objets_restrictions](https://github.com/abelass/locations_objets_restrictions) Gestion de limitations quant á la location.
+- [objets_restrictions_periodes](https://github.com/abelass/objets_restrictions_periodes) Des limitations temporelles ppour la location.
+- [location_objets_bank](https://github.com/abelass/location_objets_bank) Gérer les paiements.
+- [objets_disponibilites](https://github.com/abelass/objets_disponibilites) Gérer les dates de disponibilités et d'indisponibilités pour le objet á louer
+- [objets_services_extras](https://github.com/abelass/objets_services_extras)
 
+# Examples
 le plugin [location_immeubles](https://github.com/abelass/location_immeubles), propose
 une location pour des immeubles/espaces
+
+
 
 
 
