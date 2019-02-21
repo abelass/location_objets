@@ -54,7 +54,7 @@ vous pouvez également utiliser le modèle `formulaire_location` en y passant le
 souhaitées.
 
 
-## Les services extras
+## Les services extras?
 Il s'agit de tout service s'ajoutant à la location de base. N'importe quel objet spip
 peut servir comme service extra, il suffit de le définir dans la configuration et de
 lui ajouter un prix, si nécessaire. Chaque service extra pourrait être ajouté à la location.
@@ -66,8 +66,6 @@ la variable `options` du formulaire en utilisant `location_extras_objets`, par e
 		#ENV{location_objet},
 		#ENV{id_location_objet},
 		#ARRAY{location_extras_objets=objets_service}}
-
-
 
 # Extensions
 - [prix_objets](https://plugins.spip.net/prix_objets.html) : Gestion de prix pour l'objet á louer.
@@ -81,9 +79,3 @@ la variable `options` du formulaire en utilisant `location_extras_objets`, par e
 # Examples
 le plugin [location_immeubles](https://github.com/abelass/location_immeubles), propose
 une location pour des immeubles/espaces
-
-
-
-
-
-
