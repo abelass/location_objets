@@ -1,0 +1,26 @@
+#SET{traductions,#ARRAY}<BOUCLE_objets(DATA){source tableau,#REM|lister_tables_objets_sql}>[(#EDITABLE|oui)
+#SET{objet,#CLE|objet_type}
+[(#SET{traductions,#GET{traductions}|array_merge{#ARRAY{#GET{objet},#TEXTE_OBJETS|_T}}})]
+]</BOUCLE_objets>
+
+[(#BOITE_OUVRIR{
+[(#CHEMIN_IMAGE{location_objets-32.png}|balise_img{'','cadre-icone'})]
+<h3><:reservation_evenement:reservation_evenement_titre:></h3>
+,'simple personnel infos'})]
+<B_les_details>
+<ul>
+<BOUCLE_les_details(OBJETS_LOCATIONS_DETAILS){fusion objet}>
+
+	<li>[(#GET{traductions}|table_valeur{#OBJET}|lien_ou_expose{
+		[(#SELF|parametre_url{objet,#OBJET})],
+		[(#ENV{objet}|=={objet})]
+	})]
+
+		<a href="[(#SELF|parametre_url{objet,#OBJET})]"></a></li>
+</BOUCLE_les_details>
+</ul>
+</B_les_details>
+
+
+
+#BOITE_FERMER
