@@ -19,10 +19,11 @@
 		</tr>
 	</thead>
 	<tbody>
-	<BOUCLE_liste_objets_locations(OBJETS_LOCATIONS)
+	<BOUCLE_liste_objets_locations(OBJETS_LOCATIONS objets_locations_details)
 		{id_mot?}
 		{id_auteur?}
 		{where?}
+		{objet?}
 		{statut?}
 		{recherche?}
 		{tri #ENV{par,num reference},#GET{defaut_tri}}
