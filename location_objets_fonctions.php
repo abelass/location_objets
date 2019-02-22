@@ -130,3 +130,23 @@ function entite_duree_nom($entite_duree) {
 		return $entite_duree;
 	}
 }
+
+/**
+ * Obtient les champs extras auteur et locations
+ *
+ * @return array
+ *   Les définitions des champs.
+ */
+function champs_extras_locations() {
+	//les champs extras auteur
+	include_spip('cextras_pipelines');
+
+	$champs_extras = array();
+
+	if (function_exists('champs_extras_objet')) {
+		$champs_extras['auteur'] = champs_extras_objet('_spip_auteurs');
+		$champs_extras['objets_location'] = champs_extras_objet('spip_objets_locations');
+	}
+
+	return $champs_extras;
+}

@@ -12,8 +12,10 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'cfg_titre_parametrages' => 'Paramètres',
 	'cfg_titre_formulaire' => 'Formulaire',
 
+	// I
+	'info_nb_objets_loues' => '@nb@ objets loués.',
+
 	// L
-	'label_client' => 'Client :',
 	'label_date_paiement' => 'Date de paiement :',
 	'label_enregistrement_inscrit' => 'Permettre au visiteur de s’enregistrer lors d’une réservation :',
 	'label_enregistrement_inscrit_obligatoire' => 'Rendre l’enregistrement obligatoire :',
@@ -50,10 +52,11 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'notifications_vendeur_choix_email' => 'un ou des emails',
 	'notifications_vendeur_choix_webmaster' => 'un ou des webmestres',
 	'notifications_vendeur_email_explication' => 'Saisir un ou plusieurs email séparés par des virgules :',
-	'notifications_vendeur_email_label' => 'Email(s) :',
+	'notifications_vendeur_email_label' => 'Email :',
 	'notifications_vendeur_label' => 'Vendeur',
 	'notifications_vendeur_webmaster_label' => 'Choisir un ou plusieurs webmestres :',
 
 	// T
 	'titre_page_configurer_location_objets' => 'Location d\'objets',
+	'titre_tous' => 'Tous',
 );

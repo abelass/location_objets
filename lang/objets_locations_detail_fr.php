@@ -14,14 +14,14 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	// C
 	'champ_devise_label' => 'Devise&nbsp;: ',
 	'champ_duree_label' => 'Durée :',
-	'champ_id_objet_label' => 'Id objet&nbsp;: ',
-	'champ_objet_label' => 'Objet&nbsp;: ',
-	'champ_prix_ht_label' => 'Prix ht&nbsp;: ',
+	'champ_id_objet_label' => 'Id objet : ',
+	'champ_objet_label' => 'Objet: ',
+	'champ_prix_ht_label' => 'Prix : ',
 	'champ_prix_unitaire_ht_label' => 'Prix unitaire ht&nbsp;:',
-	'champ_prix_label' => 'Prix&nbsp;:',
-	'champ_quantite_label' => 'Quantité&nbsp;:',
-	'champ_reduction_label' => 'Réduction&nbsp;:',
-	'champ_taxe_label' => 'Taxe&nbsp;:',
+	'champ_prix_label' => 'Prix :',
+	'champ_quantite_label' => 'Quantité :',
+	'champ_reduction_label' => 'Réduction :',
+	'champ_taxe_label' => 'Taxe :',
 	'confirmer_supprimer_objets_locations_detail' => 'Confirmez-vous la suppression de cet location detail ?',
 
 	// I

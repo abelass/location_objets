@@ -31,7 +31,6 @@
 	<pipeline nom="objets_location_verifier_general" action='' />
 	<pipeline nom="objets_location_verifier_dates" action='' />
 
-
 	<pipeline nom="autoriser" inclure="location_objets_autorisations.php" />
 
 	<pipeline nom="declarer_tables_objets_sql" inclure="base/location_objets.php" />
