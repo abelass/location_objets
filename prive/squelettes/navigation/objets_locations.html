@@ -48,6 +48,12 @@
 	<h4><:objets_location:texte_recapitulatif:></h4>
 	<:location_objets:info_nb_objets_loues{nb=#GET{total_locations}}:>
 		<div class="actions">
+			[<a
+				href="[(#URL_ECRIRE{locations_visualiser,[(#VAL{evenements_reservations}|param_low_sec{#GET{args}})]})]"
+				title="<:previsualiser:>"
+				onclick="if (jQuery.modalbox) {jQuery.modalbox('[(#URL_ECRIRE{locations_visualiser,[(#VAL{locations_visualiser}|param_low_sec{#GET{args}})]}|parametre_url{var_zajax,contenu})]');return false;}">
+					(#CHEMIN_IMAGE{preview-16.png}|image_reduire{13})
+			</a>]
 			<a href="[(#URL_PAGE{transmettre,[(#VAL{objets_locations}|param_low_sec{#GET{args}, '', 'transmettre'})]}|parametre_url{reponse,oui})]" title="<:spip:bouton_download:>">
 			[(#CHEMIN_IMAGE{telecharger-16.png}|image_reduire{13})]
 
@@ -68,6 +74,12 @@
 	}
 	<li>[(#GET{compteur}|table_valeur{#STATUT}) ][(#GET{noms_statuts}|table_valeur{#STATUT}|_T)]
 		<div class="actions">
+			[<a
+				href="[(#URL_ECRIRE{locations_visualiser,[(#VAL{evenements_reservations}|param_low_sec{#GET{args}})]})]"
+				title="<:previsualiser:>"
+				onclick="if (jQuery.modalbox) {jQuery.modalbox('[(#URL_ECRIRE{locations_visualiser,[(#VAL{locations_visualiser}|param_low_sec{#GET{args}})]}|parametre_url{var_zajax,contenu})]');return false;}">
+					(#CHEMIN_IMAGE{preview-16.png}|image_reduire{13})
+			</a>]
 			<a href="[(#URL_PAGE{transmettre,[(#VAL{objets_locations}|param_low_sec{#GET{args}, '', 'transmettre'})]}|parametre_url{reponse,oui})]" title="<:spip:bouton_download:>">
 			[(#CHEMIN_IMAGE{telecharger-16.png}|image_reduire{13})]
 

@@ -13,7 +13,9 @@ $GLOBALS[$GLOBALS['idx_lang']] = array(
 	'cfg_titre_formulaire' => 'Formulaire',
 
 	// I
+	'info_1_objet_loue' => 'Un onbjet loué',
 	'info_nb_objets_loues' => '@nb@ objets loués.',
+
 
 	// L
 	'label_date_paiement' => 'Date de paiement :',
