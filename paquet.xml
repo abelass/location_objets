@@ -17,6 +17,11 @@
 
 	<licence>GNU/GPL v3</licence>
 
+	<traduire module="location_objets" reference="fr" gestionnaire="salvatore" />
+	<traduire module="objets_location" reference="fr" gestionnaire="salvatore" />
+	<traduire module="objets_locations_detail" reference="fr" gestionnaire="salvatore" />
+	<traduire module="paquet-location_objets" reference="fr" gestionnaire="salvatore" />
+
 
 	<necessite nom="saisies" compatibilite="[2.4.0;]" />
 	<necessite nom="verifier" compatibilite="[1.8.0;]" />
