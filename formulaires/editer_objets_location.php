@@ -135,7 +135,7 @@ function formulaires_editer_objets_location_charger_dist(
 	}
 	$id_auteur = session_get('id_auteur');
 	$config = lire_config('location_objets', []);
-	$statut_loue = isset($config['statut_loue']) ? $config['statut_loue'] : 'accepte';
+	$statut_loue = isset($config['statut_loue']) ? $config['statut_loue'] : ['accepte'];
 
 	if (empty($valeurs['entite_duree'])) {
 		$valeurs['entite_duree'] = isset($options['entite_duree']) ?
